@@ -96,7 +96,7 @@ export default function Home() {
                 <Image src="/QuixLogo.png" alt="Logo" width={32} height={29}></Image>
                 <a className="ml-3 text-xl cursor-pointer" href="/">Quix</a>
               </p>
-              <p className="mt-4 text-base w-full text-gray-200">Pioneering Tomorrow's Education</p>
+              <p className="mt-4 text-base w-full text-gray-200">Pioneering Tomorrow&apos;s Education</p>
             </div>
             <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
               <div className="lg:w-1/3 md:w-1/2 w-full px-4">
