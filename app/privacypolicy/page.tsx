@@ -35,7 +35,7 @@ export default function Terms() {
         <section>
             <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col text-gray-200">
                 <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
-                <p className="mb-4">At Quix, your privacy is important to us. This Privacy Policy governs the manner in which Quix collects, uses, maintains, and discloses information collected from users (each, a "User") of the Quix platform ("Quix" or the "Service"). This privacy policy applies to the Service and all products and services offered by Quix.  By accessing or using the Service in any manner, including, but not limited to, visiting or browsing the Service or contributing content or other materials to the Service, you agree to be bound by this Privacy Policy. If you do not agree to this Privacy Policy, please do not use the Service.</p>
+                <p className="mb-4">At Quix, your privacy is important to us. This Privacy Policy governs the manner in which Quix collects, uses, maintains, and discloses information collected from users (each, a &quot;User&quot;) of the Quix platform (&quot;Quix&quot; or the &quot;Service&quot;). This privacy policy applies to the Service and all products and services offered by Quix.  By accessing or using the Service in any manner, including, but not limited to, visiting or browsing the Service or contributing content or other materials to the Service, you agree to be bound by this Privacy Policy. If you do not agree to this Privacy Policy, please do not use the Service.</p>
 
 
                 <div className="mb-8">
@@ -46,7 +46,7 @@ export default function Terms() {
 
                 <div className="mb-8">
                     <h2 className="text-2xl font-semibold mb-2">Cookies</h2>
-                    <p>The Cookies section outlines Quix's use of cookies and similar technologies to enhance user experience, analyze usage patterns, and personalize content and advertisements. By accessing or using Quix, users consent to the use of cookies in accordance with this policy. Cookies are small text files stored on a user's device when they interact with the Quix platform. These files contain information such as session identifiers, preferences, and browsing history, which are utilized to facilitate various functions and features. Quix uses cookies for several purposes, including but not limited to:</p>
+                    <p>The Cookies section outlines Quix&apos;s use of cookies and similar technologies to enhance user experience, analyze usage patterns, and personalize content and advertisements. By accessing or using Quix, users consent to the use of cookies in accordance with this policy. Cookies are small text files stored on a user&apos;s device when they interact with the Quix platform. These files contain information such as session identifiers, preferences, and browsing history, which are utilized to facilitate various functions and features. Quix uses cookies for several purposes, including but not limited to:</p>
                     <ul className="list-disc pl-6">
                         <li>Improving website functionality and performance</li>
                         <li>Customizing content and advertisements based on user preferences</li>
@@ -115,7 +115,7 @@ export default function Terms() {
                       <li><strong>Data Portability:</strong> You can request a copy of your personal data in a structured, commonly used, and machine-readable format.</li>
                       <li><strong>Withdraw Consent:</strong> If we rely on your consent to process your personal information, you have the right to withdraw that consent at any time.</li>
                     </ul>
-                    <p>If you wish to exercise any of these rights or have any questions about how we handle your personal information, please contact us using the information provided in the "Contact Us" section below.</p>
+                    <p>If you wish to exercise any of these rights or have any questions about how we handle your personal information, please contact us using the information provided in the &quot;Contact Us&quot; section below.</p>
                 </div>
 
 
@@ -126,14 +126,14 @@ export default function Terms() {
 
 
                 <div className="mb-8">
-                    <h2 className="text-2xl font-semibold mb-2">Children's Privacy</h2>
-                    <p>Quix is committed to protecting the privacy of children who use our platform. We do not knowingly collect personal information from children under the age of 13, excluding instances in which it is necessary for the operation of our service. Parents or guardians play a crucial role in safeguarding their children's online privacy, and we encourage parents or guardians to actively monitor and supervise their children's online activities to ensure a safe and secure browsing experience. We may collect personal information from children as is necessary for the operation of our platform, such as account creation, authentication, and purchasing a billing plan. We do not, however, collect sensitive information from children, such as their home address.</p>
+                    <h2 className="text-2xl font-semibold mb-2">Children&apos;s Privacy</h2>
+                    <p>Quix is committed to protecting the privacy of children who use our platform. We do not knowingly collect personal information from children under the age of 13, excluding instances in which it is necessary for the operation of our service. Parents or guardians play a crucial role in safeguarding their children&apos;s online privacy, and we encourage parents or guardians to actively monitor and supervise their children&apos;s online activities to ensure a safe and secure browsing experience. We may collect personal information from children as is necessary for the operation of our platform, such as account creation, authentication, and purchasing a billing plan. We do not, however, collect sensitive information from children, such as their home address.</p>
                 </div>
 
 
                 <div className="mb-8">
                     <h2 className="text-2xl font-semibold mb-2">Modifications</h2>
-                    <p>The Modifications section outlines Quix's right to modify or update this Privacy Policy at any time. Users are notified of their responsibility to review this policy regularly for any changes or updates. Quix reserves the right to modify or revise this Privacy Policy at any time, without prior notice or liability, to reflect changes in the platform, legal requirements, or business operations. It is the user's responsibility to review this policy regularly for any updates or modifications. By continuing to access or use Quix after any revisions to this Privacy Policy, users acknowledge and agree to be bound by the updated terms. If users do not agree with the modifications, they must discontinue their use of Quix and terminate their account. Quix may provide notice of significant changes to this policy through email or by posting a prominent notice on the platform. However, it is ultimately the user's responsibility to stay informed about any updates or modifications to the Privacy Policy.</p>
+                    <p>The Modifications section outlines Quix&apos;s right to modify or update this Privacy Policy at any time. Users are notified of their responsibility to review this policy regularly for any changes or updates. Quix reserves the right to modify or revise this Privacy Policy at any time, without prior notice or liability, to reflect changes in the platform, legal requirements, or business operations. It is the user&apos;s responsibility to review this policy regularly for any updates or modifications. By continuing to access or use Quix after any revisions to this Privacy Policy, users acknowledge and agree to be bound by the updated terms. If users do not agree with the modifications, they must discontinue their use of Quix and terminate their account. Quix may provide notice of significant changes to this policy through email or by posting a prominent notice on the platform. However, it is ultimately the user&apos;s responsibility to stay informed about any updates or modifications to the Privacy Policy.</p>
                 </div>
 
 
@@ -150,7 +150,7 @@ export default function Terms() {
                 <Image src="/QuixLogo.png" alt="Logo" width={32} height={29}></Image>
                 <a className="ml-3 text-xl cursor-pointer" href="/">Quix</a>
               </p>
-              <p className="mt-4 text-base w-full text-gray-200">Pioneering Tomorrow's Education</p>
+              <p className="mt-4 text-base w-full text-gray-200">Pioneering Tomorrow&apos;s Education</p>
             </div>
             <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
               <div className="lg:w-1/3 md:w-1/2 w-full px-4">

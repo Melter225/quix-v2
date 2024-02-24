@@ -53,7 +53,7 @@ export default function Personalization() {
                     </div>
                     </div>
                     <div className="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-                    <p className="leading-relaxed text-base mb-4">At Quix, personalization is at the core of everything we do. We believe in tailoring every aspect of your experience to suit your unique needs and preferences. One of the key ways we achieve this is through our personalized test generation feature. When you interact with Quix, whether it's to prepare for an exam or to expand your knowledge, our platform dynamically generates questions specifically tailored to the content and description of the test you're taking. This ensures that each question is relevant and aligned with your study goals, maximizing the effectiveness of your learning experience.</p>
+                    <p className="leading-relaxed text-base mb-4">At Quix, personalization is at the core of everything we do. We believe in tailoring every aspect of your experience to suit your unique needs and preferences. One of the key ways we achieve this is through our personalized test generation feature. When you interact with Quix, whether it&apos;s to prepare for an exam or to expand your knowledge, our platform dynamically generates questions specifically tailored to the content and description of the test you&apos;re taking. This ensures that each question is relevant and aligned with your study goals, maximizing the effectiveness of your learning experience.</p>
                     </div>
                 </div>
                 </div>
@@ -73,7 +73,7 @@ export default function Personalization() {
           <div className="container flex flex-wrap px-5 py-24 mx-auto items-center">
             <div className="md:w-1/2 md:pr-12 md:py-8 md:border-r md:border-b-0 mb-10 md:mb-0 pb-10 border-b border-gray-200">
               <h1 className="sm:text-3xl text-2xl font-medium font-poppins mb-2 text-gray-900">Pitchfork Kickstarter Taxidermy</h1>
-              <p className="leading-relaxed text-base">But personalization doesn't stop there. Quix also empowers you to review your tests comprehensively, allowing you to delve into each question to see which ones you answered correctly and which ones you got wrong. This detailed feedback mechanism not only helps reinforce your understanding of the subject matter but also enables targeted learning by identifying areas where you may need additional practice.</p>
+              <p className="leading-relaxed text-base">But personalization doesn&apos;t stop there. Quix also empowers you to review your tests comprehensively, allowing you to delve into each question to see which ones you answered correctly and which ones you got wrong. This detailed feedback mechanism not only helps reinforce your understanding of the subject matter but also enables targeted learning by identifying areas where you may need additional practice.</p>
             </div>
             <Image alt="content" className="object-cover object-center h-full w-full" src="/QuixLogo.png" width={1200} height={250}></Image>
           </div>
@@ -85,7 +85,7 @@ export default function Personalization() {
                 <Image src="/QuixLogo.png" alt="Logo" width={32} height={29}></Image>
                 <a className="ml-3 text-xl cursor-pointer" href="/">Quix</a>
               </p>
-              <p className="mt-4 text-base w-full text-gray-200">Pioneering Tomorrow's Education</p>
+              <p className="mt-4 text-base w-full text-gray-200">Pioneering Tomorrow&apos;s Education</p>
             </div>
             <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
               <div className="lg:w-1/3 md:w-1/2 w-full px-4">

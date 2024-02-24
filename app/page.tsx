@@ -37,7 +37,7 @@ export default function Home() {
             <Image className="lg:w-2/6 md:w-3 w-5 mb-10 object-cover object-center justify-end rounded" alt="HeroImage" src="/QuixImg.png" width={720} height={600}></Image>
             <div className="text-center lg:w-2/3 w-full">
               <h1 className="font-poppins sm:text-4xl text-3xl mb-4 font-medium text-gray-300">Quix: The Future of Education</h1>
-              <p className="mb-8 leading-relaxed">Picture this: <br></br><br></br> You're a student, staring at a pile of textbooks and notes, feeling overwhelmed by the looming tests. You've tried every study method in the book, from late-night cram sessions to endless scrolling through online resources, but nothing seems to stick. <br></br><br></br><br></br></p> <h3 className="text-xl font-medium">Introducing Quix - your academic ally in the digital age.</h3> <p><br></br> With Quix, say goodbye to the days of frantic cramming and endless resource hunting. Our sleek interface, built with a Flask backend, Next.js, and Tailwind CSS, puts the power of preparation at your fingertips. Quix transforms your browser into a digital classroom, where every click brings you one step closer to academic success.</p>
+              <p className="mb-8 leading-relaxed">Picture this: <br></br><br></br> You&apos;re a student, staring at a pile of textbooks and notes, feeling overwhelmed by the looming tests. You&apos;ve tried every study method in the book, from late-night cram sessions to endless scrolling through online resources, but nothing seems to stick. <br></br><br></br><br></br></p> <h3 className="text-xl font-medium">Introducing Quix - your academic ally in the digital age.</h3> <p><br></br> With Quix, say goodbye to the days of frantic cramming and endless resource hunting. Our sleek interface, built with a Flask backend, Next.js, and Tailwind CSS, puts the power of preparation at your fingertips. Quix transforms your browser into a digital classroom, where every click brings you one step closer to academic success.</p>
               <br></br>
               <br></br>
               <div className="flex justify-center">
@@ -114,7 +114,7 @@ export default function Home() {
                 </div>
                 <div className="flex-grow">
                   <h2 className="text-gray-300 text-xl font-poppins font-medium mb-3">Personalized Learning Paths</h2>
-                  <p className="leading-relaxed text-base">Tailor your study journey with personalized learning paths that adapt to your strengths and weaknesses. Quix's intelligent algorithms analyze your progress and recommend targeted resources to optimize learning outcomes.</p>
+                  <p className="leading-relaxed text-base">Tailor your study journey with personalized learning paths that adapt to your strengths and weaknesses. Quix&apos;s intelligent algorithms analyze your progress and recommend targeted resources to optimize learning outcomes.</p>
                   <a className="mt-3 text-indigo-500 inline-flex items-center cursor-pointer hover:text-indigo-600" href="/personalization">Learn More
                     <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
                       <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -172,7 +172,7 @@ export default function Home() {
                 <Image src="/QuixLogo.png" alt="Logo" width={32} height={29}></Image>
                 <a className="ml-3 text-xl cursor-pointer" href="/">Quix</a>
               </p>
-              <p className="mt-4 text-base w-full text-gray-200">Pioneering Tomorrow's Education</p>
+              <p className="mt-4 text-base w-full text-gray-200">Pioneering Tomorrow&apos;s Education</p>
             </div>
             <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
               <div className="lg:w-1/3 md:w-1/2 w-full px-4">

@@ -39,7 +39,7 @@ export default function About() {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="inline-block w-8 h-8 text-gray-200 mb-8" viewBox="0 0 975.036 975.036">
                     <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
                 </svg>
-                <p className="leading-relaxed text-lg">At Quix, we believe that education is the cornerstone of progress and empowerment. Our mission is to cultivate a brighter future by providing accessible and innovative learning opportunities to all. We strive to bridge gaps in education, empowering individuals of all ages and backgrounds to reach their full potential. Through dedication, passion, and creativity, we aim to inspire lifelong learners and shape tomorrow's leaders. Together, we're building a world where knowledge knows no bounds and every individual has the opportunity to thrive. Together, we embark on a journey of endless possibilities.</p>
+                <p className="leading-relaxed text-lg">At Quix, we believe that education is the cornerstone of progress and empowerment. Our mission is to cultivate a brighter future by providing accessible and innovative learning opportunities to all. We strive to bridge gaps in education, empowering individuals of all ages and backgrounds to reach their full potential. Through dedication, passion, and creativity, we aim to inspire lifelong learners and shape tomorrow&apos;s leaders. Together, we&apos;re building a world where knowledge knows no bounds and every individual has the opportunity to thrive. Together, we embark on a journey of endless possibilities.</p>
                 <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-8 mb-6"></span>
                 <h2 className="text-gray-300 font-medium title-font tracking-wider text-sm">ROHAN MAHAPATRA</h2>
                 <p className="text-gray-200">Founder</p>
@@ -52,7 +52,7 @@ export default function About() {
                 <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">My Journey</h1>
                 <div className="h-1 w-16 bg-indigo-500 rounded mt-4"></div>
             </div>
-        <p className="lg:w-4/4 w-full mt-5 leading-relaxed text-gray-200 text-opacity-95">Quix began as a passion project in September 2023 when I believed I could create a project that integrated with Schoology and AI to help me prepare for my tests. As my friend saw me programming, he suggested the name "Quix". I created branding for it, including a logo and social media accounts before continuing its development. A few months later, in late October, I had completed the base for the login mechanism and the studying mechanism. Enthusiastic, I introduced the project to my school, who supported me. Continuing to flesh out the project, I believed it was near completion by January 2024. I bought the temporary domain "quixedu.com" to use for testing purposes. However, the UI was unprofessional to say the least. Additionally, the bulk of the project was in HTML, CSS, and JavaScript, languages that are typically not used in deployment. By February 2024, I had begun to completely rework the UI using Next.js and Tailwind CSS. At the time, I was also pivoting on the idea of Quix as an app; to make it more widely accessible, it no longer paired with a specific educational website, but was a standalone app. Quix can additionally now be used to learn more information about a topic. By March 2024, I had completed the final UI and was beginning to incorporate the logic I had already programmed in Flask and JavaScript. By May, Quix was completed and was being advertised on the social media accounts I had already created for it, leading to the Quix you know and love today.</p>
+        <p className="lg:w-4/4 w-full mt-5 leading-relaxed text-gray-200 text-opacity-95">Quix began as a passion project in September 2023 when I believed I could create a project that integrated with Schoology and AI to help me prepare for my tests. As my friend saw me programming, he suggested the name &quot;Quix&quot;. I created branding for it, including a logo and social media accounts before continuing its development. A few months later, in late October, I had completed the base for the login mechanism and the studying mechanism. Enthusiastic, I introduced the project to my school, who supported me. Continuing to flesh out the project, I believed it was near completion by January 2024. I bought the temporary domain &quot;quixedu.com&quot; to use for testing purposes. However, the UI was unprofessional to say the least. Additionally, the bulk of the project was in HTML, CSS, and JavaScript, languages that are typically not used in deployment. By February 2024, I had begun to completely rework the UI using Next.js and Tailwind CSS. At the time, I was also pivoting on the idea of Quix as an app; to make it more widely accessible, it no longer paired with a specific educational website, but was a standalone app. Quix can additionally now be used to learn more information about a topic. By March 2024, I had completed the final UI and was beginning to incorporate the logic I had already programmed in Flask and JavaScript. By May, Quix was completed and was being advertised on the social media accounts I had already created for it, leading to the Quix you know and love today.</p>
             </div>
         </div>
         <section className="text-gray-200 body-font mb-10">
@@ -79,24 +79,6 @@ export default function About() {
                     <p className="leading-relaxed text-base">Completed the official deployment of the Quix platform, making it accessible to users. This achievement marks a significant milestone in bringing the platform to life and launching it for public use.</p>
                     </div>
                 </div>
-                {/* <div className="xl:w-1/3 md:w-1/2 p-4">
-                    <div className="border border-gray-200 border-opacity-75 p-6 rounded-lg">
-                    <h2 className="text-lg text-gray-300 font-medium title-font mb-2">Melanchole</h2>
-                    <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-                    </div>
-                </div>
-                <div className="xl:w-1/3 md:w-1/2 p-4">
-                    <div className="border border-gray-200 border-opacity-75 p-6 rounded-lg">
-                    <h2 className="text-lg text-gray-300 font-medium title-font mb-2">Bunker</h2>
-                    <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-                    </div>
-                </div>
-                <div className="xl:w-1/3 md:w-1/2 p-4">
-                    <div className="border border-gray-200 border-opacity-75 p-6 rounded-lg">
-                    <h2 className="text-lg text-gray-300 font-medium title-font mb-2">Ramona Falls</h2>
-                    <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-                    </div>
-                </div> */}
                 </div>
             </div>
         </section>
@@ -107,7 +89,7 @@ export default function About() {
                 <Image src="/QuixLogo.png" alt="Logo" width={32} height={29}></Image>
                 <a className="ml-3 text-xl cursor-pointer" href="/">Quix</a>
               </p>
-              <p className="mt-4 text-base w-full text-gray-200">Pioneering Tomorrow's Education</p>
+              <p className="mt-4 text-base w-full text-gray-200">Pioneering Tomorrow&quot;s Education</p>
             </div>
             <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
               <div className="lg:w-1/3 md:w-1/2 w-full px-4">
