@@ -4,11 +4,22 @@ import Image from "next/image";
 import React, { useState } from 'react';
 
 
+const includedFeatures = [
+  '1000 Credits monthly',
+  'Server priority access, leading to an overall faster and enhanced performance',
+  'Early access to new updates, bug patches, and features',
+]
+
 const Billing = () => {
   const [clicked, setClicked] = useState(false);
 
-  const toggle = () => {
-    setClicked(!clicked); // Update the state when the button is clicked
+  const toggleTrue = () => {
+    setClicked(true); // Update the state when the button is clicked
+    console.log(clicked)
+  };
+
+  const toggleFalse = () => {
+    setClicked(false); // Update the state when the button is clicked
     console.log(clicked)
   };
 
@@ -45,18 +56,22 @@ const Billing = () => {
         <section className="text-gray-200 font-poppins overflow-hidden">
             <div className="container px-5 py-24 mx-auto">
                 <div className="flex flex-col text-center w-full mb-20">
-                  <h1 className="sm:text-4xl text-3xl font-medium font-poppins mb-2 text-gray-300">Billing</h1>
-                  <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the testing feature of Quix; after you have used the provided 100 Credits, you will need to switch to either the Plus or the Premium plan.</p>
+                  <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Billing</h2>
+                    <p className="mt-2 text-lg leading-8 text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the testing feature of Quix; after you have used the provided 100 Credits, you will need to switch to either the Plus or the Premium plan.</p>
+                  </div>
+                  {/* <h1 className="sm:text-4xl text-3xl font-medium font-poppins mb-2 text-gray-300">Billing</h1>
+                  <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the testing feature of Quix; after you have used the provided 100 Credits, you will need to switch to either the Plus or the Premium plan.</p> */}
                   <div className="flex mx-auto border-2 border-indigo-500 rounded overflow-hidden mt-6">
-                      <button className={`${clicked ? '' : 'bg-indigo-500'} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggle}>Monthly</button>
-                      <button className={`${clicked ? 'bg-indigo-500' : ''} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggle}>Annually</button>
+                      <button className={`${clicked ? '' : 'bg-indigo-500'} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggleFalse}>Monthly</button>
+                      <button className={`${clicked ? 'bg-indigo-500' : ''} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggleTrue}>Annually</button>
                   </div>
                 </div>
                 <div className={`${clicked ? 'hidden' : 'block'} flex flex-wrap -m-4`}>
                   <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
-                    <div className="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden bg-navy">
-                    <h2 className="text-sm tracking-widest font-poppins mb-1 font-medium">BASIC</h2>
-                    <h1 className="text-5xl text-gray-300 pb-4 mb-4 border-b border-gray-200 leading-none">Free</h1>
+                    <div className="h-full p-6 rounded-2xl border-2 border-gray-300 flex flex-col relative overflow-hidden bg-navy">
+                    <h2 className="text-sm tracking-widest font-poppins mb-1 font-semibold">BASIC</h2>
+                    <h1 className="text-5xl text-gray-300 pb-4 mb-4 border-b border-gray-200 leading-none font-bold tracking-tight">Free</h1>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
@@ -78,18 +93,18 @@ const Billing = () => {
                         </svg>
                         </span>Access to a login mechanism that uses Schoology data to provide an effective test preparation experience
                     </p>
-                    <a className="flex items-center mt-auto text-white bg-gray-500 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded transition-colors duration-200" href="/signin">Login
+                    <a className="flex items-center mt-auto text-white bg-gray-500 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 font-semibold rounded-md transition-colors duration-200" href="/signin">Login
                     </a>
                     <p className="text-xs text-gray-200 mt-3">Subscriptions are non-refundable. Terms and conditions apply.</p>
                     </div>
                 </div>
                 <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
-                    <div className="h-full p-6 rounded-lg border-2 border-indigo-500 flex flex-col relative overflow-hidden bg-navy">
-                    <span className="bg-indigo-500 text-white px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">POPULAR</span>
-                    <h2 className="text-sm tracking-widest font-poppins mb-1 font-medium">PLUS</h2>
+                    <div className="h-full p-6 rounded-2xl border-2 border-indigo-500 flex flex-col relative overflow-hidden bg-navy">
+                    <span className="bg-indigo-500 text-gray-200 px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">POPULAR</span>
+                    <h2 className="text-sm tracking-widest font-poppins mb-1 font-bold">PLUS</h2>
                     <h1 className="text-5xl text-gray-300 leading-none flex items-center pb-4 mb-4 border-b border-gray-200">
-                        <span>$9.99</span>
-                        <span className="text-lg ml-1 font-normal text-gray-200">/mo</span>
+                        <span className="font-bold tracking-tight">$9.99</span>
+                        <span className="text-lg ml-1 font-semibold text-gray-200">/mo</span>
                     </h1>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
@@ -99,18 +114,18 @@ const Billing = () => {
                         </span>500 Credits monthly
                     </p>
                     <p className="flex items-center text-gray-200 mb-2">
-                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
+                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Access to a cutting-edge dashboard that displays upcoming tests
+                        </span>Access to additional dashboard features such as listing the priority of tests and displaying average test scores
                     </p>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Access to additional dashboard features such as listing the priority of tests and displaying average test scores
+                        </span>Access to a cutting-edge dashboard that displays upcoming tests
                     </p>
                     <p className="flex items-center text-gray-200 mb-6">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
@@ -119,17 +134,17 @@ const Billing = () => {
                         </svg>
                         </span>Access to a login mechanism that uses Schoology data to provide an effective test preparation experience
                     </p>
-                    <a className="flex items-center mt-auto text-white bg-indigo-500 border-0 py-2 px-4 w-full focus:outline-none hover:bg-indigo-600 rounded transition-colors duration-200" href="/payment">Get Plus
+                    <a className="flex items-center mt-auto text-gray-200 bg-indigo-500 border-0 py-2 px-4 w-full focus:outline-none hover:bg-indigo-600 font-semibold rounded-md transition-colors duration-200" href="/payment">Get Plus
                     </a>
                     <p className="text-xs text-gray-200 mt-3">Subscriptions are non-refundable. Terms and conditions apply.</p>
                     </div>
                 </div>
                 <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
-                    <div className="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden bg-navy">
-                    <h2 className="text-sm tracking-widest font-poppins mb-1 font-medium">PREMIUM</h2>
+                    <div className="h-full p-6 rounded-2xl border-2 border-gray-300 flex flex-col relative overflow-hidden bg-navy">
+                    <h2 className="text-sm tracking-widest font-poppins mb-1 font-bold">PREMIUM</h2>
                     <h1 className="text-5xl text-gray-300 leading-none flex items-center pb-4 mb-4 border-b border-gray-200">
-                        <span>$14.99</span>
-                        <span className="text-lg ml-1 font-normal text-gray-200">/mo</span>
+                        <span className="font-bold tracking-tight">$14.99</span>
+                        <span className="text-lg ml-1 font-semibold text-gray-200">/mo</span>
                     </h1>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
@@ -153,44 +168,12 @@ const Billing = () => {
                         </span>Early access to new updates, bug patches, and features
                     </p>
                     <p className="flex items-center text-gray-200 mb-2">
-                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                            <path d="M20 6L9 17l-5-5"></path>
-                        </svg>
-                        </span>Access to a cutting-edge dashboard that displays upcoming tests
-                    </p>
-                    <p className="flex items-center text-gray-200 mb-2">
-                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
+                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
                         </span>Access to additional dashboard features such as listing the priority of tests and displaying average test scores
                     </p>
-                    <p className="flex items-center text-gray-200 mb-6">
-                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                            <path d="M20 6L9 17l-5-5"></path>
-                        </svg>
-                        </span>Access to a login mechanism that uses Schoology data to provide an effective test preparation experience
-                    </p>
-                    <a className="flex items-center mt-auto text-white bg-emerald-600 border-0 py-2 px-4 w-full focus:outline-none hover:bg-emerald-700 rounded transition-colors duration-200" href="/payment">Get Premium
-                    </a>
-                    <p className="text-xs text-gray-200 mt-3">Subscriptions are non-refundable. Terms and conditions apply.</p>
-                    </div>
-                </div>
-                </div>
-                <div className={`${clicked ? 'block' : 'hidden'} flex flex-wrap -m-4`}>
-                  <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
-                    <div className="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden bg-navy">
-                    <h2 className="text-sm tracking-widest font-poppins mb-1 font-medium">BASIC</h2>
-                    <h1 className="text-5xl text-gray-300 pb-4 mb-4 border-b border-gray-200 leading-none">Free</h1>
-                    <p className="flex items-center text-gray-200 mb-2">
-                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                            <path d="M20 6L9 17l-5-5"></path>
-                        </svg>
-                        </span>100 Credits
-                    </p>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
@@ -205,11 +188,53 @@ const Billing = () => {
                         </svg>
                         </span>Access to a login mechanism that uses Schoology data to provide an effective test preparation experience
                     </p>
-                    <a className="flex items-center mt-auto text-white bg-gray-500 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded transition-colors duration-200" href="/signin">Login
+                    <a className="flex items-center mt-auto text-gray-200 bg-emerald-600 border-0 py-2 px-4 w-full focus:outline-none hover:bg-emerald-700 font-semibold rounded-md transition-colors duration-200" href="/payment">Get Premium
                     </a>
                     <p className="text-xs text-gray-200 mt-3">Subscriptions are non-refundable. Terms and conditions apply.</p>
                     </div>
+                  </div>
                 </div>
+                <div className={`${clicked ? 'block' : 'hidden'} flex flex-wrap -m-4`}>
+                  <div className="mx-auto max-w-2xl rounded-3xl ring-1 ring-gray-200 bg-navy lg:mx-0 lg:flex lg:max-w-none">
+                    <div className="p-8 sm:p-10 lg:flex-auto">
+                      <h3 className="text-2xl font-bold tracking-widest text-gray-300">Premium Annual</h3>
+                      <p className="mt-6 text-base leading-7 text-gray-200">The Premium Annual plan includes all the perks and features of the premium plan at an annual subscription rate, featuring a 17% discount.</p>
+                      <div className="mt-10 flex items-center gap-x-4">
+                        <h4 className="flex-none text-lg font-semibold leading-6 text-indigo-400">What&apos;s included</h4>
+                        <div className="h-px flex-auto bg-gray-200" />
+                      </div>
+                      <ul
+                        role="list"
+                        className="mt-8 grid grid-cols-1 gap-0 text-sm leading-6 text-gray-200 sm:grid-cols-2 sm:gap-0"
+                      >
+                        {includedFeatures.map((feature) => (
+                          <li key={feature} className="flex gap-x-3 text-base">
+                            <span className="w-4 h-4 inline-flex items-center justify-center bg-emerald-600 text-gray-200 rounded-full flex-shrink-0 mt-1">
+                              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                                  <path d="M20 6L9 17l-5-5"></path>
+                              </svg>
+                            </span>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+                      <div className="rounded-2xl bg-gray-300 py-10 text-center ring-1 ring-inset ring-gray-700/5 lg:flex lg:flex-col lg:justify-center lg:py-[5.5rem]">
+                        <div className="mx-auto max-w-xs px-8">
+                          <p className="mt-6 flex items-baseline justify-center gap-x-2">
+                            <span className="text-5xl font-bold tracking-tight text-gray-900">$149.99</span>
+                            <span className="text-xl font-semibold leading-6 tracking-wide text-gray-600">/yr</span>
+                          </p>
+                          <div className="mx-auto max-w-2xl sm:text-center">
+                            <h2 className="text-lg mt-1 font-bold tracking-tight text-gray-700 sm:text-xl">17% Discount</h2>
+                          </div>
+                          <a className="flex items-center mt-10 text-gray-200 bg-emerald-600 border-0 py-2 px-4 w-full focus:outline-none hover:bg-emerald-700 font-semibold rounded-md transition-colors duration-200" href="/payment">Get Premium Annual</a>
+                          <p className="mt-6 text-xs leading-5 text-gray-600">Subscriptions are non-refundable. Terms and conditions apply.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
         </section>

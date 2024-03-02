@@ -34,13 +34,126 @@ export default function Contact() {
         </header>
         <section className="text-gray-200 font-poppins relative">
             <div className="container px-5 py-24 mx-auto">
-                <div className="flex flex-col text-center w-full mb-12">
-                <h1 className="sm:text-3xl text-2xl font-medium font-poppins mb-4 text-gray-300">Contact</h1>
-                <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Have questions, feedback, or need support? Get in touch with us!</p>
+                <div className="mx-auto max-w-2xl text-center mt-10 mb-12">
+                  <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl">Contact</h2>
+                  <p className="mt-2 text-lg leading-8 text-gray-200">Have questions, feedback, or need support? Get in touch with us!</p>
+                </div>
+                {/* <div className="flex flex-col text-center w-full mb-12">
+                  <h1 className="sm:text-3xl text-2xl font-medium font-poppins mb-4 text-gray-300">Contact</h1>
+                  <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Have questions, feedback, or need support? Get in touch with us!</p>
+                </div> */}
+                <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:w-1/2 md:w-2/3 mx-auto">
+                  <div>
+                    <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-200">
+                      First name
+                    </label>
+                    <div className="mt-2.5">
+                      <input
+                        type="text"
+                        name="first-name"
+                        id="first-name"
+                        autoComplete="given-name"
+                        className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-200">
+                      Last name
+                    </label>
+                    <div className="mt-2.5">
+                      <input
+                        type="text"
+                        name="last-name"
+                        id="last-name"
+                        autoComplete="family-name"
+                        className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+                  {/* <div className="sm:col-span-2">
+                    <label htmlFor="company" className="block text-sm font-semibold leading-6 text-gray-200">
+                      Company
+                    </label>
+                    <div className="mt-2.5">
+                      <input
+                        type="text"
+                        name="company"
+                        id="company"
+                        autoComplete="organization"
+                        className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div> */}
+                  <div className="sm:col-span-2">
+                    <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-200">
+                      Email
+                    </label>
+                    <div className="mt-2.5">
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        autoComplete="email"
+                        className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label htmlFor="phone-number" className="block text-sm font-semibold leading-6 text-gray-200">
+                      Phone number
+                    </label>
+                    <div className="relative mt-2.5">
+                      <div className="absolute inset-y-0 left-0 flex items-center">
+                        <label htmlFor="country" className="sr-only">
+                          Country
+                        </label>
+                        <select
+                          id="country"
+                          name="country"
+                          className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        >
+                          <option>US</option>
+                          <option>CA</option>
+                          <option>EU</option>
+                        </select>
+                      </div>
+                      <input
+                        type="tel"
+                        name="phone-number"
+                        id="phone-number"
+                        autoComplete="tel"
+                        className="block w-full rounded-md border-0 px-3.5 py-2 pl-[7rem] text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-200">
+                      Message
+                    </label>
+                    <div className="mt-2.5">
+                      <textarea
+                        name="message"
+                        id="message"
+                        rows={4}
+                        className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        defaultValue={''}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-10">
+                  {/* <button
+                    type="submit"
+                    className="block lg:w-1/2 md:w-2/3 mx-auto rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-gray-200 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Let&apos;s talk
+                  </button> */}
+                  <button type="submit" className="block lg:w-1/2 md:w-2/3 mx-auto bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center">Submit</button>
                 </div>
                 <div className="lg:w-1/2 md:w-2/3 mx-auto">
                 <div className="flex flex-wrap -m-2">
-                    <div className="p-2 w-1/2">
+                    {/* <div className="p-2 w-1/2">
                     <div className="relative">
                         <label className="leading-7 text-sm text-gray-200">Name</label>
                         <input type="text" id="name" name="name" className="w-full bg-gray-600 bg-opacity-40 rounded border border-gray-400 focus:border-blue-500 focus:bg-gray-800 focus:ring-2 focus:ring-blue-900 text-base outline-none text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></input>
@@ -59,8 +172,8 @@ export default function Contact() {
                     </div>
                     </div>
                     <div className="p-2 w-full">
-                    <button className="flex mx-auto text-white bg-emerald-600 transition duration-300 border-0 py-2 px-8 focus:outline-none hover:bg-emerald-700 rounded-lg text-lg">Submit</button>
-                    </div>
+                    <button className="flex mx-auto text-gray-200 bg-emerald-600 transition duration-300 border-0 py-2 px-8 focus:outline-none hover:bg-emerald-700 rounded-lg text-lg">Submit</button>
+                    </div> */}
                     <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
                     <a className="text-blue-400 cursor-pointer" href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWrRvwdTZzNQPDKVNNJHlGPQXSjBwssqHVtKnbLdjCCzRkTJPDsQbNmcsRWLFRxzDHLGKMhVV">community.quix@gmail.com</a>
                     <br></br>

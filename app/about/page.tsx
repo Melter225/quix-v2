@@ -32,7 +32,7 @@ export default function About() {
                 </div>
             </div>
         </header>
-        <section className="text-gray-200 body-font">
+        <section className="text-gray-200 font-poppins">
             <div className="container px-5 py-24 mx-auto">
                 <br></br>
                 <div className="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
@@ -41,7 +41,7 @@ export default function About() {
                 </svg>
                 <p className="leading-relaxed text-lg">At Quix, we believe that education is the cornerstone of progress and empowerment. Our mission is to cultivate a brighter future by providing accessible and innovative learning opportunities to all. We strive to bridge gaps in education, empowering individuals of all ages and backgrounds to reach their full potential. Through dedication, passion, and creativity, we aim to inspire lifelong learners and shape tomorrow&apos;s leaders. Together, we&apos;re building a world where knowledge knows no bounds and every individual has the opportunity to thrive. Together, we embark on a journey of endless possibilities.</p>
                 <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-8 mb-6"></span>
-                <h2 className="text-gray-300 font-medium title-font tracking-wider text-sm">ROHAN MAHAPATRA</h2>
+                <h2 className="text-gray-300 font-medium font-poppins tracking-wider text-sm">ROHAN MAHAPATRA</h2>
                 <p className="text-gray-200">Founder</p>
                 </div>
             </div>
@@ -49,38 +49,46 @@ export default function About() {
         <div className="container px-5 py-12 mx-auto">
             <div className="flex flex-wrap w-full mb-20">
             <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
-                <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">My Journey</h1>
+                <h1 className="sm:text-3xl text-2xl font-medium font-poppins mb-2 text-white">My Journey</h1>
                 <div className="h-1 w-16 bg-indigo-500 rounded mt-4"></div>
             </div>
         <p className="lg:w-4/4 w-full mt-5 leading-relaxed text-gray-200 text-opacity-95">Quix began as a passion project in September 2023 when I believed I could create a project that integrated with Schoology and AI to help me prepare for my tests. As my friend saw me programming, he suggested the name &quot;Quix&quot;. I created branding for it, including a logo and social media accounts before continuing its development. A few months later, in late October, I had completed the base for the login mechanism and the studying mechanism. Enthusiastic, I introduced the project to my school, who supported me. Continuing to flesh out the project, I believed it was near completion by January 2024. I bought the temporary domain &quot;quixedu.com&quot; to use for testing purposes. However, the UI was unprofessional to say the least. Additionally, the bulk of the project was in HTML, CSS, and JavaScript, languages that are typically not used in deployment. By February 2024, I had begun to completely rework the UI using Next.js and Tailwind CSS. At the time, I was also pivoting on the idea of Quix as an app; to make it more widely accessible, it no longer paired with a specific educational website, but was a standalone app. Quix can additionally now be used to learn more information about a topic. By March 2024, I had completed the final UI and was beginning to incorporate the logic I had already programmed in Flask and JavaScript. By May, Quix was completed and was being advertised on the social media accounts I had already created for it, leading to the Quix you know and love today.</p>
             </div>
         </div>
-        <section className="text-gray-200 body-font mb-10">
+        <section className="text-gray-200 font-poppins mb-10">
             <div className="container px-5 py-12 mx-auto">
                 <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-                <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Accomplishments</h1>
+                <h1 className="sm:text-3xl text-2xl font-medium font-poppins mb-2 text-white">Accomplishments</h1>
                 </div>
                 <div className="flex flex-wrap -m-4">
                 <div className="xl:w-1/3 md:w-1/2 p-4">
                     <div className="border border-gray-200 border-opacity-75 p-6 rounded-lg">
-                    <h2 className="text-xl text-gray-300 font-medium title-font mb-2">Prototype</h2>
+                    <h2 className="text-xl text-gray-300 font-medium font-poppins mb-2">Prototype</h2>
                     <p className="leading-relaxed text-base">Successfully created a prototype of the Quix platform, showcasing its key features and functionality. This achievement lays the foundation for further development and refinement.</p>
                     </div>
                 </div>
                 <div className="xl:w-1/3 md:w-1/2 p-4">
                     <div className="border border-gray-200 border-opacity-75 p-6 rounded-lg">
-                    <h2 className="text-xl text-gray-300 font-medium title-font mb-2">Development</h2>
+                    <h2 className="text-xl text-gray-300 font-medium font-poppins mb-2">Development</h2>
                     <p className="leading-relaxed text-base">Designed both the user interface and backend infrastructure for the Quix platform, ensuring a seamless and efficient learning experience. This achievement encompasses the visual appeal and technical robustness of the platform.</p>
                     </div>
                 </div>
                 <div className="xl:w-1/3 md:w-1/2 p-4">
                     <div className="border border-gray-200 border-opacity-75 p-6 rounded-lg">
-                    <h2 className="text-xl text-gray-300 font-medium title-font mb-2">Deployment</h2>
+                    <h2 className="text-xl text-gray-300 font-medium font-poppins mb-2">Deployment</h2>
                     <p className="leading-relaxed text-base">Completed the official deployment of the Quix platform, making it accessible to users. This achievement marks a significant milestone in bringing the platform to life and launching it for public use.</p>
                     </div>
                 </div>
                 </div>
             </div>
+        </section>
+        <section className="text-gray-200 font-poppins">
+          <div className="container px-5 py-24 mx-auto flex flex-wrap">
+            <h2 className="sm:text-3xl text-2xl text-gray-300 font-medium font-poppins mb-2 md:w-2/5">Attributions</h2>
+            <div className="md:w-3/5 md:pl-6">
+              <p className="leading-relaxed text-base">We&apos;re excited to showcase an array of icons across Quix, each meticulously curated to enhance your engagement. These icons, crafted by talented designers including <a className="text-indigo-400" href="https://www.flaticon.com/free-icons/credit-card" title="credit card icons">Freepik</a>, <a className="text-indigo-400" href="https://www.flaticon.com/free-icons/upward-arrow" title="upward arrow icons">BW Designer</a>, and <a className="text-indigo-400" href="https://www.flaticon.com/free-icons/repeat" title="repeat icons">th studio</a>, are integral to our platform&apos;s visual identity and functionality. By incorporating their work, we aim to create a visually rich and intuitive experience for our users. From navigating our interface to exploring our features, these icons play a crucial role in simplifying tasks and elevating user interactions. We extend our heartfelt gratitude to all the creators whose artistry enriches the Quix experience.</p>
+            </div>
+          </div>
         </section>
         <footer className="bg-navy mb-0 text-gray-200 font-poppins">
           <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
