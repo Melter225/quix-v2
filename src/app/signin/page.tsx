@@ -1,7 +1,14 @@
+"use client"
+
 import Image from "next/image";
+import { signIn } from 'next-auth/react';
 
 
-export default function Signin() {
+const Signin = () => {
+  const GoogleOAuth = async () => {
+    await signIn('google'); // This triggers the authentication flow with Google
+  };
+
   return (
     <main>
       <div>
@@ -70,6 +77,7 @@ export default function Signin() {
               </div>
               <div className="flex mt-4 gap-x-2 w-[80%] ml-[10%]">
                 <button
+                  onClick={GoogleOAuth}
                   type="button"
                   className="flex items-center justify-center w-full p-2 border-2 border-gray-700 rounded-xl focus:ring-2 focus:ring-offset-1 focus:ring-violet-600"
                 >
@@ -118,3 +126,5 @@ export default function Signin() {
     </main>
   );
 }
+
+export default Signin;
