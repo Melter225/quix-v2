@@ -6,9 +6,9 @@ import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Features', href: '/features' },
-  { name: 'About', href: '/about' },
-  { name: 'Billing', href: '/billing' },
+  { name: 'Features', href: '/features', image: '/features.png' },
+  { name: 'About', href: '/about', image: '/about.png' },
+  { name: 'Billing', href: '/billing', image: '/billing.png' },
 ]
 
 
@@ -56,9 +56,9 @@ export default function Payment() {
           </nav>
           <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
             <div className="fixed inset-0 z-50" />
-            <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-100 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-              <div className="flex items-center justify-between bg-gray-200 w-[114%] ml-[-7.1%] mt-[-7.1%] py-4 px-4">
-                <a href="/" className="-m-1.5 p-1.5">
+            <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto overflow-x-hidden bg-gray-100 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+              <div className="flex items-center justify-between bg-gray-200 w-[114%] ml-[-7.1%] mt-[-7.1%] py-5 px-4">
+                <a href="#" className="-m-1.5 p-1.5 cursor-default">
                 <span className="sr-only">Quix</span>
                   <Image
                     src="/QuixLogo.png"
@@ -83,18 +83,20 @@ export default function Payment() {
                       <a
                         key={item.name}
                         href={item.href}
-                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-700 hover:bg-gray-200"
+                        className="-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-700 hover:bg-gray-200 flex items-center"
                       >
-                        {item.name}
+                        <Image width={30} height={30} src={item.image} alt="icon"></Image>
+                        <span className="ml-[0.6rem]">{item.name}</span>
                       </a>
                     ))}
                   </div>
                   <div className="py-6">
                     <a
                       href="/signin"
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-700 hover:bg-gray-200"
+                      className="-mx-3 rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-700 hover:bg-gray-200 flex items-center"
                     >
-                      Login
+                      <Image width={30} height={30} src='/login.png' alt="login icon"></Image>
+                      <span className="ml-[0.6rem]">Login</span>
                     </a>
                   </div>
                 </div>
@@ -277,7 +279,7 @@ export default function Payment() {
             </div>
             <div className="flex-grow flex flex-wrap md:pl-[10rem] -mb-10 md:mt-0 mt-10 md:text-left text-center">
               <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-                <h3 className="text-lg font-semibold leading-6 text-gray-300">Quix</h3>
+                <h3 className="text-lg tracking-wide font-semibold leading-6 text-gray-300">Quix</h3>
                 <ul role="list" className="mt-6 space-y-4 mb-16">
                   <li>
                     <a href="/about" className="text-base cursor-pointer leading-6 text-gray-200 hover:text-gray-300">About</a>
@@ -291,7 +293,7 @@ export default function Payment() {
                 </ul>
               </div>
               <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-                <h3 className="text-lg font-semibold leading-6 text-gray-300">Legal</h3>
+                <h3 className="text-lg tracking-wide font-semibold leading-6 text-gray-300">Legal</h3>
                 <ul role="list" className="mt-6 space-y-4 mb-16">
                   <li>
                     <a href="/termsofservice" className="text-base cursor-pointer leading-6 text-gray-200 hover:text-gray-300">Terms of Service</a>
@@ -302,7 +304,7 @@ export default function Payment() {
                 </ul>
               </div>
               <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-                <h3 className="text-lg font-semibold leading-6 text-gray-300">Features</h3>
+                <h3 className="text-lg tracking-wide font-semibold leading-6 text-gray-300">Features</h3>
                 <ul role="list" className="mt-6 space-y-4 mb-16">
                   <li>
                     <a href="/personalization" className="text-base cursor-pointer leading-6 text-gray-200 hover:text-gray-300">Personalization</a>
