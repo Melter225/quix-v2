@@ -1,36 +1,106 @@
+"use client"
+
 import Image from "next/image";
+import { useState } from 'react'
+import { Dialog } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+
+const navigation = [
+  { name: 'Features', href: '/features' },
+  { name: 'About', href: '/about' },
+  { name: 'Billing', href: '/billing' },
+]
 
 
 export default function Payment() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <main>
       <div>
-        {/* <header className="text-gray-200 bg-navy mt-0 font-poppins fixed w-screen z-50">
-              <div className="container mx-auto flex-wrap p-5 flex-col md:flex-row items-center hidden md:flex">
-                <p className="flex font-medium items-center text-gray-200 mb-4 md:mb-0">
-                    <Image src="/QuixLogo.png" alt="Logo" width={32} height={29}></Image>
-                    <a className="ml-3 text-xl text-gray-300 cursor-pointer" href="/">Quix</a>
-                </p>
-                
-                <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-200 flex flex-wrap items-center text-base justify-center">
-                    <a className="mr-5 hover:text-gray-300 cursor-pointer" href="/features">Features</a>
-                    <a className="mr-5 hover:text-gray-300 cursor-pointer" href="/about">About</a>
-                    <a className="mr-5 hover:text-gray-300 cursor-pointer" href="/billing">Billing</a>
-                </nav>
-                <a className="inline-flex items-center border-2 border-gray-200 hover:bg-gray-400 hover:text-gray-800 hover:text-[1.17rem] hover:shadow-lg hover:shadow-blue-900 py-2 px-8 focus:outline-none rounded-3xl text-lg mt-4 mr-8 md:mt-0 cursor-pointer transition-colors duration-500" href="/signin">Login</a>
-                <a className="inline-flex items-center border-2 border-gray-200 bg-gray-400 text-gray-800 hover:text-[1.17rem] hover:shadow-lg hover:shadow-blue-900 py-2 px-8 focus:outline-none rounded-3xl text-lg mt-4 mr-8 md:mt-0 cursor-pointer transition-colors duration-300" href="/signup">Signup</a>
+        {/* <header className="inset-x-0 top-0 z-50 text-gray-200 bg-navy mt-0 font-poppins fixed w-screen">
+          <nav className="flex items-center justify-between p-5 lg:px-8" aria-label="Global">
+            <div className="flex lg:flex-1">
+              <a href="/" className="-m-1.5 p-1.5">
+                <span className="sr-only">Quix</span>
+                <Image
+                  src="/QuixLogo.png"
+                  width={96}
+                  height={51}
+                  alt=""
+                />
+              </a>
             </div>
-
-            <div id="container" className="flex-wrap py-5 flex-row items-center md:hidden w-screen bg-primary">
-                <div className="flex items-center w-full text-gray-300">
-                    <Image src="/QuixLogo.png" alt="Logo" className="ml-8" width={32} height={29}></Image>
-                    <a className="ml-3 text-xl text-gray-300 cursor-pointer" href="/">Quix</a>
-                    <div className="ml-auto mr-8">
-                      <a className="inline-flex items-center border-2 border-gray-200 hover:bg-gray-400 hover:text-gray-800 hover:text-[1.17rem] hover:shadow-lg hover:shadow-blue-900 py-2 px-8 focus:outline-none rounded-3xl text-lg mt-0 md:mt-0 cursor-pointer transition-colors duration-500 mr-8" href="/signin">Login</a>
-                      <a className="inline-flex items-center border-2 border-gray-200 bg-gray-400 text-gray-800 hover:text-[1.17rem] hover:shadow-lg hover:shadow-blue-900 py-2 px-8 focus:outline-none rounded-3xl text-lg mt-0 md:mt-0 cursor-pointer transition-colors duration-300 mr-2" href="/signup">Signup</a>
-                    </div>
+            <div className="flex lg:hidden">
+              <button
+                type="button"
+                className="-m-2.5 mr-2 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
+                onClick={() => setMobileMenuOpen(true)}
+              >
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
+            <div className="hidden lg:flex lg:gap-x-12">
+              {navigation.map((item) => (
+                <a key={item.name} href={item.href} className="text-base font-semibold leading-6 text-gray-200 hover:text-gray-300">
+                  {item.name}
+                </a>
+              ))}
+            </div>
+            <div className="hidden lg:flex lg:flex-1 lg:justify-end mr-2">
+              <a className="inline-flex items-center border-2 border-gray-200 hover:bg-gray-400 hover:text-gray-800 hover:text-[1.17rem] hover:shadow-lg hover:shadow-blue-900 py-2 px-7 font-semibold focus:outline-none rounded-[1.3rem] text-lg mt-0 md:mt-0 cursor-pointer transition-colors duration-500 mr-2" href="/signin">
+                Login <span aria-hidden="true" className="ml-2">&rarr;</span>
+              </a>
+            </div>
+          </nav>
+          <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+            <div className="fixed inset-0 z-50" />
+            <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-100 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+              <div className="flex items-center justify-between bg-gray-200 w-[114%] ml-[-7.1%] mt-[-7.1%] py-4 px-4">
+                <a href="/" className="-m-1.5 p-1.5">
+                <span className="sr-only">Quix</span>
+                  <Image
+                    src="/QuixLogo.png"
+                    width={96}
+                    height={51}
+                    alt=""
+                  />
+                </a>
+                <button
+                  type="button"
+                  className="-m-2.5 rounded-md p-2.5 text-red-700"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="sr-only">Close menu</span>
+                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+              <div className="mt-7 flow-root">
+                <div className="-my-6 divide-y divide-gray-600/100">
+                  <div className="space-y-2 py-6">
+                    {navigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-700 hover:bg-gray-200"
+                      >
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                  <div className="py-6">
+                    <a
+                      href="/signin"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-700 hover:bg-gray-200"
+                    >
+                      Login
+                    </a>
+                  </div>
                 </div>
-            </div>
+              </div>
+            </Dialog.Panel>
+          </Dialog>
         </header>
         <div className="m-4">
             <div className="credit-card w-full sm:w-auto shadow-lg mx-auto rounded-xl bg-white" x-data="creditCard">
