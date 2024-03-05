@@ -3,11 +3,13 @@ import Image from "next/image";
 
 export default function Terms() {
   return (
-    <main>
+    <main className="font-poppins">
       <div>
-        <section>
-            <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col text-gray-200">
-            <h1 className="text-3xl font-bold mb-4">Terms of Service</h1>
+        <section className="font-poppins">
+            <div className="container mx-auto flex px-5 pt-12 pb-24 items-center justify-center flex-col text-gray-200">
+            <div className="mx-auto max-w-2xl text-center mt-0 mb-5">
+                <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Terms of Service</h2>
+            </div>
             <p className="mb-4">These Terms of Service (&quot;Terms&quot;) govern your access to and use of the Quix website and services (&quot;Quix&quot; or the &quot;Service&quot;). Quix is located at quixedu.com, but its services may extend beyond this specific domain. By accessing or using Quix, you agree to be bound by these Terms of Service. If you do not agree with these Terms of Service, please do not use the Service.</p>
 
 

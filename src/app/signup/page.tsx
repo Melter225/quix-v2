@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Signup() {
   return (
-    <main>
+    <main className="font-poppins">
       <div>
         <div className="h-screen md:flex font-poppins">
           <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">

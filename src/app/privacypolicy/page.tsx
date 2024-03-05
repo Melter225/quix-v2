@@ -3,12 +3,15 @@ import Image from "next/image";
 
 export default function Terms() {
   return (
-    <main>
+    <main className="font-poppins">
       <div>
-        <section>
-            <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col text-gray-200">
-                <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
-                <p className="mb-4">At Quix, your privacy is important to us. This Privacy Policy governs the manner in which Quix collects, uses, maintains, and discloses information collected from users (each, a &quot;User&quot;) of the Quix platform (&quot;Quix&quot; or the &quot;Service&quot;). This privacy policy applies to the Service and all products and services offered by Quix.  By accessing or using the Service in any manner, including, but not limited to, visiting or browsing the Service or contributing content or other materials to the Service, you agree to be bound by this Privacy Policy. If you do not agree to this Privacy Policy, please do not use the Service.</p>
+        <section className="font-poppins">
+            <div className="container mx-auto flex px-5 pt-12 pb-24 items-center justify-center flex-col text-gray-200">
+              <div className="mx-auto max-w-2xl text-center mt-0 mb-5">
+                <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Privacy Policy</h2>
+              </div>
+                {/* <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
+                <p className="mb-4">At Quix, your privacy is important to us. This Privacy Policy governs the manner in which Quix collects, uses, maintains, and discloses information collected from users (each, a &quot;User&quot;) of the Quix platform (&quot;Quix&quot; or the &quot;Service&quot;). This privacy policy applies to the Service and all products and services offered by Quix.  By accessing or using the Service in any manner, including, but not limited to, visiting or browsing the Service or contributing content or other materials to the Service, you agree to be bound by this Privacy Policy. If you do not agree to this Privacy Policy, please do not use the Service.</p> */}
 
 
                 <div className="mb-8">
