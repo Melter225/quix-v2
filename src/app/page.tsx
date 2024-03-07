@@ -135,7 +135,7 @@ export default function Home() {
         </header>
         <section className="text-gray-200 font-poppins">
           <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
-            <Image className="lg:w-2/6 md:w-2/5 sm:w-[46.66%] mb-10 object-cover object-center justify-end rounded" alt="HeroImage" src="/QuixImg.png" width={720} height={600}></Image>
+            <Image className="lg:w-2/6 md:w-[60%] sm:w-[86.66%] mb-10 object-cover object-center justify-end rounded" alt="HeroImage" src="/QuixImg.png" width={720} height={600}></Image>
             <div className="text-center lg:w-2/3 w-full">
               <h1 className="font-poppins text-3xl font-bold tracking-tight mb-5 sm:text-5xl text-gray-300">Quix: The Future of Education</h1>
               <p className="mb-8 leading-relaxed">Picture this: <br></br><br></br> You&apos;re a student, staring at a pile of textbooks and notes, feeling overwhelmed by the looming tests. You&apos;ve tried every study method in the book, from late-night cram sessions to endless scrolling through online resources, but nothing seems to stick.<br></br><br></br></p> <h3 className="text-2xl font-semibold">Introducing Quix - your academic ally in the digital age</h3> <p><br></br> With Quix, say goodbye to the days of frantic cramming and endless resource hunting. Our sleek interface, built with a Flask backend, Next.js, and Tailwind CSS, puts the power of preparation at your fingertips. Quix transforms your browser into a digital classroom, where every click brings you one step closer to academic success.<br></br><br></br>And it&apos;s not just for students. Whether you&apos;re a lifelong learner or an adult seeking to explore new topics, Quix seamlessly adapts to your needs, making it a versatile tool for anyone on a quest for knowledge.</p>
@@ -152,9 +152,9 @@ export default function Home() {
           <div className="container px-5 py-24 mx-auto">
             <div className="flex flex-wrap w-full mb-20">
               <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
-                <h2 className="text-base font-semibold tracking-wider leading-7 text-indigo-500 mb-3">TESTIMONIALS</h2>
+                <h2 className="text-base font-semibold tracking-wider leading-7 text-link mb-3">TESTIMONIALS</h2>
                 <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Unlock Your Potential</h2>
-                <div className="h-1 w-20 bg-indigo-500 rounded"></div>
+                <div className="h-1 w-20 bg-link rounded"></div>
                 {/* <p className="mt-2 text-lg leading-8 w-[110%] ml-[-5%] text-gray-200">Discover how Quix can transform your learning experience and propel you towards success. With its user-friendly interface and comprehensive features, Quix makes learning efficient, effective, and enjoyable for learners of all ages.</p> */}
               </div>
               {/* <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
@@ -258,14 +258,14 @@ export default function Home() {
           <div className="container px-5 py-24 mx-auto">
             <div className="text-center mb-20">
               <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
-                <h2 className="text-base font-semibold tracking-wider leading-7 text-indigo-500 mb-3">FEATURES</h2>
+                <h2 className="text-base font-semibold tracking-wider leading-7 text-link mb-3">FEATURES</h2>
                 <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Empowering Tools</h2>
                 <p className="mt-2 text-lg leading-8 w-[110%] ml-[-5%] text-gray-200">Discover the suite of innovative features that make Quix the ultimate study companion. From intuitive design to advanced functionality, Quix is tailored to enhance every aspect of your learning journey.</p>
               </div>
               {/* <h1 className="sm:text-3xl text-2xl font-medium font-poppins text-gray-300 mb-4">Empowering Tools</h1>
               <p className="text-base leading-relaxed xl:w-2/3 lg:w-3/4 mx-auto text-gray-500s">Discover the suite of innovative features that make Quix the ultimate study companion. From intuitive design to advanced functionality, Quix is tailored to enhance every aspect of your learning journey.</p> */}
               <div className="flex mt-6 justify-center">
-                <div className="w-16 h-1 rounded-full bg-indigo-500 inline-flex"></div>
+                <div className="w-16 h-1 rounded-full bg-link inline-flex"></div>
               </div>
             </div>
             <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
@@ -279,7 +279,7 @@ export default function Home() {
                 <div className="flex-grow">
                   <h2 className="text-gray-300 text-xl font-poppins font-medium mb-3">Personalized Learning Paths</h2>
                   <p className="leading-relaxed text-base">Tailor your study journey with personalized learning paths that adapt to your strengths and weaknesses. Quix&apos;s intelligent algorithms analyze your progress and recommend targeted resources to optimize learning outcomes.</p>
-                  <a className="mt-3 text-indigo-500 inline-flex items-center cursor-pointer hover:text-indigo-600" href="/personalization">Learn More
+                  <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/personalization">Learn More
                     <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
                       <path d="M5 12h14M12 5l7 7-7 7"></path>
                     </svg>
@@ -298,7 +298,7 @@ export default function Home() {
                 <div className="flex-grow">
                   <h2 className="text-gray-300 text-xl font-poppins font-medium mb-3">Interactive Study Guides</h2>
                   <p className="leading-relaxed text-base">Dive into comprehensive study guides curated by experts in various subjects. Interactive elements and multimedia resources ensure engaging and effective learning experiences.</p>
-                  <a className="mt-3 text-indigo-500 inline-flex items-center cursor-pointer hover:text-indigo-600" href="/interactivity">Learn More
+                  <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/interactivity">Learn More
                     <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
                       <path d="M5 12h14M12 5l7 7-7 7"></path>
                     </svg>
@@ -315,7 +315,7 @@ export default function Home() {
                 <div className="flex-grow">
                   <h2 className="text-gray-300 text-xl font-poppins font-medium mb-3">Real-time Performance Insights</h2>
                   <p className="leading-relaxed text-base">Stay on top of your academic goals with real-time progress tracking. Visualize your achievements, track study time, and monitor quiz scores to identify areas for improvement and celebrate successes.</p>
-                  <a className="mt-3 text-indigo-500 inline-flex items-center cursor-pointer hover:text-indigo-600" href="/performance">Learn More
+                  <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/performance">Learn More
                     <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
                       <path d="M5 12h14M12 5l7 7-7 7"></path>
                     </svg>
