@@ -68,11 +68,11 @@ const Signin = () => {
                 <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="password" name="" id="" placeholder="Password" />
               </div>
               <div className="w-full flex flex-wrap justify-between items-center mt-4">
-                <div className="flex items-center mb-2 ml-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center">
+                <div className="flex items-center mb-2 ml-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] justify-center">
                   <input type="checkbox" className="mr-1"></input>
                   <p className="text-gray-800 text-base">Remember Me</p>
                 </div>
-                <a className="text-center text-link hover:text-link_hover cursor-pointer text-base transition-colors duration-200 mr-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center sm:ml-[10%] md:ml-[10%] lg:ml-0 lg:mb-2 md:mb-0 sm:mb-0" href="/reset">Forgot Password?</a>
+                <a className="text-center text-link hover:text-link_hover cursor-pointer text-base transition-colors duration-200 mr-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] ml-[10%] mb-0 sm:ml-[10%] md:ml-[10%] lg:ml-0 lg:mb-2 md:mb-0 sm:mb-0" href="/reset">Forgot Password?</a>
               </div>
               <div className="relative flex items-center justify-center w-[80%] ml-[10%] mt-6 border border-t border-gray-700">
                 <div className="absolute px-3 text-gray-800 bg-gray-300">Or</div>
