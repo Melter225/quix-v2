@@ -18,7 +18,7 @@ export const authConfig: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: '/', //TODO: Create sign in page
+    signIn: '/signin', //TODO: Create sign in page
     error: '/api/auth/error',
   },
   session: {

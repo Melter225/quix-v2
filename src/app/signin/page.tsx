@@ -1,12 +1,12 @@
 "use client"
 
 import Image from "next/image";
-import { signIn} from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 
 const Signin = () => {
   const GoogleOAuth = async () => {
-    await signIn('google'); // This triggers the authentication flow with Google
+    await signIn('google', {callbackUrl:"/dashboard"}); // This triggers the authentication flow with Google
   };
 
   return (

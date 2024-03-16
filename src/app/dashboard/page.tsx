@@ -4,13 +4,8 @@ import Image from "next/image";
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { signOut, useSession } from "next-auth/react";
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    '/repeat.png',
-}
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', current: true },
@@ -22,7 +17,7 @@ const navigation = [
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Sign out', href: '/' },
 ]
 
 function classNames(...classes:string[]) {
@@ -30,6 +25,12 @@ function classNames(...classes:string[]) {
 }
 
 export default function Dashboard() {
+  const { data: session, status } = useSession()
+
+  if (status === "unauthenticated") {
+    return <p>You are not logged in</p>
+  }
+
   return (
     <main className="font-poppins">
       <div>
@@ -90,7 +91,7 @@ export default function Dashboard() {
                             <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-navy text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span className="absolute -inset-1.5" />
                                 <span className="sr-only">Open user menu</span>
-                                <Image className="rounded-full" src={user.imageUrl} width={30} height={30} alt="" />
+                                <Image className="rounded-full" src={session?.user?.image} width={30} height={30} alt="" />
                             </Menu.Button>
                             </div>
                             <Transition
@@ -108,6 +109,13 @@ export default function Dashboard() {
                                     {({ active }) => (
                                     <a
                                         href={item.href}
+                                        onClick={(e) => {
+                                            if (item.name === "Sign out") {
+                                                e.preventDefault()
+                                                signOut()
+                                                window.location.href = "/"
+                                            }
+                                        }}
                                         className={classNames(
                                         active ? 'bg-gray-100' : '',
                                         'block px-4 py-2 text-sm text-gray-700'
@@ -159,11 +167,11 @@ export default function Dashboard() {
                     <div className="pb-3 pt-4">
                     <div className="flex items-center px-5">
                         <div className="flex-shrink-0">
-                            <Image className="rounded-full" src={user.imageUrl} width={30} height={30} alt="" />
+                            <Image className="rounded-full" src={session?.user?.image} width={30} height={30} alt="" />
                         </div>
                         <div className="ml-3">
-                            <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                            <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                            <div className="text-base font-medium leading-none text-white">{session?.user?.name}</div>
+                            <div className="text-sm font-medium leading-none text-gray-400">{session?.user?.email}</div>
                         </div>
                         <button
                         type="button"
@@ -178,6 +186,13 @@ export default function Dashboard() {
                         {userNavigation.map((item) => (
                         <Disclosure.Button
                             key={item.name}
+                            onClick={(e) => {
+                                if (item.name === "Sign out") {
+                                    e.preventDefault()
+                                    signOut()
+                                    window.location.href = "/"
+                                }
+                            }}
                             as="a"
                             href={item.href}
                             className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
