@@ -133,9 +133,9 @@ const Billing = () => {
                   </div>
                   {/* <h1 className="sm:text-4xl text-3xl font-medium font-poppins mb-2 text-gray-300">Billing</h1>
                   <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the testing feature of Quix; after you have used the provided 100 Credits, you will need to switch to either the Plus or the Premium plan.</p> */}
-                  <div className="flex mx-auto border-2 border-indigo-500 rounded overflow-hidden mt-6">
-                      <button className={`${clicked ? '' : 'bg-indigo-500'} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggleFalse}>Monthly</button>
-                      <button className={`${clicked ? 'bg-indigo-500' : ''} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggleTrue}>Annually</button>
+                  <div className="flex mx-auto border-2 border-link rounded overflow-hidden mt-6">
+                      <button className={`${clicked ? '' : 'bg-link'} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggleFalse}>Monthly</button>
+                      <button className={`${clicked ? 'bg-link' : ''} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggleTrue}>Annually</button>
                   </div>
                 </div>
                 <div className={`${clicked ? 'hidden' : 'block'} flex flex-wrap -m-4`}>
@@ -170,8 +170,8 @@ const Billing = () => {
                     </div>
                 </div>
                 <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
-                    <div className="h-full p-6 rounded-2xl border-2 border-indigo-500 flex flex-col relative overflow-hidden bg-navy">
-                    <span className="bg-indigo-500 text-gray-200 px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">POPULAR</span>
+                    <div className="h-full p-6 rounded-2xl border-2 border-link flex flex-col relative overflow-hidden bg-navy">
+                    <span className="bg-link text-gray-200 px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">POPULAR</span>
                     <h2 className="text-sm tracking-widest font-poppins mb-1 font-bold">PLUS</h2>
                     <h1 className="text-5xl text-gray-300 leading-none flex items-center pb-4 mb-4 border-b border-gray-200">
                         <span className="font-bold tracking-tight">$9.99</span>
@@ -205,7 +205,7 @@ const Billing = () => {
                         </svg>
                         </span>Access to a login mechanism that uses Schoology data to provide an effective test preparation experience
                     </p>
-                    <a className="flex items-center mt-auto text-gray-200 bg-indigo-500 border-0 py-2 px-4 w-full focus:outline-none hover:bg-indigo-600 font-semibold rounded-md transition-colors duration-200" href="/payment">Get Plus
+                    <a className="flex items-center mt-auto text-gray-200 bg-link border-0 py-2 px-4 w-full focus:outline-none hover:bg-link_hover font-semibold rounded-md transition-colors duration-200" href="/payment">Get Plus
                     </a>
                     <p className="text-xs text-gray-200 mt-3">Subscriptions are non-refundable. Terms and conditions apply.</p>
                     </div>
@@ -268,7 +268,11 @@ const Billing = () => {
                 <div className={`${clicked ? 'block' : 'hidden'} flex flex-wrap -m-4`}>
                   <div className="mx-auto max-w-2xl rounded-3xl ring-1 ring-gray-200 bg-navy lg:mx-0 lg:flex lg:max-w-none">
                     <div className="p-8 sm:p-10 lg:flex-auto">
-                      <h3 className="text-2xl font-bold tracking-widest text-gray-300">Premium Annual</h3>
+                      {/* <h3 className="text-2xl font-bold tracking-widest text-gray-300">Premium Annual</h3> */}
+                      <h1 className="text-5xl text-gray-300 leading-none flex items-center">
+                        <span className="font-bold tracking-tight">17%</span>
+                        <span className="text-lg ml-3 font-semibold text-gray-200">Discount</span>
+                      </h1>
                       <p className="mt-6 text-base leading-7 text-gray-200">The Premium Annual plan includes all the perks and features of the premium plan at an annual subscription rate, featuring a 17% discount.</p>
                       <div className="mt-10 flex items-center gap-x-4">
                         <h4 className="flex-none text-lg font-semibold leading-6 text-indigo-400">What&apos;s included</h4>

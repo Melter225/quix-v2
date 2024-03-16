@@ -13,8 +13,8 @@ const Signin = () => {
     <main className="font-poppins">
       <div>
         <div className="h-screen md:flex font-poppins">
-          <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
-            <div className="mt-12 text-center">
+          <div className="relative overflow-hidden sm:hidden md:flex lg:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
+            <div className="mt-12 text-center px-4">
               <h1 className="text-gray-300 font-bold text-5xl relative z-10">Quix</h1>
               <br></br>
               <p className="flex items-center text-gray-200 mb-2 text-xl font-semibold justify-center relative z-10">
@@ -44,8 +44,8 @@ const Signin = () => {
             <div className="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 z-0"></div>
             <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 z-0"></div>
           </div>
-          <div className="flex md:w-1/2 justify-center py-10 items-center">
-            <form className="bg-gray-300 rounded-xl w-[69%] shadow-gray-800 shadow-lg">
+          <div className="flex md:w-[50%] sm:w-full h-screen justify-center py-10 items-center">
+            <form className="bg-gray-300 rounded-xl lg:w-[69%] md:w-[82%] sm:w-[69%] w-[69%] shadow-gray-800 shadow-lg">
               <div className="w-full text-center">
                 <h1 className="text-gray-700 font-bold text-4xl mb-1 mt-12">Welcome Back</h1>
                 <p className="text-xl font-normal text-gray-800 mb-7">Please enter your credentials</p>
@@ -69,7 +69,7 @@ const Signin = () => {
               </div>
               <div className="w-full flex flex-wrap justify-between items-center mt-4">
                 <div className="flex items-center mb-2 ml-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] justify-center">
-                  <input type="checkbox" className="mr-1"></input>
+                  <input type="checkbox" className="mr-1 text-link font-poppins bg-gray-100 border-gray-300 rounded"></input>
                   <p className="text-gray-800 text-base">Remember Me</p>
                 </div>
                 <a className="text-center text-link hover:text-link_hover cursor-pointer text-base transition-colors duration-200 mr-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] ml-[10%] mb-0 sm:ml-[10%] md:ml-[10%] lg:ml-0 lg:mb-2 md:mb-0 sm:mb-0" href="/reset">Forgot Password?</a>
@@ -118,8 +118,8 @@ const Signin = () => {
                 <div className="border-b-2 border-gray-800 w-[40%] ml-2"></div>
               </div> */}
               <div className="w-full flex text-center justify-center mt-2">
-                <p className="text-gray-800 text-[1.1rem] mr-1">Don&apos;t have an account?</p>
-                <a className="text-link hover:text-link_hover cursor-pointer text-[1.1rem] mb-12 transition-colors duration-200" href="/signup">Sign up</a>
+                <p className="text-gray-800 sm:text-base md:text-base lg:text-[1.1rem] text-base mr-1">Don&apos;t have an account?</p>
+                <a className="text-link hover:text-link_hover cursor-pointer sm:text-base md:text-base lg:text-[1.1rem] text-base mb-12 transition-colors duration-200" href="/signup">Sign up</a>
               </div>
             </form>
           </div>
