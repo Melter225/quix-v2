@@ -172,12 +172,12 @@ export default function Dashboard() {
                             <Image className="rounded-full" src={userImage} width={30} height={30} alt="" />
                         </div>
                         <div className="ml-3">
-                            <div className="text-base font-medium leading-none text-white">{session?.user?.name}</div>
+                            <div className="text-base font-medium leading-none text-gray-200">{session?.user?.name}</div>
                             <div className="text-sm font-medium leading-none text-gray-400">{session?.user?.email}</div>
                         </div>
                         <button
                         type="button"
-                        className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        className="relative ml-auto flex-shrink-0 rounded-full bg-navy p-1 text-gray-300 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 focus:ring-offset-gray-700"
                         >
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">View notifications</span>
