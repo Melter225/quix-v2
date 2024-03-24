@@ -80,7 +80,7 @@ export default function Dashboard() {
                         <div className="ml-4 flex items-center md:ml-6">
                         <button
                             type="button"
-                            className="relative rounded-full bg-navy p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                            className="relative rounded-full bg-navy p-1 text-gray-300 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 focus:ring-offset-gray-700"
                         >
                             <span className="absolute -inset-1.5" />
                             <span className="sr-only">View notifications</span>
@@ -90,7 +90,7 @@ export default function Dashboard() {
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-4">
                             <div>
-                            <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-navy text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                            <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-navy text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span className="absolute -inset-1.5" />
                                 <span className="sr-only">Open user menu</span>
                                 <Image className="rounded-full" src={userImage} width={30} height={30} alt="" />
@@ -105,7 +105,7 @@ export default function Dashboard() {
                             leaveFrom="transform opacity-100 scale-100"
                             leaveTo="transform opacity-0 scale-95"
                             >
-                            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-200 py-1 shadow-lg ring-1 ring-gray-800 ring-opacity-5 focus:outline-none">
                                 {userNavigation.map((item) => (
                                 <Menu.Item key={item.name}>
                                     {({ active }) => (
@@ -115,12 +115,12 @@ export default function Dashboard() {
                                             if (item.name === "Sign out") {
                                                 e.preventDefault()
                                                 signOut()
-                                                window.location.href = "/"
                                             }
                                         }}
                                         className={classNames(
-                                        active ? 'bg-gray-100' : '',
-                                        'block px-4 py-2 text-sm text-gray-700'
+                                        active ? 'bg-gray-300' : '',
+                                        item.name !== "Sign out" ? 'border-b-2 border-gray-300' : '',
+                                        'block px-4 py-2 text-sm text-gray-700 font-medium'
                                         )}
                                     >
                                         {item.name}
@@ -135,7 +135,7 @@ export default function Dashboard() {
                     </div>
                     <div className="-mr-2 flex md:hidden">
                         {/* Mobile menu button */}
-                        <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-navy p-2 text-gray-400 hover:bg-navy hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-navy p-2 text-gray-300 hover:bg-navy hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="absolute -inset-0.5" />
                         <span className="sr-only">Open main menu</span>
                         {open ? (
@@ -156,7 +156,7 @@ export default function Dashboard() {
                         as="a"
                         href={item.href}
                         className={classNames(
-                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            item.current ? 'bg-gray-900 text-gray-200' : 'text-gray-300 hover:bg-gray-800 hover:text-gray-200',
                             'block rounded-md px-3 py-2 text-base font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
@@ -172,8 +172,8 @@ export default function Dashboard() {
                             <Image className="rounded-full" src={userImage} width={30} height={30} alt="" />
                         </div>
                         <div className="ml-3">
-                            <div className="text-base font-medium leading-none text-gray-200">{session?.user?.name}</div>
-                            <div className="text-sm font-medium leading-none text-gray-400">{session?.user?.email}</div>
+                            <div className="text-base font-semibold leading-none text-gray-200">{session?.user?.name}</div>
+                            <div className="text-sm font-semibold leading-none text-gray-400">{session?.user?.email}</div>
                         </div>
                         <button
                         type="button"
@@ -192,12 +192,11 @@ export default function Dashboard() {
                                 if (item.name === "Sign out") {
                                     e.preventDefault()
                                     signOut()
-                                    window.location.href = "/"
                                 }
                             }}
                             as="a"
                             href={item.href}
-                            className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                            className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-gray-200"
                         >
                             {item.name}
                         </Disclosure.Button>

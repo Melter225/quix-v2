@@ -133,7 +133,116 @@ export default function Home() {
             </Dialog.Panel>
           </Dialog>
         </header>
-        <section className="text-gray-200 font-poppins">
+        <section className="section-blue-purple text-[#8C8C8C] font-poppins overflow-hidden">
+          <svg className="hidden lg:flex absolute -top-32 -left-8" width="503" height="665" viewBox="0 0 503 665" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g opacity="0.6" filter="url(#filter0_f_130_929)">
+              <ellipse cx="-30.6393" cy="168.066" rx="516.531" ry="21.3606" transform="rotate(42.0877 -30.6393 168.066)" fill="url(#paint0_linear_130_929)"></ellipse>
+            </g>
+            <defs>
+              <filter id="filter0_f_130_929" x="-564.24" y="-328.517" width="1067.2" height="993.167" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feGaussianBlur stdDeviation="75" result="effect1_foregroundBlur_130_929"></feGaussianBlur>
+              </filter>
+              <linearGradient id="paint0_linear_130_929" x1="-547.17" y1="168.066" x2="485.892" y2="168.066" gradientUnits="userSpaceOnUse">
+                <stop offset="0.469665" stop-color="#BBA7D5"></stop><stop offset="1" stop-color="#64379D"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
+          <svg className="hidden lg:flex absolute -top-0 -left-8" width="410" height="837" viewBox="0 0 410 837" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g opacity="0.6" filter="url(#filter0_f_130_928)">
+              <ellipse cx="-66.2988" cy="391.989" rx="438.892" ry="17.2672" transform="rotate(42.0877 -66.2988 391.989)" fill="url(#paint0_linear_130_928)"></ellipse>
+            </g>
+            <defs>
+              <filter id="filter0_f_130_928" x="-542.219" y="-52.47" width="951.84" height="888.918" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feGaussianBlur stdDeviation="75" result="effect1_foregroundBlur_130_928"></feGaussianBlur>
+              </filter>
+              <linearGradient id="paint0_linear_130_928" x1="-505.191" y1="391.989" x2="372.593" y2="391.989" gradientUnits="userSpaceOnUse">
+                <stop offset="0.600071" stop-color="#A990C9"></stop>
+                <stop offset="1" stop-color="#579BFF"></stop>
+              </linearGradient>
+            </defs>
+          </svg>
+          <svg className="hidden lg:flex absolute inset-x-0 top-20 left-0" width="378" height="464" viewBox="0 0 378 464" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="60.0689" cy="228.113" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="156.701" cy="125.118" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="46.5612" cy="436.993" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="148.389" cy="268.542" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="148.389" cy="167.471" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="241.904" cy="381.163" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="192.029" cy="59.6622" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="238.787" cy="0.944925" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="29.9363" cy="357.099" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="120.334" cy="29.8224" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="290.739" cy="147.257" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="293.856" cy="381.163" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="352.044" cy="155.92" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="307.364" cy="46.1861" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="287.622" cy="310.895" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="98.514" cy="265.654" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="98.514" cy="150.145" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="168.131" cy="406.19" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="145.272" cy="322.446" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="8.11616" cy="109.716" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="214.888" cy="462.982" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="230.474" cy="277.205" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="230.474" cy="161.695" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="300.091" cy="417.741" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="355.161" cy="305.119" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="313.599" cy="249.29" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="1.88182" cy="6.72032" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="198.263" cy="302.232" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="198.263" cy="186.723" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse cx="376.981" cy="362.874" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+          </svg>
+          <svg className="hidden lg:flex absolute top-6 left-1/3 " width="477" height="279" viewBox="0 0 1077 449" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g opacity="0.3" filter="url(#filter0_f_130_899)">
+              <ellipse cx="538.5" cy="9.5" rx="238.5" ry="139.5" fill="#5000B5"></ellipse>
+            </g>
+            <defs>
+              <filter id="filter0_f_130_899" x="0" y="-430" width="1077" height="879" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_130_899"></feGaussianBlur>
+              </filter>
+            </defs>
+          </svg>
+          <svg className="hidden lg:flex absolute top-[5.6rem] right-0 h-dvh" width="440" height="1009" viewBox="0 0 440 1009" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g opacity="0.3" filter="url(#filter0_f_130_898)">
+              <ellipse cx="439.5" cy="470.5" rx="238.5" ry="139.5" transform="rotate(90 439.5 470.5)" fill="#5000B5"></ellipse>
+            </g>
+            <defs>
+              <filter id="filter0_f_130_898" x="0" y="-68" width="879" height="1077" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_130_898"></feGaussianBlur>
+              </filter>
+            </defs>
+          </svg>
+          <div className="pb-32 lg:pb-2 lg:min-h-dvh flex flex-col px-5 md:px-1 pt-20 md:pt-40 lg:pt-40 lg:justify-center items-center">
+            <div className="container mx-auto flex items-start md:items-center justify-center flex-col max-w-screen-md px-4 lg:px-1">
+              <div className="bg-gradient-to-r p-[0.12rem] from-[#0500E8] to-[#7000FF] rounded-full">
+                <button className="bg-[#1F1F1F] rounded-full py-2 px-5 text-[#C4C1FF] hover:cursor-default font-semibold">Try For Free</button>
+              </div>
+              <div className="md:text-center w-full">
+                <h1 className="md:leading-[64px] text-[#A5A2E8] text-3xl sm:text-5xl font-bold my-8">
+                  <span className="bg-gradient-to-r from-[#B6B5CE] via-[#589BFF] to-[#9643FF] inline-block text-transparent bg-clip-text">Quix</span>
+                  : The Future of Education
+                </h1>
+                <p className="mb-8 leading-relaxed text-gray-200">Picture this: <br></br><br></br> You&apos;re a student, staring at a pile of textbooks and notes, feeling overwhelmed by the looming tests. You&apos;ve tried every study method in the book, from late-night cram sessions to endless scrolling through online resources, but nothing seems to stick.<br></br><br></br></p> <h3 className="text-2xl font-semibold text-gray-200">Introducing Quix - your academic ally in the digital age</h3> <p className="text-gray-200"><br></br> With Quix, say goodbye to the days of frantic cramming and endless resource hunting. Our sleek interface, built with a Flask backend, Next.js, and Tailwind CSS, puts the power of preparation at your fingertips. Quix transforms your browser into a digital classroom, where every click brings you one step closer to academic success.<br></br><br></br>And it&apos;s not just for students. Whether you&apos;re a lifelong learner or an adult seeking to explore new topics, Quix seamlessly adapts to your needs, making it a versatile tool for anyone on a quest for knowledge.</p>
+                <br></br>
+                <br></br>
+                <div className="flex md:justify-center py-6">
+                  <div className="bg-gradient-to-r p-px from-[#7000FF] via-[#5C79E1] to-[#1205B4] rounded-2xl">
+                    <a className="inline-flex text-gray-200 bg-gradient-to-r bg-sky-700 shadow-lg shadow-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 hover:shadow-blue-800 transition-colors duration-200 rounded-2xl text-lg cursor-pointer font-semibold" href="/signup">Get Started</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* <section className="text-gray-200 font-poppins">
           <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
             <Image className="lg:w-2/6 md:w-[60%] sm:w-[86.66%] mb-10 object-cover object-center justify-end rounded" alt="HeroImage" src="/QuixImg.png" width={720} height={600}></Image>
             <div className="text-center lg:w-2/3 w-full">
@@ -142,12 +251,12 @@ export default function Home() {
               <br></br>
               <br></br>
               <div className="flex justify-center">
-              <a className="inline-flex text-white bg-gradient-to-r bg-sky-700 shadow-lg shadow-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 hover:shadow-sky-700 transition-colors duration-200 rounded-2xl text-lg cursor-pointer" href="/signup">Get Started</a>
+              <a className="inline-flex text-white bg-gradient-to-r bg-sky-700 shadow-lg shadow-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 hover:shadow-sky-700 transition-colors duration-200 rounded-2xl text-lg cursor-pointer" href="/signup">Get Started</a> */}
                 {/* <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button> */}
-              </div>
+              {/* </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="text-gray-200 font-poppins">
           <div className="container px-5 py-24 mx-auto">
             <div className="flex flex-wrap w-full mb-20">
@@ -327,12 +436,135 @@ export default function Home() {
             <br></br>
           </div>
         </section>
-        <div className="max-w-screen-xl mx-auto px-5 min-h-sceen">
-          <div className="flex flex-col items-center">
-            <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
-              <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">FAQs</h2>
-              <p className="mt-2 text-lg leading-8 w-[110%] ml-[-5%] text-gray-200">Can’t find the answer you’re looking for? Reach out to our customer support team.</p>
+        <div className="flex justify-center pt-8 pb-36">
+          <div className="w-full px-5 md:px-1 md:w-3/4 flex flex-col md:flex-row py-6 justify-center gap-x-5 relative">
+            <svg className="flex w-full lg:hidden absolute -left-12 rounded-full bottom-20 shadow-2xl" width="320" height="491" viewBox="0 0 320 491" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g opacity="0.2" filter="url(#filter0_f_130_900)">
+                <ellipse cx="399.5" cy="404.5" rx="249.5" ry="254.5" fill="#5000B5"></ellipse>
+              </g>
+              <defs>
+                <filter id="filter0_f_130_900" x="0" y="0" width="799" height="809" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                  <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                  <feGaussianBlur stdDeviation="75" result="effect1_foregroundBlur_130_900"></feGaussianBlur>
+                </filter>
+              </defs>
+            </svg>
+            <svg className="hidden lg:flex absolute inset-x-0 bottom-4 left-1/3 rounded-full shadow-2xl " width="499" height="509" viewBox="0 0 499 509" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g opacity="0.2" filter="url(#filter0_f_130_900)">
+                <ellipse cx="399.5" cy="404.5" rx="249.5" ry="254.5" fill="#5000B5"></ellipse>
+              </g>
+              <defs>
+                <filter id="filter0_f_130_900" x="0" y="0" width="799" height="809" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                  <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                  <feGaussianBlur stdDeviation="75" result="effect1_foregroundBlur_130_900"></feGaussianBlur>
+                </filter>
+              </defs>
+            </svg>
+            <div className="p-4 w-full">
+              <div className="h-full p-6 rounded-2xl bg-navy border border-gray-300 flex flex-col relative overflow-hidden">
+                <h1 className="text-3xl text-[#F0F0F0] pb-4 mb-4 font-bold leading-none">Basic</h1>
+                <p className="text-[#F0F0F0] text-2xl font-medium">$0</p>
+                <p className="text-[#595959] text-sm pt-1 pb-2">Limited block trails for teams</p>
+                <button className="bg-gradient-to-b from-[#000000] to-[#282637] mt-1 mb-5 rounded-md py-2 px-4">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Get Started</span>
+                </button>
+                <p className="flex items-center text-gray-400 mb-2">
+                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                      <path d="M20 6L9 17l-5-5"></path>
+                    </svg>
+                  </span>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Unlimited blocks for teams</span>
+                </p>
+                <p className="flex items-center text-gray-400 mb-2">
+                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                      <path d="M20 6L9 17l-5-5"></path>
+                    </svg>
+                  </span>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Unlimited file uploads</span>
+                </p>
+                <p className="flex items-center text-gray-400 mb-2">
+                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                      <path d="M20 6L9 17l-5-5"></path>
+                    </svg>
+                  </span>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">30 day page history</span>
+                </p>
+                <p className="flex items-center text-gray-400 mb-6">
+                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                      <path d="M20 6L9 17l-5-5"></path>
+                    </svg>
+                  </span>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Invite 100 guests</span>
+                </p>
+              </div>
+              </div>
+              <div className="p-4 w-full">
+                <div className="h-full p-6 rounded-2xl bg-navy border border-link flex flex-col relative overflow-hidden">
+                  <Image src="/repeat.png" className="absolute top-5 right-5" width={30} height={30} alt="diamond" />
+                  <h1 className="text-3xl text-[#F0F0F0] pb-4 mb-4 font-bold leading-none">Premium</h1>
+                  <p className="text-[#F0F0F0] text-2xl font-medium">$12.99
+                    <span className="text-[#595959] text-sm pt-1 pb-2">/mo</span>
+                  </p>
+                  <p className="text-[#595959] text-sm pt-1 pb-2">Billed annually $17 billed monthly</p>
+                  <button className="bg-gradient-to-b from-[#000000] to-[#282637] mt-1 mb-5 rounded-md py-2 px-4">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Get Started</span>
+                  </button>
+                  <p className="flex items-center text-gray-400 mb-2">
+                    <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5"></path>
+                      </svg>
+                    </span>
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Everything in free +</span>
+                  </p>
+                  <p className="flex items-center text-gray-400 mb-2">
+                    <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5"></path>
+                      </svg>
+                    </span>
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Unlimited blocks for teams</span>
+                  </p>
+                  <p className="flex items-center text-gray-400 mb-2">
+                    <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5"></path>
+                      </svg>
+                    </span>
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Unlimited file uploads</span>
+                  </p>
+                  <p className="flex items-center text-gray-400 mb-2">
+                    <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5"></path>
+                      </svg>
+                    </span>
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">30 day page history</span>
+                  </p>
+                  <p className="flex items-center text-gray-400 mb-6">
+                    <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5"></path>
+                      </svg>
+                    </span>
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Invite 100 guests</span>
+                  </p>
+                </div>
+              </div>
             </div>
+          </div>
+          <div className="max-w-screen-xl mx-auto px-5 min-h-sceen">
+            <div className="flex flex-col items-center">
+              <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
+                <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">FAQs</h2>
+                <p className="mt-2 text-lg leading-8 w-[110%] ml-[-5%] text-gray-200">Can’t find the answer you’re looking for? Reach out to our customer support team.</p>
+              </div>
             {/* <h2 className="font-bold text-5xl mt-5 tracking-tight">
               FAQ
             </h2>
@@ -451,7 +683,9 @@ export default function Home() {
             {/* </div> */}
           </div>
           <div className="flex justify-center mb-16">
-            <a className="inline-flex text-white bg-gradient-to-r bg-sky-700 shadow-lg shadow-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 hover:shadow-sky-700 transition-colors duration-200 rounded-2xl text-lg cursor-pointer" href="/signup">Get Started</a>
+            <div className="bg-gradient-to-r p-px from-[#7000FF] via-[#5C79E1] to-[#1205B4] rounded-2xl">
+              <a className="inline-flex text-gray-200 bg-gradient-to-r bg-sky-700 shadow-lg shadow-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 hover:shadow-blue-800 transition-colors duration-200 rounded-2xl text-lg cursor-pointer font-semibold" href="/signup">Get Started</a>
+            </div>
           </div>
         </div>
         {/* <footer className="bg-navy font-poppins" aria-labelledby="footer-heading">
