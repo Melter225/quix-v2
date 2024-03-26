@@ -220,7 +220,7 @@ export default function Home() {
               </filter>
             </defs>
           </svg>
-          <div className="pb-32 lg:pb-2 lg:min-h-dvh flex flex-col px-5 md:px-1 pt-20 md:pt-40 lg:pt-40 lg:justify-center items-center">
+          <div className="pb-32 lg:pb-2 lg:min-h-dvh flex flex-col px-5 md:px-1 pt-10 md:pt-30 lg:pt-30 lg:justify-center items-center">
             <div className="container mx-auto flex items-start md:items-center justify-center flex-col max-w-screen-md px-4 lg:px-1">
               <div className="bg-gradient-to-r p-[0.12rem] from-[#0500E8] to-[#7000FF] rounded-full">
                 <button className="bg-[#1F1F1F] rounded-full py-2 px-5 text-[#C4C1FF] hover:cursor-default font-semibold">Try For Free</button>
@@ -230,8 +230,7 @@ export default function Home() {
                   <span className="bg-gradient-to-r from-[#B6B5CE] via-[#589BFF] to-[#9643FF] inline-block text-transparent bg-clip-text">Quix</span>
                   : The Future of Education
                 </h1>
-                <p className="mb-8 leading-relaxed text-gray-200">Picture this: <br></br><br></br> You&apos;re a student, staring at a pile of textbooks and notes, feeling overwhelmed by the looming tests. You&apos;ve tried every study method in the book, from late-night cram sessions to endless scrolling through online resources, but nothing seems to stick.<br></br><br></br></p> <h3 className="text-2xl font-semibold text-gray-200">Introducing Quix - your academic ally in the digital age</h3> <p className="text-gray-200"><br></br> With Quix, say goodbye to the days of frantic cramming and endless resource hunting. Our sleek interface, built with a Flask backend, Next.js, and Tailwind CSS, puts the power of preparation at your fingertips. Quix transforms your browser into a digital classroom, where every click brings you one step closer to academic success.<br></br><br></br>And it&apos;s not just for students. Whether you&apos;re a lifelong learner or an adult seeking to explore new topics, Quix seamlessly adapts to your needs, making it a versatile tool for anyone on a quest for knowledge.</p>
-                <br></br>
+                <p className="mb-8 leading-relaxed text-gray-200"></p><h3 className="text-xl font-semibold text-gray-200">Introducing Quix - your academic ally in the digital age</h3> <p className="text-gray-200 text-sm"><br></br> With Quix, say goodbye to the days of frantic cramming and endless resource hunting. Our sleek interface, built with a Flask backend, Next.js, and Tailwind CSS, puts the power of preparation at your fingertips. Quix transforms your browser into a digital classroom, where every click brings you one step closer to academic success. And it&apos;s not just for students. It&apos;s a versatile tool catering to lifelong learners and adults hungry for knowledge. Whether you&apos;e seeking to master a subject quickly or simply explore new topics efficiently, Quix adapts seamlessly to your needs. Say hello to a smarter, more efficient way to learn with Quix.</p>
                 <br></br>
                 <div className="flex md:justify-center py-6">
                   <div className="bg-gradient-to-r p-px from-[#7000FF] via-[#5C79E1] to-[#1205B4] rounded-2xl">
@@ -244,7 +243,7 @@ export default function Home() {
         </section>
         {/* <section className="text-gray-200 font-poppins">
           <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
-            <Image className="lg:w-2/6 md:w-[60%] sm:w-[86.66%] mb-10 object-cover object-center justify-end rounded" alt="HeroImage" src="/QuixImg.png" width={720} height={600}></Image>
+            <Image className="lg:w-2/6 md:w-[60%] sm:w-[86.66%] mb-10 object-cover object-center justify-end rounded" alt="HeroImage" src="/QuixImage.png" width={720} height={600}></Image>
             <div className="text-center lg:w-2/3 w-full">
               <h1 className="font-poppins text-3xl font-bold tracking-tight mb-5 sm:text-5xl text-gray-300">Quix: The Future of Education</h1>
               <p className="mb-8 leading-relaxed">Picture this: <br></br><br></br> You&apos;re a student, staring at a pile of textbooks and notes, feeling overwhelmed by the looming tests. You&apos;ve tried every study method in the book, from late-night cram sessions to endless scrolling through online resources, but nothing seems to stick.<br></br><br></br></p> <h3 className="text-2xl font-semibold">Introducing Quix - your academic ally in the digital age</h3> <p><br></br> With Quix, say goodbye to the days of frantic cramming and endless resource hunting. Our sleek interface, built with a Flask backend, Next.js, and Tailwind CSS, puts the power of preparation at your fingertips. Quix transforms your browser into a digital classroom, where every click brings you one step closer to academic success.<br></br><br></br>And it&apos;s not just for students. Whether you&apos;re a lifelong learner or an adult seeking to explore new topics, Quix seamlessly adapts to your needs, making it a versatile tool for anyone on a quest for knowledge.</p>
@@ -258,7 +257,7 @@ export default function Home() {
           </div>
         </section> */}
         <section className="text-gray-200 font-poppins">
-          <div className="container px-5 py-24 mx-auto">
+          <div className="container px-5 pb-24 pt-20 mx-auto">
             <div className="flex flex-wrap w-full mb-20">
               <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
                 <h2 className="text-base font-semibold tracking-wider leading-7 text-link mb-3">TESTIMONIALS</h2>
@@ -270,98 +269,707 @@ export default function Home() {
                 <h1 className="sm:text-3xl text-2xl font-medium font-poppins mb-2 text-gray-300">Unlock Your Potential</h1>
                 <div className="h-1 w-20 bg-indigo-500 rounded"></div>
               </div> */}
-              <p className="lg:w-1/2 text-lg w-full leading-8 text-gray-200">Discover how Quix can transform your learning experience and propel you towards success. With its user-friendly interface and comprehensive features, Quix makes learning efficient, effective, and enjoyable for learners of all ages.</p>
+              <p className="lg:w-1/2 text-base w-full leading-8 text-gray-200">Discover how Quix can transform your learning experience and propel you towards success. With its user-friendly interface and comprehensive features, Quix makes learning efficient, effective, and enjoyable for learners of all ages.</p>
             </div>
-            <section className="text-gray-600">
-              <div className="container px-5 py-0 mx-auto">
-                <div className="flex flex-wrap -m-4">
-                  <div className="p-4 md:w-1/3 w-full">
-                    <div className="h-full bg-gray-200 p-8 border-gray-700 border-4 rounded-xl">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="block w-5 h-5 text-gray-600 mb-4" viewBox="0 0 975.036 975.036">
-                        <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
-                      </svg>
-                      <p className="leading-relaxed mb-6 font-bold tracking-tight">Synth chartreuse iPhone lomo cray raw denim brunch everyday carry neutra before they sold out fixie 90&apos;s microdosing. Tacos pinterest fanny pack venmo, post-ironic heirloom try-hard pabst authentic iceland.</p>
-                      <a className="inline-flex items-center">
-                        <Image alt="testimonial" src="/repeat.png" width={30} height={30} className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"></Image>
-                        <span className="flex-grow flex flex-col pl-4">
-                          <span className="font-bold tracking-tight text-gray-700">Holden Caulfield</span>
-                          <span className="text-gray-600 text-sm font-semibold">UI DEVELOPER</span>
-                        </span>
-                      </a>
-                    </div>
+            <section className="text-gray-600 overflow-hidden">
+              <div>
+                <div className="parent-hover flex w-max space-x-4 animate-marquee">
+                  <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                    <ul className="row-fin flex items-center justify-center md:justify-start [&amp;_li]:mx-8 [&amp;_img]:max-w-none animate-infinite-scroll hover:cursor-pointer">
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <ul className="row-fin flex items-center justify-center md:justify-start [&amp;_li]:mx-8 [&amp;_img]:max-w-none animate-infinite-scroll hover:cursor-pointer">
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
-                  <div className="p-4 md:w-1/3 w-full">
-                    <div className="h-full bg-gray-200 p-8 border-gray-700 border-4 rounded-xl">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="block w-5 h-5 text-gray-600 mb-4" viewBox="0 0 975.036 975.036">
-                        <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
-                      </svg>
-                      <p className="leading-relaxed mb-6 font-bold tracking-tight">Synth chartreuse iPhone lomo cray raw denim brunch everyday carry neutra before they sold out fixie 90&apos;s microdosing. Tacos pinterest fanny pack venmo, post-ironic heirloom try-hard pabst authentic iceland.</p>
-                      <a className="inline-flex items-center">
-                        <Image alt="testimonial" src="/repeat.png" width={30} height={30} className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"></Image>
-                        <span className="flex-grow flex flex-col pl-4">
-                          <span className="font-poppins font-bold tracking-tight text-gray-700">Alper Kamu</span>
-                          <span className="text-gray-600 text-sm font-semibold">DESIGNER</span>
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="p-4 md:w-1/3 w-full">
-                    <div className="h-full bg-gray-200 p-8 border-gray-700 border-4 rounded-xl">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="block w-5 h-5 text-gray-600 mb-4" viewBox="0 0 975.036 975.036">
-                        <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
-                      </svg>
-                      <p className="leading-relaxed mb-6 font-bold tracking-tight">Synth chartreuse iPhone lomo cray raw denim brunch everyday carry neutra before they sold out fixie 90&apos;s microdosing. Tacos pinterest fanny pack venmo, post-ironic heirloom try-hard pabst authentic iceland.</p>
-                      <a className="inline-flex items-center">
-                        <Image alt="testimonial" src="/repeat.png" width={30} height={30} className="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center"></Image>
-                        <span className="flex-grow flex flex-col pl-4">
-                          <span className="font-poppins font-bold tracking-tight text-gray-700">Holden Caulfield</span>
-                          <span className="text-gray-600 text-sm font-semibold">UI DEVELOPER</span>
-                        </span>
-                      </a>
-                    </div>
+                </div>
+                <div className="parent-hover2">
+                  <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                    <ul className="flex items-center justify-center md:justify-start [&amp;_li]:mx-8 [&amp;_img]:max-w-none animate-infinite-scroll-rev hover:cursor-pointer">
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <ul className="flex items-center justify-center md:justify-start [&amp;_li]:mx-8 [&amp;_img]:max-w-none animate-infinite-scroll-rev hover:cursor-pointer">
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <div className="p-4 z-50 w-dvw md:w-96">
+                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
+                              <div className="flex items-center mb-3">
+                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
+                                <div>
+                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
+                                  <h5 className="text-xs italic">
+                                    krichexe
+                                  </h5>
+                                </div>
+                              </div>
+                              <div className="flex-grow">
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
-            </section>
-            {/* <div className="scroll-container overflow-x-hidden">
-              <div className="scroll-content flex space-x-4">
-                <div className="flex flex-wrap -m-4">
-                  <div className="xl:w-1/4 md:w-1/2 p-4">
-                    <div className="bg-navy p-6 rounded-lg">
-                      <Image className="h-40 rounded w-full object-cover object-center mb-6" src="/QuixLogo.png" width={720} height={600} alt="content"></Image>
-                      <h3 className="tracking-widest text-indigo-500 text-xs font-medium font-poppins">SUBTITLE</h3>
-                      <h2 className="text-lg text-gray-300 font-medium font-poppins mb-4">Chichen Itza</h2>
-                      <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+              </section>
+              {/* <div className="scroll-container overflow-x-hidden">
+                <div className="scroll-content flex space-x-4">
+                  <div className="flex flex-wrap -m-4">
+                    <div className="xl:w-1/4 md:w-1/2 p-4">
+                      <div className="bg-navy p-6 rounded-lg">
+                        <Image className="h-40 rounded w-full object-cover object-center mb-6" src="/QuixLogo.png" width={720} height={600} alt="content"></Image>
+                        <h3 className="tracking-widest text-indigo-500 text-xs font-medium font-poppins">SUBTITLE</h3>
+                        <h2 className="text-lg text-gray-300 font-medium font-poppins mb-4">Chichen Itza</h2>
+                        <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="xl:w-1/4 md:w-1/2 p-4">
-                    <div className="bg-navy p-6 rounded-lg">
-                      <Image className="h-40 rounded w-full object-cover object-center mb-6" src="/QuixLogo.png" width={720} height={600} alt="content"></Image>
-                      <h3 className="tracking-widest text-indigo-500 text-xs font-medium font-poppins">SUBTITLE</h3>
-                      <h2 className="text-lg text-gray-300 font-medium font-poppins mb-4">Colosseum Roma</h2>
-                      <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+                    <div className="xl:w-1/4 md:w-1/2 p-4">
+                      <div className="bg-navy p-6 rounded-lg">
+                        <Image className="h-40 rounded w-full object-cover object-center mb-6" src="/QuixLogo.png" width={720} height={600} alt="content"></Image>
+                        <h3 className="tracking-widest text-indigo-500 text-xs font-medium font-poppins">SUBTITLE</h3>
+                        <h2 className="text-lg text-gray-300 font-medium font-poppins mb-4">Colosseum Roma</h2>
+                        <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="xl:w-1/4 md:w-1/2 p-4">
-                    <div className="bg-navy p-6 rounded-lg">
-                      <Image className="h-40 rounded w-full object-cover object-center mb-6" src="/QuixLogo.png" width={720} height={600} alt="content"></Image>
-                      <h3 className="tracking-widest text-indigo-500 text-xs font-medium font-poppins">SUBTITLE</h3>
-                      <h2 className="text-lg text-gray-300 font-medium font-poppins mb-4">Great Pyramid of Giza</h2>
-                      <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+                    <div className="xl:w-1/4 md:w-1/2 p-4">
+                      <div className="bg-navy p-6 rounded-lg">
+                        <Image className="h-40 rounded w-full object-cover object-center mb-6" src="/QuixLogo.png" width={720} height={600} alt="content"></Image>
+                        <h3 className="tracking-widest text-indigo-500 text-xs font-medium font-poppins">SUBTITLE</h3>
+                        <h2 className="text-lg text-gray-300 font-medium font-poppins mb-4">Great Pyramid of Giza</h2>
+                        <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="xl:w-1/4 md:w-1/2 p-4">
-                    <div className="bg-navy p-6 rounded-lg">
-                      <Image className="h-40 rounded w-full object-cover object-center mb-6" src="/QuixLogo.png" width={720} height={600} alt="content"></Image>
-                      <h3 className="tracking-widest text-indigo-500 text-xs font-medium font-poppins">SUBTITLE</h3>
-                      <h2 className="text-lg text-gray-300 font-medium font-poppins mb-4">San Francisco</h2>
-                      <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+                    <div className="xl:w-1/4 md:w-1/2 p-4">
+                      <div className="bg-navy p-6 rounded-lg">
+                        <Image className="h-40 rounded w-full object-cover object-center mb-6" src="/QuixLogo.png" width={720} height={600} alt="content"></Image>
+                        <h3 className="tracking-widest text-indigo-500 text-xs font-medium font-poppins">SUBTITLE</h3>
+                        <h2 className="text-lg text-gray-300 font-medium font-poppins mb-4">San Francisco</h2>
+                        <p className="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div> */}
-          </div>
+              </div> */}
+            </div>
         </section>
         <section className="text-gray-200 font-poppins">
           <div className="container px-5 py-24 mx-auto">
@@ -369,7 +977,7 @@ export default function Home() {
               <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
                 <h2 className="text-base font-semibold tracking-wider leading-7 text-link mb-3">FEATURES</h2>
                 <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Empowering Tools</h2>
-                <p className="mt-2 text-lg leading-8 w-[110%] ml-[-5%] text-gray-200">Discover the suite of innovative features that make Quix the ultimate study companion. From intuitive design to advanced functionality, Quix is tailored to enhance every aspect of your learning journey.</p>
+                <p className="mt-2 text-base leading-8 w-[110%] ml-[-5%] text-gray-200">Discover the suite of innovative features that make Quix the ultimate study companion. From intuitive design to advanced functionality, Quix is tailored to enhance every aspect of your learning journey.</p>
               </div>
               {/* <h1 className="sm:text-3xl text-2xl font-medium font-poppins text-gray-300 mb-4">Empowering Tools</h1>
               <p className="text-base leading-relaxed xl:w-2/3 lg:w-3/4 mx-auto text-gray-500s">Discover the suite of innovative features that make Quix the ultimate study companion. From intuitive design to advanced functionality, Quix is tailored to enhance every aspect of your learning journey.</p> */}
@@ -377,8 +985,8 @@ export default function Home() {
                 <div className="w-16 h-1 rounded-full bg-link inline-flex"></div>
               </div>
             </div>
-            <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
-              <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
+            <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6 justify-center">
+              <div className="p-4 md:w-[30%] flex flex-col text-center items-center rounded-2xl border-gray-300 border-2 mr-5 bg-cover bg-no-repeat sm:bg-cover md:bg-auto bg-top" style={{backgroundImage: 'url("/FeaturesBG.png")'}}>
                 <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
                   {/* <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10" viewBox="0 0 24 24">
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
@@ -386,23 +994,44 @@ export default function Home() {
                   <Image src="/puzzle.png" alt="unique puzzle" width={35} height={35}></Image>
                 </div>
                 <div className="flex-grow">
-                  <h2 className="text-gray-300 text-xl font-poppins font-medium mb-3">Personalized Learning Paths</h2>
-                  <p className="leading-relaxed text-base">Tailor your study journey with personalized learning paths that adapt to your strengths and weaknesses. Quix&apos;s intelligent algorithms analyze your progress and recommend targeted resources to optimize learning outcomes.</p>
-                  <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/personalization">Learn More
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                      <path d="M5 12h14M12 5l7 7-7 7"></path>
-                    </svg>
-                  </a>
+                  <h2 className="text-gray-300 text-xl font-poppins font-semibold mb-3">Personalized Learning Paths</h2>
+                  <div className="bg-[#0B0E0F] sm:w-[105%] md:w-[108%] sm:ml-[-2.5%] md:ml-[-4%] sm:h-[85%] md:h-[88%] rounded-b-2xl pt-6 pb-2 px-4">
+                    <p className="leading-relaxed text-base">Tailor your study journey with personalized learning paths that adapt to your strengths and weaknesses. Quix&apos;s intelligent algorithms analyze your progress and recommend targeted resources to optimize learning outcomes.</p>
+                    <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/personalization">Learn More
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
+              <div className="p-4 md:w-[30%] flex flex-col text-center items-center rounded-2xl border-gray-300 border-2 mr-5 bg-cover bg-no-repeat sm:bg-cover md:bg-auto bg-top" style={{backgroundImage: 'url("/FeaturesBG.png")'}}>
                 <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                  {/* <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10" viewBox="0 0 24 24">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                  </svg> */}
+                  <Image src="/repeat.png" alt="feedback loop" width={38} height={38}></Image>
+                </div>
+                <div className="flex-grow">
+                  <h2 className="text-gray-300 text-xl font-poppins font-semibold mb-3">Interactive Study Guides</h2>
+                  <div className="bg-[#0B0E0F] sm:w-[105%] md:w-[108%] sm:ml-[-2.5%] md:ml-[-4%] sm:h-[85%] md:h-[88%] rounded-b-2xl pt-6 pb-2 px-4">
+                    <p className="leading-relaxed text-base">Dive into comprehensive study guides curated by experts in various subjects. Interactive elements and multimedia resources ensure engaging and effective learning experiences.</p>
+                    <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/personalization">Learn More
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
+                <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0"> */}
                   {/* <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10" viewBox="0 0 24 24">
                     <circle cx="6" cy="6" r="3"></circle>
                     <circle cx="6" cy="18" r="3"></circle>
                     <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
                   </svg> */}
-                  <Image src="/repeat.png" alt="feedback loop" width={38} height={38}></Image>
+                  {/* <Image src="/repeat.png" alt="feedback loop" width={38} height={38}></Image>
                 </div>
                 <div className="flex-grow">
                   <h2 className="text-gray-300 text-xl font-poppins font-medium mb-3">Interactive Study Guides</h2>
@@ -413,13 +1042,13 @@ export default function Home() {
                     </svg>
                   </a>
                 </div>
-              </div>
-              <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
-                <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+              </div> */}
+              {/* <div className="p-4 md:w-1/3 flex flex-col text-center items-center">
+                <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0"> */}
                   {/* <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10" viewBox="0 0 24 24">
                     <path d="M3 15L9 9L15 15L21 9M21 9L27 15M27 15L33 9M33 9L39 15"></path>
                   </svg> */}
-                  <Image src="/economy.png" alt="upward graph" width={46} height={46}></Image>
+                  {/* <Image src="/economy.png" alt="upward graph" width={46} height={46}></Image>
                 </div>
                 <div className="flex-grow">
                   <h2 className="text-gray-300 text-xl font-poppins font-medium mb-3">Real-time Performance Insights</h2>
@@ -430,136 +1059,32 @@ export default function Home() {
                     </svg>
                   </a>
                 </div>
+              </div> */}
+              <div className="p-4 md:w-[30%] flex flex-col text-center items-center rounded-2xl border-gray-300 border-2 bg-cover bg-no-repeat sm:bg-cover md:bg-auto bg-top" style={{backgroundImage: 'url("/FeaturesBG.png")'}}>
+                <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                  {/* <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10" viewBox="0 0 24 24">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                  </svg> */}
+                  <Image src="/economy.png" alt="upward graph" width={46} height={46}></Image>
+                </div>
+                <div className="flex-grow">
+                  <h2 className="text-gray-300 text-xl font-poppins font-semibold mb-3">Real-time Performance Insights</h2>
+                  <div className="bg-[#0B0E0F] sm:w-[105%] md:w-[108%] sm:ml-[-2.5%] md:ml-[-4%] sm:h-[85%] md:h-[88%] rounded-b-2xl pt-6 pb-2 px-4">
+                    <p className="leading-relaxed text-base">Stay on top of your academic goals with real-time progress tracking. Visualize your achievements, track study time, and monitor quiz scores to identify areas for improvement and celebrate successes.</p>
+                    <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/personalization">Learn More
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
             <br></br>
             <br></br>
           </div>
         </section>
-        <div className="flex justify-center pt-8 pb-36">
-          <div className="w-full px-5 md:px-1 md:w-3/4 flex flex-col md:flex-row py-6 justify-center gap-x-5 relative">
-            <svg className="flex w-full lg:hidden absolute -left-12 rounded-full bottom-20 shadow-2xl" width="320" height="491" viewBox="0 0 320 491" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g opacity="0.2" filter="url(#filter0_f_130_900)">
-                <ellipse cx="399.5" cy="404.5" rx="249.5" ry="254.5" fill="#5000B5"></ellipse>
-              </g>
-              <defs>
-                <filter id="filter0_f_130_900" x="0" y="0" width="799" height="809" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
-                  <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
-                  <feGaussianBlur stdDeviation="75" result="effect1_foregroundBlur_130_900"></feGaussianBlur>
-                </filter>
-              </defs>
-            </svg>
-            <svg className="hidden lg:flex absolute inset-x-0 bottom-4 left-1/3 rounded-full shadow-2xl " width="499" height="509" viewBox="0 0 499 509" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g opacity="0.2" filter="url(#filter0_f_130_900)">
-                <ellipse cx="399.5" cy="404.5" rx="249.5" ry="254.5" fill="#5000B5"></ellipse>
-              </g>
-              <defs>
-                <filter id="filter0_f_130_900" x="0" y="0" width="799" height="809" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
-                  <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
-                  <feGaussianBlur stdDeviation="75" result="effect1_foregroundBlur_130_900"></feGaussianBlur>
-                </filter>
-              </defs>
-            </svg>
-            <div className="p-4 w-full">
-              <div className="h-full p-6 rounded-2xl bg-navy border border-gray-300 flex flex-col relative overflow-hidden">
-                <h1 className="text-3xl text-[#F0F0F0] pb-4 mb-4 font-bold leading-none">Basic</h1>
-                <p className="text-[#F0F0F0] text-2xl font-medium">$0</p>
-                <p className="text-[#595959] text-sm pt-1 pb-2">Limited block trails for teams</p>
-                <button className="bg-gradient-to-b from-[#000000] to-[#282637] mt-1 mb-5 rounded-md py-2 px-4">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Get Started</span>
-                </button>
-                <p className="flex items-center text-gray-400 mb-2">
-                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                      <path d="M20 6L9 17l-5-5"></path>
-                    </svg>
-                  </span>
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Unlimited blocks for teams</span>
-                </p>
-                <p className="flex items-center text-gray-400 mb-2">
-                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                      <path d="M20 6L9 17l-5-5"></path>
-                    </svg>
-                  </span>
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Unlimited file uploads</span>
-                </p>
-                <p className="flex items-center text-gray-400 mb-2">
-                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                      <path d="M20 6L9 17l-5-5"></path>
-                    </svg>
-                  </span>
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">30 day page history</span>
-                </p>
-                <p className="flex items-center text-gray-400 mb-6">
-                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                      <path d="M20 6L9 17l-5-5"></path>
-                    </svg>
-                  </span>
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Invite 100 guests</span>
-                </p>
-              </div>
-              </div>
-              <div className="p-4 w-full">
-                <div className="h-full p-6 rounded-2xl bg-navy border border-link flex flex-col relative overflow-hidden">
-                  <Image src="/repeat.png" className="absolute top-5 right-5" width={30} height={30} alt="diamond" />
-                  <h1 className="text-3xl text-[#F0F0F0] pb-4 mb-4 font-bold leading-none">Premium</h1>
-                  <p className="text-[#F0F0F0] text-2xl font-medium">$12.99
-                    <span className="text-[#595959] text-sm pt-1 pb-2">/mo</span>
-                  </p>
-                  <p className="text-[#595959] text-sm pt-1 pb-2">Billed annually $17 billed monthly</p>
-                  <button className="bg-gradient-to-b from-[#000000] to-[#282637] mt-1 mb-5 rounded-md py-2 px-4">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Get Started</span>
-                  </button>
-                  <p className="flex items-center text-gray-400 mb-2">
-                    <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
-                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                        <path d="M20 6L9 17l-5-5"></path>
-                      </svg>
-                    </span>
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Everything in free +</span>
-                  </p>
-                  <p className="flex items-center text-gray-400 mb-2">
-                    <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
-                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                        <path d="M20 6L9 17l-5-5"></path>
-                      </svg>
-                    </span>
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Unlimited blocks for teams</span>
-                  </p>
-                  <p className="flex items-center text-gray-400 mb-2">
-                    <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
-                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                        <path d="M20 6L9 17l-5-5"></path>
-                      </svg>
-                    </span>
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Unlimited file uploads</span>
-                  </p>
-                  <p className="flex items-center text-gray-400 mb-2">
-                    <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
-                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                        <path d="M20 6L9 17l-5-5"></path>
-                      </svg>
-                    </span>
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">30 day page history</span>
-                  </p>
-                  <p className="flex items-center text-gray-400 mb-6">
-                    <span className="w-4 h-4 mr-2 inline-flex items-center justify-center text-[#5C79E1] rounded-full flex-shrink-0">
-                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                        <path d="M20 6L9 17l-5-5"></path>
-                      </svg>
-                    </span>
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D9D9D9] to-[#8D8C95] ">Invite 100 guests</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="max-w-screen-xl mx-auto px-5 min-h-sceen">
+          <div className="max-w-screen-xl mx-auto px-5 pt-10 min-h-sceen">
             <div className="flex flex-col items-center">
               <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
                 <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">FAQs</h2>
