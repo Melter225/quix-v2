@@ -123,7 +123,7 @@ export default function Features() {
                     </div>
                     <div className="flex flex-col items-center text-center justify-center">
                         <h2 className="font-medium font-poppins mt-4 text-gray-300 text-lg">Phoebe Caulfield</h2>
-                        <div className="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
+                        <div className="w-12 h-1 bg-link rounded mt-2 mb-4"></div>
                         <p className="text-base">Raclette knausgaard hella meggs normcore williamsburg enamel pin sartorial venmo tbh hot chicken gentrify portland.</p>
                     </div>
                     </div>
@@ -137,7 +137,7 @@ export default function Features() {
                 <div className="flex flex-wrap w-full mb-20">
                 <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
                     <h1 className="sm:text-3xl text-2xl font-medium font-poppins mb-2 text-gray-300">Pitchfork Kickstarter Taxidermy</h1>
-                    <div className="h-1 w-20 bg-indigo-500 rounded"></div>
+                    <div className="h-1 w-20 bg-link rounded"></div>
                     <Image alt="content" className="object-cover object-center h-full w-full" src="/QuixLogo.png" width={1200} height={250}></Image>
                 </div>
                 <p className="lg:w-1/2 w-full leading-relaxed text-base text-gray-200">Moreover, Quix offers premium features that further enhance personalization. With our premium subscription, you gain access to advanced features such as viewing your personal test scores and the prioritization of tests based on your performance and study goals. Imagine having a dashboard that not only displays your test scores but also provides insights into which tests require your immediate attention, helping you optimize your study time and focus on areas that need improvement.</p>

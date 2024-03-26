@@ -220,7 +220,7 @@ export default function Home() {
               </filter>
             </defs>
           </svg>
-          <div className="pb-32 lg:pb-2 lg:min-h-dvh flex flex-col px-5 md:px-1 pt-10 md:pt-30 lg:pt-30 lg:justify-center items-center">
+          <div className="pb-32 lg:pb-2 lg:min-h-dvh flex flex-col px-5 md:px-1 pt-[13rem] md:pt-[13rem] lg:pt-[7rem] lg:justify-center items-center">
             <div className="container mx-auto flex items-start md:items-center justify-center flex-col max-w-screen-md px-4 lg:px-1">
               <div className="bg-gradient-to-r p-[0.12rem] from-[#0500E8] to-[#7000FF] rounded-full">
                 <button className="bg-[#1F1F1F] rounded-full py-2 px-5 text-[#C4C1FF] hover:cursor-default font-semibold">Try For Free</button>
@@ -230,7 +230,7 @@ export default function Home() {
                   <span className="bg-gradient-to-r from-[#B6B5CE] via-[#589BFF] to-[#9643FF] inline-block text-transparent bg-clip-text">Quix</span>
                   : The Future of Education
                 </h1>
-                <p className="mb-8 leading-relaxed text-gray-200"></p><h3 className="text-xl font-semibold text-gray-200">Introducing Quix - your academic ally in the digital age</h3> <p className="text-gray-200 text-sm"><br></br> With Quix, say goodbye to the days of frantic cramming and endless resource hunting. Our sleek interface, built with a Flask backend, Next.js, and Tailwind CSS, puts the power of preparation at your fingertips. Quix transforms your browser into a digital classroom, where every click brings you one step closer to academic success. And it&apos;s not just for students. It&apos;s a versatile tool catering to lifelong learners and adults hungry for knowledge. Whether you&apos;e seeking to master a subject quickly or simply explore new topics efficiently, Quix adapts seamlessly to your needs. Say hello to a smarter, more efficient way to learn with Quix.</p>
+                <p className="mb-8 leading-relaxed text-gray-200"></p><h3 className="text-xl font-semibold text-gray-200">Introducing Quix - your academic ally in the digital age</h3> <p className="text-gray-200 text-sm"><br></br> With Quix, say goodbye to the days of frantic cramming and endless resource hunting. Our sleek interface, built with a Flask backend, Next.js, and Tailwind CSS, puts the power of preparation at your fingertips. Quix transforms your browser into a digital classroom, where every click brings you one step closer to academic success. And it&apos;s not just for students. Quix is a versatile tool catering to lifelong learners and adults hungry for knowledge. Whether you&apos;e seeking to master a subject quickly or simply explore new topics efficiently, Quix adapts seamlessly to your needs. Say hello to a smarter, more efficient way to learn with Quix.</p>
                 <br></br>
                 <div className="flex md:justify-center py-6">
                   <div className="bg-gradient-to-r p-px from-[#7000FF] via-[#5C79E1] to-[#1205B4] rounded-2xl">
@@ -273,7 +273,7 @@ export default function Home() {
             </div>
             <section className="text-gray-600 overflow-hidden">
               <div>
-                <div className="parent-hover flex w-max space-x-4 animate-marquee">
+                <div className="parent-hover">
                   <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                     <ul className="row-fin flex items-center justify-center md:justify-start [&amp;_li]:mx-8 [&amp;_img]:max-w-none animate-infinite-scroll hover:cursor-pointer">
                       <li>
@@ -290,7 +290,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -310,7 +310,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -330,7 +330,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -350,7 +350,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -370,7 +370,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -390,7 +390,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -410,7 +410,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -430,7 +430,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -452,7 +452,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -472,7 +472,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -492,7 +492,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -512,7 +512,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -532,7 +532,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -552,7 +552,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -572,7 +572,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -592,7 +592,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -618,7 +618,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -638,7 +638,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -658,7 +658,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -678,7 +678,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -698,7 +698,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -718,7 +718,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -738,7 +738,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -758,7 +758,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -780,7 +780,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -800,7 +800,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -820,7 +820,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -840,7 +840,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -860,7 +860,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -880,7 +880,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -900,7 +900,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>
@@ -920,7 +920,7 @@ export default function Home() {
                                 </div>
                               </div>
                               <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos; constantly looking for ways  </p>
+                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
                               </div>
                             </div>
                           </div>

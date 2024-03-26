@@ -140,7 +140,7 @@ const Billing = () => {
                 </div>
                 <div className={`${clicked ? 'hidden' : 'block'} flex flex-wrap -m-4`}>
                   <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
-                    <div className="h-full p-6 rounded-2xl border-2 border-gray-300 flex flex-col relative overflow-hidden bg-navy">
+                    <div className="h-full p-6 rounded-xl border-2 border-gray-300 flex flex-col relative overflow-hidden bg-navy">
                     <h2 className="text-sm tracking-widest font-poppins mb-1 font-semibold">BASIC</h2>
                     <h1 className="text-5xl text-gray-300 pb-4 mb-4 border-b border-gray-200 leading-none font-bold tracking-tight">Free</h1>
                     <p className="flex items-center text-gray-200 mb-2">
@@ -170,7 +170,7 @@ const Billing = () => {
                     </div>
                 </div>
                 <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
-                    <div className="h-full p-6 rounded-2xl border-2 border-link flex flex-col relative overflow-hidden bg-navy">
+                    <div className="h-full p-6 rounded-xl border-2 border-link flex flex-col relative overflow-hidden bg-navy">
                     <span className="bg-link text-gray-200 px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">POPULAR</span>
                     <h2 className="text-sm tracking-widest font-poppins mb-1 font-bold">PLUS</h2>
                     <h1 className="text-5xl text-gray-300 leading-none flex items-center pb-4 mb-4 border-b border-gray-200">
@@ -211,7 +211,7 @@ const Billing = () => {
                     </div>
                 </div>
                 <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
-                    <div className="h-full p-6 rounded-2xl border-2 border-gray-300 flex flex-col relative overflow-hidden bg-navy">
+                    <div className="h-full p-6 rounded-xl border-2 border-gray-300 flex flex-col relative overflow-hidden bg-navy">
                     <h2 className="text-sm tracking-widest font-poppins mb-1 font-bold">PREMIUM</h2>
                     <h1 className="text-5xl text-gray-300 leading-none flex items-center pb-4 mb-4 border-b border-gray-200">
                         <span className="font-bold tracking-tight">$14.99</span>
@@ -266,12 +266,13 @@ const Billing = () => {
                   </div>
                 </div>
                 <div className={`${clicked ? 'block' : 'hidden'} flex flex-wrap -m-4`}>
-                  <div className="mx-auto max-w-2xl rounded-3xl ring-1 ring-gray-200 bg-navy lg:mx-0 lg:flex lg:max-w-none">
+                  <div className="mx-auto max-w-2xl rounded-2xl ring-1 ring-gray-200 bg-navy lg:mx-0 lg:flex lg:max-w-none">
                     <div className="p-8 sm:p-10 lg:flex-auto">
                       {/* <h3 className="text-2xl font-bold tracking-widest text-gray-300">Premium Annual</h3> */}
-                      <h1 className="text-5xl text-gray-300 leading-none flex items-center">
-                        <span className="font-bold tracking-tight">17%</span>
-                        <span className="text-lg ml-3 font-semibold text-gray-200">Discount</span>
+                      <h1 className="text-3xl text-gray-300 leading-none flex items-center">
+                        <span className="font-bold tracking-tight">Premium Annual</span>
+                        {/* <span className="font-bold tracking-tight">Premium Annual</span> */}
+                        {/* <span className="text-lg ml-3 font-semibold text-gray-200">Discount</span> */}
                       </h1>
                       <p className="mt-6 text-base leading-7 text-gray-200">The Premium Annual plan includes all the perks and features of the premium plan at an annual subscription rate, featuring a 17% discount.</p>
                       <div className="mt-10 flex items-center gap-x-4">
