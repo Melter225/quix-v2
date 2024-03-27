@@ -5,36 +5,3 @@
 body {
   background-color: #030c17; /* Replace with your desired color */
 }
-
-/* Define animations */
-@keyframes moveLeft {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes moveRight {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-/* Apply animations to the rows */
-.parent-hover {
-  animation: moveLeft 10s linear infinite;
-}
-
-.parent-hover2 {
-  animation: moveRight 10s linear infinite;
-}
-
-/* Stop animations on hover */
-.parent-hover:hover, .parent-hover2:hover {
-  animation-play-state: paused;
-}

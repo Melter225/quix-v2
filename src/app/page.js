@@ -1,9 +1,12 @@
 "use client"
 
+import React from 'react';
 import Image from "next/image";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import Card from './card';
+import './testimonials.css'
 
 const navigation = [
   { name: 'Features', href: '/features', image: '/features.png' },
@@ -11,8 +14,83 @@ const navigation = [
   { name: 'Billing', href: '/billing', image: '/billing.png' },
 ]
 
+const Card_list = [
+    {
+        image_src: '/testimonial.jpg',
+        heading: 'Krich Exe',
+        username: 'krichexe',
+        sub_text:
+            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+    },
+    {
+        image_src: '/testimonial.jpg',
+        heading: 'Krich Exe',
+        username: 'krichexe',
+        sub_text:
+            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+    },
+    {
+        image_src: '/testimonial.jpg',
+        heading: 'Krich Exe',
+        username: 'krichexe',
+        sub_text:
+            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+    },
+    {
+        image_src: '/testimonial.jpg',
+        heading: 'Krich Exe',
+        username: 'krichexe',
+        sub_text:
+            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+    },
+    {
+        image_src: '/testimonial.jpg',
+        heading: 'Krich Exe',
+        username: 'krichexe',
+        sub_text:
+            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+    },
+    {
+        image_src: '/testimonial.jpg',
+        heading: 'Krich Exe',
+        username: 'krichexe',
+        sub_text:
+            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+    },
+    {
+        image_src: '/testimonial.jpg',
+        heading: 'Krich Exe',
+        username: 'krichexe',
+        sub_text:
+            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+    },
+    {
+        image_src: '/testimonial.jpg',
+        heading: 'Krich Exe',
+        username: 'krichexe',
+        sub_text:
+            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+    },
+];
 
 export default function Home() {
+    useEffect(() => {
+        const style = document.createElement('style');
+        style.textContent = `
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none; 
+                scrollbarWidth: none;
+            }
+        `;
+        document.head.appendChild(style);
+        return () => {
+            document.head.removeChild(style);
+        };
+    }, []);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -220,7 +298,7 @@ export default function Home() {
               </filter>
             </defs>
           </svg>
-          <div className="pb-32 lg:pb-2 lg:min-h-dvh flex flex-col px-5 md:px-1 pt-[13rem] md:pt-[13rem] lg:pt-[7rem] lg:justify-center items-center">
+          <div className="pb-32 lg:pb-2 lg:min-h-dvh flex flex-col px-5 md:px-1 pt-[13rem] md:pt-[13rem] lg:pt-[7rem] lg:justify-center items-center bg-[#030c17]">
             <div className="container mx-auto flex items-start md:items-center justify-center flex-col max-w-screen-md px-4 lg:px-1">
               <div className="bg-gradient-to-r p-[0.12rem] from-[#0500E8] to-[#7000FF] rounded-full">
                 <button className="bg-[#1F1F1F] rounded-full py-2 px-5 text-[#C4C1FF] hover:cursor-default font-semibold">Try For Free</button>
@@ -256,681 +334,21 @@ export default function Home() {
             </div>
           </div>
         </section> */}
-        <section className="text-gray-200 font-poppins">
+        {/* <section className="text-gray-200 font-poppins">
           <div className="container px-5 pb-24 pt-20 mx-auto">
             <div className="flex flex-wrap w-full mb-20">
               <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
                 <h2 className="text-base font-semibold tracking-wider leading-7 text-link mb-3">TESTIMONIALS</h2>
                 <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Unlock Your Potential</h2>
-                <div className="h-1 w-20 bg-link rounded"></div>
+                <div className="h-1 w-20 bg-link rounded"></div> */}
                 {/* <p className="mt-2 text-lg leading-8 w-[110%] ml-[-5%] text-gray-200">Discover how Quix can transform your learning experience and propel you towards success. With its user-friendly interface and comprehensive features, Quix makes learning efficient, effective, and enjoyable for learners of all ages.</p> */}
-              </div>
+              {/* </div> */}
               {/* <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
                 <h1 className="sm:text-3xl text-2xl font-medium font-poppins mb-2 text-gray-300">Unlock Your Potential</h1>
                 <div className="h-1 w-20 bg-indigo-500 rounded"></div>
               </div> */}
-              <p className="lg:w-1/2 text-base w-full leading-8 text-gray-200">Discover how Quix can transform your learning experience and propel you towards success. With its user-friendly interface and comprehensive features, Quix makes learning efficient, effective, and enjoyable for learners of all ages.</p>
-            </div>
-            <section className="text-gray-600 overflow-hidden">
-              <div>
-                <div className="parent-hover">
-                  <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-                    <ul className="row-fin flex items-center justify-center md:justify-start [&amp;_li]:mx-8 [&amp;_img]:max-w-none animate-infinite-scroll hover:cursor-pointer">
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                    <ul className="row-fin flex items-center justify-center md:justify-start [&amp;_li]:mx-8 [&amp;_img]:max-w-none animate-infinite-scroll hover:cursor-pointer">
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="parent-hover2">
-                  <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-                    <ul className="flex items-center justify-center md:justify-start [&amp;_li]:mx-8 [&amp;_img]:max-w-none animate-infinite-scroll-rev hover:cursor-pointer">
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                    <ul className="flex items-center justify-center md:justify-start [&amp;_li]:mx-8 [&amp;_img]:max-w-none animate-infinite-scroll-rev hover:cursor-pointer">
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div>
-                          <div className="p-4 z-50 w-dvw md:w-96">
-                            <div className="flex rounded-lg h-full bg-gradient-to-b from-[#030014] to-[#201F30] bg-opacity-60 p-8 flex-col text-[#817EB5]">
-                              <div className="flex items-center mb-3">
-                                <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0"><Image src="/testimonial.jpg" alt="testimonial" width={75} height={75} /></div>
-                                <div>
-                                  <h2 className="text-md title-font font-medium">Krich Exe</h2>
-                                  <h5 className="text-xs italic">
-                                    krichexe
-                                  </h5>
-                                </div>
-                              </div>
-                              <div className="flex-grow">
-                                <p className="leading-relaxed text-sm text-[#64628C]">Discovering cypress has been a game-changer for my business. As a small business owner, I&apos;m constantly looking for ways  </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              </section>
+              {/* <p className="lg:w-1/2 text-base w-full leading-8 text-gray-200">Discover how Quix can transform your learning experience and propel you towards success. With its user-friendly interface and comprehensive features, Quix makes learning efficient, effective, and enjoyable for learners of all ages.</p> */}
+            {/* </div> */}
               {/* <div className="scroll-container overflow-x-hidden">
                 <div className="scroll-content flex space-x-4">
                   <div className="flex flex-wrap -m-4">
@@ -969,10 +387,89 @@ export default function Home() {
                   </div>
                 </div>
               </div> */}
-            </div>
-        </section>
+            {/* </div>
+        </section> */}
+        <div>
+            <section className="section-blue-purple text-gray-200 bg-[#030c17] font-poppins">
+                <div className="min-h-dvh pb-28 flex flex-col pt-40 px-5">
+                  <div className="flex flex-wrap w-full mb-20 px-8">
+                    <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
+                      <h2 className="text-base font-semibold tracking-wider leading-7 text-link mb-3">TESTIMONIALS</h2>
+                      <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Unlock Your Potential</h2>
+                      <div className="h-1 w-20 bg-link rounded"></div>
+                    </div>
+                    <p className="lg:w-1/2 text-base w-full leading-8 text-gray-200">Discover how Quix can transform your learning experience and propel you towards success. With its user-friendly interface and comprehensive features, Quix makes learning efficient, effective, and enjoyable for learners of all ages.</p>
+                  </div>
+                    {/* <div className="container mx-auto flex items-start md:items-center justify-center flex-col max-w-screen-md  px-8 lg:pt-40 md:px-1">
+                        <div className="bg-gradient-to-r p-px from-[#0500E8] to-[#7000FF] rounded-full mb-5">
+                            <div className="bg-[#1F1F1F] rounded-full py-2 px-8 md:px-6 text-xl ">
+                                <span className="bg-gradient-to-r from-[#A5A2E8] to-[#7000FF] font-bold inline-block text-transparent bg-clip-text">
+                                    Testimonials
+                                </span>
+                            </div>
+                        </div>
+                        <div className="md:text-center w-full">
+                            <div className="justify-center flex ">
+                                <p className="leading-relaxed mb-8 lg:w-3/5 text-sm md:text-center text-[#817EB5]">
+                                    Join thousands of satisfied users who rely
+                                    on our platform for their personal and
+                                    professional productivity needs.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div></div> */}
+                    <div>
+                        <div className="parent-hover">
+                            <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                                <ul className="row-fin flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll hover:cursor-pointer">
+                                    {Card_list.map((item, key) => {
+                                        return (
+                                            <li>
+                                                <Card key={key} {...item} />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                                <ul className="row-fin flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll hover:cursor-pointer">
+                                    {Card_list.map((item, key) => {
+                                        return (
+                                            <li>
+                                                <Card key={key} {...item} />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="parent-hover2">
+                            <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+                                <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll-rev hover:cursor-pointer">
+                                    {Card_list.map((item, key) => {
+                                        return (
+                                            <li>
+                                                <Card key={key} {...item} />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                                <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll-rev hover:cursor-pointer">
+                                    {Card_list.map((item, key) => {
+                                        return (
+                                            <li>
+                                                <Card key={key} {...item} />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
         <section className="text-gray-200 font-poppins">
-          <div className="container px-5 py-24 mx-auto">
+          <div className="container px-5 py-36 mx-auto">
             <div className="text-center mb-20">
               <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
                 <h2 className="text-base font-semibold tracking-wider leading-7 text-link mb-3">FEATURES</h2>
