@@ -17,57 +17,57 @@ const navigation = [
 const Card_list = [
     {
         image_src: '/testimonial.jpg',
-        heading: 'Krich Exe',
-        username: 'krichexe',
+        heading: 'Melter',
+        username: 'melter',
         sub_text:
             "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
     },
     {
         image_src: '/testimonial.jpg',
-        heading: 'Krich Exe',
-        username: 'krichexe',
+        heading: 'Melter',
+        username: 'melter',
         sub_text:
             "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
     },
     {
         image_src: '/testimonial.jpg',
-        heading: 'Krich Exe',
-        username: 'krichexe',
+        heading: 'Melter',
+        username: 'melter',
         sub_text:
             "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
     },
     {
         image_src: '/testimonial.jpg',
-        heading: 'Krich Exe',
-        username: 'krichexe',
+        heading: 'Melter',
+        username: 'melter',
         sub_text:
             "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
     },
     {
         image_src: '/testimonial.jpg',
-        heading: 'Krich Exe',
-        username: 'krichexe',
+        heading: 'Melter',
+        username: 'melter',
         sub_text:
             "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
     },
     {
         image_src: '/testimonial.jpg',
-        heading: 'Krich Exe',
-        username: 'krichexe',
+        heading: 'Melter',
+        username: 'melter',
         sub_text:
             "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
     },
     {
         image_src: '/testimonial.jpg',
-        heading: 'Krich Exe',
-        username: 'krichexe',
+        heading: 'Melter',
+        username: 'melter',
         sub_text:
             "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
     },
     {
         image_src: '/testimonial.jpg',
-        heading: 'Krich Exe',
-        username: 'krichexe',
+        heading: 'Melter',
+        username: 'melter',
         sub_text:
             "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
     },
@@ -425,8 +425,8 @@ export default function Home() {
                                 <ul className="row-fin flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll hover:cursor-pointer">
                                     {Card_list.map((item, key) => {
                                         return (
-                                            <li>
-                                                <Card key={key} {...item} />
+                                            <li key={key} >
+                                                <Card {...item} />
                                             </li>
                                         );
                                     })}
@@ -434,8 +434,8 @@ export default function Home() {
                                 <ul className="row-fin flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll hover:cursor-pointer">
                                     {Card_list.map((item, key) => {
                                         return (
-                                            <li>
-                                                <Card key={key} {...item} />
+                                            <li key={key} >
+                                                <Card {...item} />
                                             </li>
                                         );
                                     })}
@@ -447,8 +447,8 @@ export default function Home() {
                                 <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll-rev hover:cursor-pointer">
                                     {Card_list.map((item, key) => {
                                         return (
-                                            <li>
-                                                <Card key={key} {...item} />
+                                            <li key={key}>
+                                                <Card {...item} />
                                             </li>
                                         );
                                     })}
@@ -456,8 +456,8 @@ export default function Home() {
                                 <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll-rev hover:cursor-pointer">
                                     {Card_list.map((item, key) => {
                                         return (
-                                            <li>
-                                                <Card key={key} {...item} />
+                                            <li key={key}>
+                                                <Card {...item} />
                                             </li>
                                         );
                                     })}
