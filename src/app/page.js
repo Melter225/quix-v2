@@ -390,7 +390,7 @@ export default function Home() {
             {/* </div>
         </section> */}
         <div>
-            <section className="section-blue-purple text-gray-200 bg-[#030c17] font-poppins">
+            <section className="text-gray-200 bg-[#030c17] font-poppins">
                 <div className="min-h-dvh pb-28 flex flex-col pt-40 px-5">
                   <div className="flex flex-wrap w-full mb-20 px-8">
                     <div className="lg:w-1/2 w-full mb-6 lg:mb-0">

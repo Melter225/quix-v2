@@ -7,10 +7,6 @@
   }
 }
 @layer components {
-  .section-blue-purple {
-    position: relative;
-    background: rgba(23,23,23,1) 10%;
-  }
   .parent-hover:hover .animate-infinite-scroll {
       animation-play-state: paused !important;
   }

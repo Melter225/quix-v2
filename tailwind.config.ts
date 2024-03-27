@@ -37,7 +37,8 @@ const config: Config = {
         poppins: ["Poppins", "sans-serif"],
       },
       colors: {
-        navy: "#014466",
+        navy: "#013652",
+        darknavy: "#000e21",
         link: "#0077b6",
         link_hover: "#02689e",
       },
