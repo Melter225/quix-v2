@@ -5,7 +5,7 @@ export default function Card({image_src, heading, username, sub_text}) {
     return (
         <div>
             <div className="p-4 z-50 w-dvw md:w-96">
-                <div className="flex rounded-2xl h-full bg-darknavy border-gray-300 border-[2px] flex-col text-gray-200">
+                <div className="flex rounded-2xl h-full bg-gradient-to-b from-darknavy to-[#0B0E0F] border-gray-300 border-[2px] flex-col text-gray-200">
                     <div className="flex items-center mb-3 p-8">
                         <div className="w-18 h-18 mr-3 inline-flex items-center justify-center rounded-full flex-shrink-0">
                             <Image src={image_src} alt="profile" width={85} height={85} />
