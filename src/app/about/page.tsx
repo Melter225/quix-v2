@@ -18,7 +18,7 @@ export default function About() {
   return (
     <main className="font-poppins">
       <div>
-        <header className="inset-x-0 top-0 z-50 text-gray-200 bg-navy mt-0 font-poppins fixed w-screen">
+        bg-<header className="inset-x-0 top-0 z-50 text-gray-200 navglass mt-0 font-poppins fixed w-screen">
           <nav className="flex items-center justify-between p-5 lg:px-8" aria-label="Global">
             <div className="flex lg:flex-1">
               <a href="/" className="-m-1.5 p-1.5">

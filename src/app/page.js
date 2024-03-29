@@ -16,60 +16,60 @@ const navigation = [
 
 const Card_list = [
     {
-        image_src: '/testimonial.jpg',
-        heading: 'Melter',
-        username: 'melter',
+        image_src: '/testimonial_1.png',
+        heading: 'Ricardo Sanchez',
+        username: 'awesomedude2834',
         sub_text:
-            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+            "Quix is an amazing study tool! Its intuitive interface and thorough content streamline test preparation. The interactive quizzes and clear explanations enhance learning. Quix has boosted my confidence and exam readiness. Essential for students!",
     },
     {
         image_src: '/testimonial.jpg',
         heading: 'Melter',
         username: 'melter',
         sub_text:
-            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+            "Quix made mastering Excel a breeze! As a working professional, I quickly needed to upskill. Thanks to Quix, I went from Excel novice to confidently handling complex spreadsheets in just a few days. Now, data analysis is a piece of cake.",
     },
     {
         image_src: '/testimonial.jpg',
         heading: 'Melter',
         username: 'melter',
         sub_text:
-            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+            "Coding seemed like an impossible feat until Quix came along! With its interactive lessons and hands-on exercises, I dived into JavaScript in no time. Now, I'm building my own web applications, all thanks to Quix's enjoyable learning journey.",
     },
     {
         image_src: '/testimonial.jpg',
         heading: 'Melter',
         username: 'melter',
         sub_text:
-            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+            "Quix is a time-saver for busy professionals like me! With its concise yet thorough lessons, I quickly mastered project management principles. Now, I lead my team confidently, applying agile methodologies like a pro.",
     },
     {
         image_src: '/testimonial.jpg',
         heading: 'Melter',
         username: 'melter',
         sub_text:
-            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+            "Quix is my secret weapon for acing presentations! In just a weekend, I mastered public speaking techniques with Quix's expert guidance. Now, whether it's a boardroom meeting or a conference presentation, I captivate audiences effortlessly.",
     },
     {
         image_src: '/testimonial.jpg',
         heading: 'Melter',
         username: 'melter',
         sub_text:
-            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+            "Quix totally saved my GPA! I struggled with calculus until I found Quix. Thanks to Quix, derivatives and integrals suddenly made sense, and I aced my math exam feeling like a math whiz!",
     },
     {
         image_src: '/testimonial.jpg',
         heading: 'Melter',
         username: 'melter',
         sub_text:
-            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+            "Thanks to Quix, chemistry is no longer a mystery to me! I was clueless about chemical reactions until Quix broke it down for me. Now, I'm mixing compounds like a pro, impressing my lab partners along the way.",
     },
     {
         image_src: '/testimonial.jpg',
         heading: 'Melter',
         username: 'melter',
         sub_text:
-            "Discovering cypress has been a game-changer for my business. As a small business owner, I'm constantly looking for ways  ",
+            "Quix is the study buddy every student needs! With its easy-to-follow tutorials, I conquered Spanish in record time. Now, I'm acing my language exams and impressing my teacher with my fluency, all thanks to Quix.",
     },
 ];
 
@@ -122,7 +122,7 @@ export default function Home() {
                 </div>
             </div>
         </header> */}
-        <header className="inset-x-0 top-0 z-50 text-gray-200 bg-navy mt-0 font-poppins fixed w-screen">
+        <header className="inset-x-0 top-0 z-50 text-gray-200 navglass mt-0 font-poppins fixed w-screen">
           <nav className="flex items-center justify-between p-5 lg:px-8" aria-label="Global">
             <div className="flex lg:flex-1">
               <a href="/" className="-m-1.5 p-1.5">
@@ -298,19 +298,21 @@ export default function Home() {
               </filter>
             </defs>
           </svg>
-          <div className="pb-32 lg:pb-2 lg:min-h-dvh flex flex-col px-5 md:px-1 pt-[13rem] md:pt-[13rem] lg:pt-[7rem] lg:justify-center items-center bg-[#030c17]">
+          <div className="pb-32 lg:pb-2 lg:min-h-dvh flex flex-col px-5 md:px-1 pt-[13rem] md:pt-[13rem] lg:pt-[7rem] justify-center items-center bg-[#030c17]">
             <div className="container mx-auto flex items-start md:items-center justify-center flex-col max-w-screen-md px-4 lg:px-1">
-              <div className="bg-gradient-to-r p-[0.12rem] from-[#0500E8] to-[#7000FF] rounded-full">
-                <button className="bg-[#1F1F1F] rounded-full py-2 px-5 text-[#C4C1FF] hover:cursor-default font-semibold">Try For Free</button>
+              <div className="flex w-full justify-center">
+                <div className="bg-gradient-to-r p-[0.12rem] from-[#0500E8] to-[#7000FF] rounded-full">
+                  <button className="bg-[#1F1F1F] rounded-full py-2 px-5 text-[#C4C1FF] hover:cursor-default font-semibold">Try For Free</button>
+                </div>
               </div>
               <div className="md:text-center w-full">
-                <h1 className="md:leading-[64px] text-[#A5A2E8] text-3xl sm:text-5xl font-bold my-8">
+                <h1 className="md:leading-[64px] text-[#A5A2E8] text-3xl sm:text-5xl font-bold my-8 text-center">
                   <span className="bg-gradient-to-r from-[#B6B5CE] via-[#589BFF] to-[#9643FF] inline-block text-transparent bg-clip-text">Quix</span>
                   : The Future of Education
                 </h1>
-                <p className="mb-8 leading-relaxed text-gray-200"></p><h3 className="text-xl font-semibold text-gray-200">Introducing Quix - your academic ally in the digital age</h3> <p className="text-gray-200 text-sm"><br></br> With Quix, say goodbye to the days of frantic cramming and endless resource hunting. Our sleek interface, built with a Flask backend, Next.js, and Tailwind CSS, puts the power of preparation at your fingertips. Quix transforms your browser into a digital classroom, where every click brings you one step closer to academic success. And it&apos;s not just for students. Quix is a versatile tool catering to lifelong learners and adults hungry for knowledge. Whether you&apos;e seeking to master a subject quickly or simply explore new topics efficiently, Quix adapts seamlessly to your needs. Say hello to a smarter, more efficient way to learn with Quix.</p>
+                <p className="mb-8 leading-relaxed text-gray-200"></p><h3 className="text-xl font-semibold text-gray-200 text-center">Introducing Quix - your academic ally in the digital age</h3> <p className="text-gray-200 text-sm text-center"><br></br> With Quix, say goodbye to the days of endless resource hunting. Our sleek interface puts the power of preparation at your fingertips, transforming your browser into a digital classroom, where every click brings you one step closer to academic success. And it&apos;s not just for students. Quix is a versatile tool catering to lifelong learners and adults hungry for knowledge. Whether you&apos;e seeking to master a subject quickly or simply explore new topics efficiently, Quix adapts seamlessly to your needs. Say hello to a smarter, more efficient way to learn with Quix.</p>
                 <br></br>
-                <div className="flex md:justify-center py-6">
+                <div className="flex justify-center py-6">
                   <div className="bg-gradient-to-r p-px from-[#7000FF] via-[#5C79E1] to-[#1205B4] rounded-2xl">
                     <a className="inline-flex text-gray-200 bg-gradient-to-r bg-sky-700 shadow-lg shadow-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 hover:shadow-blue-800 transition-colors duration-200 rounded-2xl text-lg cursor-pointer font-semibold" href="/signup">Get Started</a>
                   </div>
@@ -471,7 +473,7 @@ export default function Home() {
         <section className="text-gray-200 font-poppins">
           <div className="container px-5 py-36 mx-auto">
             <div className="text-center mb-20">
-              <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
+              <div className="mx-auto max-w-2xl text-center mt-10 mb-5 px-8">
                 <h2 className="text-base font-semibold tracking-wider leading-7 text-link mb-3">FEATURES</h2>
                 <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Empowering Tools</h2>
                 <p className="mt-2 text-base leading-8 w-[110%] ml-[-5%] text-gray-200">Discover the suite of innovative features that make Quix the ultimate study companion. From intuitive design to advanced functionality, Quix is tailored to enhance every aspect of your learning journey.</p>
@@ -483,7 +485,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6 justify-center">
-              <div className="p-4 md:w-[30%] flex flex-col text-center items-center rounded-2xl border-gray-300 border-2 mr-5 bg-cover bg-no-repeat sm:bg-cover md:bg-auto bg-top" style={{backgroundImage: 'url("/FeaturesBG.png")'}}>
+              <div className="py-4 md:w-[30%] flex flex-col text-center items-center rounded-2xl border-gray-300 border-2 mr-5 bg-cover bg-no-repeat sm:bg-cover md:bg-auto bg-top" style={{backgroundImage: 'url("/FeaturesBG.png")'}}>
                 <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
                   {/* <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10" viewBox="0 0 24 24">
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
@@ -491,8 +493,8 @@ export default function Home() {
                   <Image src="/puzzle.png" alt="unique puzzle" width={35} height={35}></Image>
                 </div>
                 <div className="flex-grow">
-                  <h2 className="text-gray-300 text-xl font-poppins font-semibold mb-3">Personalized Learning Paths</h2>
-                  <div className="bg-[#0B0E0F] sm:w-[105%] md:w-[108%] sm:ml-[-2.5%] md:ml-[-4%] sm:h-[85%] md:h-[88%] rounded-b-2xl pt-6 pb-2 px-4">
+                  <h2 className="text-gray-300 text-xl font-poppins font-semibold mb-3 px-4">Personalized Learning Paths</h2>
+                  <div className="bg-[#0B0E0F] h-[85%] mt-4 sm:h-[85%] md:h-[87.6%] md:mt-[-0.21rem] sm:mt-4 lg:mt-4 rounded-b-2xl pt-6 pb-2 px-4">
                     <p className="leading-relaxed text-base">Tailor your study journey with personalized learning paths that adapt to your strengths and weaknesses. Quix&apos;s intelligent algorithms analyze your progress and recommend targeted resources to optimize learning outcomes.</p>
                     <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/personalization">Learn More
                       <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
@@ -502,7 +504,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="p-4 md:w-[30%] flex flex-col text-center items-center rounded-2xl border-gray-300 border-2 mr-5 bg-cover bg-no-repeat sm:bg-cover md:bg-auto bg-top" style={{backgroundImage: 'url("/FeaturesBG.png")'}}>
+              <div className="py-4 md:w-[30%] flex flex-col text-center items-center rounded-2xl border-gray-300 border-2 mr-5 bg-cover bg-no-repeat sm:bg-cover md:bg-auto bg-top" style={{backgroundImage: 'url("/FeaturesBG.png")'}}>
                 <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
                   {/* <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10" viewBox="0 0 24 24">
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
@@ -510,10 +512,10 @@ export default function Home() {
                   <Image src="/repeat.png" alt="feedback loop" width={38} height={38}></Image>
                 </div>
                 <div className="flex-grow">
-                  <h2 className="text-gray-300 text-xl font-poppins font-semibold mb-3">Interactive Study Guides</h2>
-                  <div className="bg-[#0B0E0F] sm:w-[105%] md:w-[108%] sm:ml-[-2.5%] md:ml-[-4%] sm:h-[85%] md:h-[88%] rounded-b-2xl pt-6 pb-2 px-4">
+                  <h2 className="text-gray-300 text-xl font-poppins font-semibold mb-3 px-4">Interactive Study Guides</h2>
+                  <div className="bg-[#0B0E0F] h-[85%] mt-4 sm:h-[85%] md:h-[87.6%] md:mt-[-0.21rem] sm:mt-4 lg:mt-4 rounded-b-2xl pt-6 pb-2 px-4">
                     <p className="leading-relaxed text-base">Dive into comprehensive study guides curated by experts in various subjects. Interactive elements and multimedia resources ensure engaging and effective learning experiences.</p>
-                    <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/personalization">Learn More
+                    <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/interactivity">Learn More
                       <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7"></path>
                       </svg>
@@ -557,12 +559,12 @@ export default function Home() {
                   </a>
                 </div>
               </div> */}
-              <div className="p-4 md:w-[30%] flex flex-col text-center items-center rounded-2xl border-gray-300 border-2 bg-cover bg-no-repeat sm:bg-cover md:bg-auto bg-top" style={{backgroundImage: 'url("/FeaturesBG.png")'}}>
-                <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+              {/* <div className="p-4 md:w-[30%] flex flex-col text-center items-center rounded-2xl border-gray-300 border-2 bg-cover bg-no-repeat sm:bg-cover md:bg-auto bg-top" style={{backgroundImage: 'url("/FeaturesBG.png")'}}>
+                <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0"> */}
                   {/* <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10" viewBox="0 0 24 24">
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                   </svg> */}
-                  <Image src="/economy.png" alt="upward graph" width={46} height={46}></Image>
+                  {/* <Image src="/economy.png" alt="upward graph" width={46} height={46}></Image>
                 </div>
                 <div className="flex-grow">
                   <h2 className="text-gray-300 text-xl font-poppins font-semibold mb-3">Real-time Performance Insights</h2>
@@ -575,7 +577,26 @@ export default function Home() {
                     </a>
                   </div>
                 </div>
+              </div> */}
+            <div className="py-4 md:w-[30%] flex flex-col text-center items-center rounded-2xl border-gray-300 border-2 bg-cover bg-no-repeat sm:bg-cover md:bg-auto bg-top" style={{backgroundImage: 'url("/FeaturesBG.png")'}}>
+              <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
+                {/* <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10" viewBox="0 0 24 24">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg> */}
+                <Image src="/economy.png" alt="upward graph" width={46} height={46}></Image>
               </div>
+              <div className="flex-grow">
+                <h2 className="text-gray-300 text-xl font-poppins font-semibold mb-3 px-4">Performance Analytics</h2>
+                <div className="bg-[#0B0E0F] h-[85%] mt-4 sm:h-[85%] md:h-[87.6%] md:mt-[-0.21rem] sm:mt-4 lg:mt-4 rounded-b-2xl pt-6 pb-2 px-4">
+                  <p className="leading-relaxed text-base">Stay on top of your academic goals with real-time progress tracking. Visualize your achievements, track study time, and monitor quiz scores to identify areas for improvement and celebrate successes.</p>
+                  <a className="mt-3 text-link inline-flex items-center cursor-pointer hover:text-link_hover transition-colors duration-200" href="/performance">Learn More
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
             </div>
             <br></br>
             <br></br>
@@ -583,7 +604,7 @@ export default function Home() {
         </section>
           <div className="max-w-screen-xl mx-auto px-5 pt-10 min-h-sceen">
             <div className="flex flex-col items-center">
-              <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
+              <div className="mx-auto max-w-2xl text-center mt-10 mb-5 px-8">
                 <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">FAQs</h2>
                 <p className="mt-2 text-lg leading-8 w-[110%] ml-[-5%] text-gray-200">Can’t find the answer you’re looking for? Reach out to our customer support team.</p>
               </div>
@@ -594,7 +615,7 @@ export default function Home() {
               Frequenty asked questions
             </p> */}
           </div>
-          <div className="grid divide-y divide-neutral-200 text-gray-200 max-w-4xl mx-auto mt-8">
+          <div className="grid divide-y divide-neutral-200 text-gray-200 max-w-4xl mx-auto mt-8 sm:px-8 px-4">
             <div className="py-5">
               <details className="group">
                 <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
@@ -704,7 +725,7 @@ export default function Home() {
               </details> */}
             {/* </div> */}
           </div>
-          <div className="flex justify-center mb-16">
+          <div className="flex justify-center mb-32 mt-4">
             <div className="bg-gradient-to-r p-px from-[#7000FF] via-[#5C79E1] to-[#1205B4] rounded-2xl">
               <a className="inline-flex text-gray-200 bg-gradient-to-r bg-sky-700 shadow-lg shadow-blue-900 border-0 py-2 px-6 focus:outline-none hover:bg-sky-600 hover:shadow-blue-800 transition-colors duration-200 rounded-2xl text-lg cursor-pointer font-semibold" href="/signup">Get Started</a>
             </div>
