@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { signIn } from 'next-auth/react';
+import { useState } from 'react'
 
 
 const Signin = () => {
@@ -9,8 +10,14 @@ const Signin = () => {
     await signIn('google', {callbackUrl:"/dashboard"}); // This triggers the authentication flow with Google
   };
 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+
+  const passwordEye = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
+
   return (
-    <main className="font-poppins">
+    <main className="font-poppins bg-gradient-to-b from-[#030c17] via-[#030c17] to-[#1C497C]">
       <div>
         <div className="h-screen md:flex font-poppins">
           <div className="relative overflow-hidden sm:hidden md:flex lg:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
@@ -47,49 +54,23 @@ const Signin = () => {
           <div className="flex md:w-[50%] sm:w-full h-screen justify-center py-10 items-center">
             <form className="bg-gray-300 rounded-xl lg:w-[69%] md:w-[82%] sm:w-[69%] w-[69%] shadow-gray-800 shadow-lg">
               <div className="w-full text-center">
-                <h1 className="text-gray-700 font-bold text-4xl mb-1 mt-12">Welcome Back</h1>
+                <h1 className="text-gray-700 font-bold text-[2.1rem] mb-1 mt-12">Welcome Back</h1>
                 <p className="text-xl font-normal text-gray-800 mb-7">Please enter your credentials</p>
-              </div>
-              <div className="flex items-center border-2 py-3 rounded-xl mb-4 border-gray-800 w-[80%] ml-[10%]">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800 ml-5" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
-                </svg>
-                <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="text" name="" id="" placeholder="Username" />
-              </div>
-              <div className="flex items-center border-2 py-3 rounded-xl mb-2 border-gray-800 w-[80%] ml-[10%]">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800 ml-5" viewBox="0 0 20 20"
-                  fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                    clip-rule="evenodd" />
-                </svg>
-                <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="password" name="" id="" placeholder="Password" />
-              </div>
-              <div className="w-full flex flex-wrap justify-between items-center mt-4">
-                <div className="flex items-center mb-2 ml-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] justify-center">
-                  <input type="checkbox" className="mr-1 text-link font-poppins bg-gray-100 border-gray-300 rounded"></input>
-                  <p className="text-gray-800 text-base">Remember Me</p>
-                </div>
-                <a className="text-center text-link hover:text-link_hover cursor-pointer text-base transition-colors duration-200 mr-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] ml-[10%] mb-0 sm:ml-[10%] md:ml-[10%] lg:ml-0 lg:mb-2 md:mb-0 sm:mb-0" href="/reset">Forgot Password?</a>
-              </div>
-              <div className="relative flex items-center justify-center w-[80%] ml-[10%] mt-6 border border-t border-gray-700">
-                <div className="absolute px-3 text-gray-800 bg-gray-300">Or</div>
               </div>
               <div className="flex mt-4 gap-x-2 w-[80%] ml-[10%]">
                 <button
                   onClick={GoogleOAuth}
                   type="button"
-                  className="flex items-center justify-center w-full p-2 border-2 border-gray-700 rounded-xl focus:ring-2 focus:ring-offset-1 focus:ring-violet-600"
+                  className="flex items-center justify-center w-full p-2 border-2 border-gray-700 rounded-lg focus:ring-2 focus:ring-offset-1 focus:ring-violet-600"
                 >
-                  <svg
+                  <Image src="/google.png" alt="google" width={20} height={20} />
+                  {/* <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 32 32"
                     className="w-5 h-5 fill-current"
                   >
                     <path d="M16.318 13.714v5.484h9.078c-0.37 2.354-2.745 6.901-9.078 6.901-5.458 0-9.917-4.521-9.917-10.099s4.458-10.099 9.917-10.099c3.109 0 5.193 1.318 6.38 2.464l4.339-4.182c-2.786-2.599-6.396-4.182-10.719-4.182-8.844 0-16 7.151-16 16s7.156 16 16 16c9.234 0 15.365-6.49 15.365-15.635 0-1.052-0.115-1.854-0.255-2.651z"></path>
-                  </svg>
+                  </svg> */}
                   <p className="ml-3">Continue with Google</p>
                 </button>
                 {/* <button className="flex items-center justify-center w-full p-2 border-2 border-gray-700 rounded-md focus:ring-2 focus:ring-offset-1 focus:ring-violet-600">
@@ -111,15 +92,52 @@ const Signin = () => {
                   </svg>
                 </button> */}
               </div>
+              <div className="relative flex items-center justify-center w-[80%] ml-[10%] my-6 border border-t border-gray-700">
+                <div className="absolute px-3 text-gray-800 bg-gray-300">Or</div>
+              </div>
+              <label className="ml-[10%] font-semibold text-lg text-gray-700">Username or Email</label>
+              <div className="flex items-center border-2 py-3 rounded-lg mb-4 mt-1 border-gray-800 w-[80%] ml-[10%]">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800 ml-5" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+                </svg>
+                <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="text" name="" id="" placeholder="Username or Email" />
+              </div>
+              <label className="ml-[10%] font-semibold text-lg text-gray-700">Password</label>
+              <div className="flex items-center border-2 py-3 rounded-lg mb-2 mt-1 border-gray-800 w-[80%] ml-[10%]">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800 ml-5" viewBox="0 0 20 20"
+                  fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                    clip-rule="evenodd" />
+                </svg>
+                {isPasswordVisible ? (
+                  <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="password" name="" id=""
+                    placeholder="Password" />
+                ) : (
+                  <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="text" name="" id=""
+                    placeholder="Password" />
+                )}
+                <Image className="mr-4 hover:cursor-pointer" src={isPasswordVisible ? '/eye_off.png' : '/eye.png'} alt="eye" id="eye" width={25} height={25} onClick={passwordEye} />
+              </div>
+              <div className="w-full flex flex-wrap justify-between items-center mt-4">
+                <div className="flex items-center mb-2 ml-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] justify-center">
+                  {/* <input type="checkbox" className="mr-1 text-link font-poppins bg-gray-100 border-gray-300 rounded-full"></input>
+                  <p className="text-gray-800 text-sm">Remember Me</p> */}
+                </div>
+                <a className="underline text-center text-link hover:text-link_hover cursor-pointer text-sm transition-colors duration-200 mr-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] ml-[10%] mb-0 sm:ml-[10%] md:ml-[10%] lg:ml-0 lg:mb-2 md:mb-0 sm:mb-0 mt-[-0.5rem] lg:mt-0 md:mt-[-0.5rem] sm:[-0.5rem]" href="/reset">Forgot Password?</a>
+              </div>
+              {/* <p className="text-sm text-center mb-1">By creating an account, you accept our <a className="text-link hover:text-link_hover transition-colors duration-200" href="/termsofservice">terms and conditions</a></p> */}
               <a type="submit" className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg" href="/login">Login</a>
               {/* <div className="w-full flex justify-center items-center mt-3">
                 <div className="border-b-2 border-gray-800 w-[40%] mr-2"></div>
                 <p className="text-gray-800 w-[6%]">Or</p>
                 <div className="border-b-2 border-gray-800 w-[40%] ml-2"></div>
               </div> */}
-              <div className="w-full flex text-center justify-center mt-2">
-                <p className="text-gray-800 sm:text-base md:text-base lg:text-[1.1rem] text-base mr-1">Don&apos;t have an account?</p>
-                <a className="text-link hover:text-link_hover cursor-pointer sm:text-base md:text-base lg:text-[1.1rem] text-base mb-12 transition-colors duration-200" href="/signup">Sign up</a>
+              <div className="w-full flex text-center justify-center mt-4">
+                <p className="text-gray-800 sm:text-sm md:text-sm lg:text-base text-sm mr-1">Don&apos;t have an account?</p>
+                <a className="text-link hover:text-link_hover cursor-pointer sm:text-sm md:text-sm lg:text-base text-sm mb-12 transition-colors duration-200" href="/signup">Sign up</a>
               </div>
             </form>
           </div>

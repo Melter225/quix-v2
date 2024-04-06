@@ -17,6 +17,7 @@ model User {
   password  String
   name      String
   quizzes   Quiz[]
+  premium   Boolean
 }
 
 model Quiz {

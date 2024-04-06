@@ -7,6 +7,7 @@ import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Card from './card';
 import './testimonials.css'
+import Movingstarslogic from './stars'
 
 const navigation = [
   { name: 'Features', href: '/features', image: '/features.png' },
@@ -92,6 +93,8 @@ export default function Home() {
     }, []);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  let mappingArray = Array.from({ length: 30 }, (_, index) => index + 1);
 
   return (
     <main className="font-poppins">
@@ -244,36 +247,37 @@ export default function Home() {
             </defs>
           </svg>
           <svg className="hidden lg:flex absolute inset-x-0 top-20 left-0" width="378" height="464" viewBox="0 0 378 464" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="60.0689" cy="228.113" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="156.701" cy="125.118" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="46.5612" cy="436.993" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="148.389" cy="268.542" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="148.389" cy="167.471" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="241.904" cy="381.163" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="192.029" cy="59.6622" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="238.787" cy="0.944925" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="29.9363" cy="357.099" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="120.334" cy="29.8224" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="290.739" cy="147.257" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="293.856" cy="381.163" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="352.044" cy="155.92" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="307.364" cy="46.1861" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="287.622" cy="310.895" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="98.514" cy="265.654" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="98.514" cy="150.145" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="168.131" cy="406.19" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="145.272" cy="322.446" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="8.11616" cy="109.716" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="214.888" cy="462.982" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="230.474" cy="277.205" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="230.474" cy="161.695" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="300.091" cy="417.741" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="355.161" cy="305.119" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="313.599" cy="249.29" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="1.88182" cy="6.72032" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="198.263" cy="302.232" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="198.263" cy="186.723" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
-            <ellipse cx="376.981" cy="362.874" rx="1.02" ry="0.944925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-1" cx="60.0689" cy="228.113" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-2" cx="156.701" cy="125.118" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-3" cx="46.5612" cy="436.993" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-4" cx="148.389" cy="268.542" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-5" cx="148.389" cy="167.471" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-6" cx="241.904" cy="381.163" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-7" cx="192.029" cy="59.6622" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-8" cx="238.787" cy="0.944925" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-9" cx="29.9363" cy="357.099" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-10" cx="120.334" cy="29.8224" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-11" cx="290.739" cy="147.257" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-12" cx="293.856" cy="381.163" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-13" cx="352.044" cy="155.92" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-14" cx="307.364" cy="46.1861" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-15" cx="287.622" cy="310.895" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-16" cx="98.514" cy="265.654" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-17" cx="98.514" cy="150.145" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-18" cx="168.131" cy="406.19" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-19" cx="145.272" cy="322.446" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-20" cx="8.11616" cy="109.716" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-21" cx="214.888" cy="462.982" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-22" cx="230.474" cy="277.205" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-23" cx="230.474" cy="161.695" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-24" cx="300.091" cy="417.741" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-25" cx="355.161" cy="305.119" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-26" cx="313.599" cy="249.29" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-27" cx="1.88182" cy="6.72032" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-28" cx="198.263" cy="302.232" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-29" cx="198.263" cy="186.723" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <ellipse className="star-animation-30" cx="376.981" cy="362.874" rx="1.5" ry="1.389925" fill="#7D94E7"></ellipse>
+            <Movingstarslogic mappingArray={mappingArray} />
           </svg>
           <svg className="hidden lg:flex absolute top-6 left-1/3 " width="477" height="279" viewBox="0 0 1077 449" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g opacity="0.3" filter="url(#filter0_f_130_899)">
