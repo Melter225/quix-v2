@@ -129,7 +129,7 @@ const Billing = () => {
                 <div className="flex flex-col text-center w-full mb-20">
                   <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Billing</h2>
-                    <p className="mt-2 text-lg leading-8 text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the testing feature of Quix; after you have used the provided 100 Credits, you will need to switch to either the Plus or the Premium plan.</p>
+                    <p className="mt-2 text-lg leading-8 text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the feature to access documents and videos related to the entered topic; after you have used the provided 100 Credits, you will still have the ability to access the testing feature of Quix, but you will no longer have the ability to access related documents and videos.</p>
                   </div>
                   {/* <h1 className="sm:text-4xl text-3xl font-medium font-poppins mb-2 text-gray-300">Billing</h1>
                   <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the testing feature of Quix; after you have used the provided 100 Credits, you will need to switch to either the Plus or the Premium plan.</p> */}
@@ -142,7 +142,7 @@ const Billing = () => {
                   <div className="p-4 xl:w-1/3 md:w-1/2 w-full">
                     <div className="h-full p-6 rounded-xl border-2 border-gray-300 flex flex-col relative overflow-hidden bg-navy">
                     <h2 className="text-sm tracking-widest font-poppins mb-1 font-semibold">BASIC</h2>
-                    <h1 className="text-5xl text-gray-300 pb-4 mb-4 border-b border-gray-200 leading-none font-bold tracking-tight">Free</h1>
+                    <h1 className="text-5xl text-gray-300 pb-4 mb-4 border-b border-gray-200 leading-none font-semibold tracking-tight">Free</h1>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">

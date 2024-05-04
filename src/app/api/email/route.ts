@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       <div style="max-width: 600px; margin: 0 auto; border: 2px solid #171717; border-radius: 10px;">
         <div style="text-align: center;">
           <div style="max-width: 600px; margin: 0 auto; border-bottom: 2px solid #bfbdbd; background-color: #dedede; padding: 20px; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-            <img src="/QuixLogo.png" alt="logo" />
+            <img src="/QuixLogo.png" alt="logo" width="30px" height="30px" />
             <h1 style="color: black;">Quix Verification Code</h1>
           </div>
           <div style="padding: 20px; text-align: center;">

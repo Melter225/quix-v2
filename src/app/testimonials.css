@@ -10,7 +10,4 @@
   .parent-hover:hover .animate-infinite-scroll {
       animation-play-state: paused !important;
   }
-  .parent-hover2:hover .animate-infinite-scroll-rev {
-      animation-play-state: paused !important;
-  }
 }
