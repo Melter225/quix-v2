@@ -26,11 +26,10 @@ model Quiz {
   user          User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   quiz_name     String
   quiz_number   String
-  // questions     []
-  // options       []
+  questions     String[]
   taken         Boolean
-  // right         []
-  // wrong         []
-  // correct       []
-  // incorrect     []
+  right         String[]
+  wrong         String[]
+  correct       String[]
+  incorrect     String[]
 }

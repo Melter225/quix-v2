@@ -44,20 +44,8 @@ const emailSchema = z.object({
     {message: "Please enter a password with at least one uppercase character"}),
   retype_password: z.string(),
   phone: z.string()
-    .min(5, 
-        {message: "Please enter a phone number with at least five characters"})
-    .max(20,
-        {message: "Please enter a phone number with less than twenty characters"})
-    .refine((value) => !/[a-zA-Z]/.test(value), 
-    {message: "Please enter a valid phone number"})
     .optional(),
   verify_phone: z.string()
-    .min(6, 
-        {message: "Please enter a valid verification code"})
-    .max(6,
-        {message: "Please enter a valid verification code"})
-    .refine((value) => /[0-9]/.test(value), 
-    {message: "Please enter a valid verification code"})
     .optional(),
   verify_email: z.string()
     .min(6, 
@@ -79,6 +67,13 @@ const Signup = () => {
   const [isPhase2, setIsPhase2] = useState(false)
   const [isPhase3, setIsPhase3] = useState(false)
   const [isPhase4, setIsPhase4] = useState(false)
+  // const [email, setEmail] = useState("")
+  // const [username, setUsername] = useState("")
+  // const [password, setPassword] = useState("")
+  // const [retypePassword, setRetypePassword] = useState("")
+  // const [phone, setPhone] = useState("")
+  // const [verifyPhone, setVerifyPhone] = useState("")
+  // const [verifyEmail, setVerifyEmail] = useState("")
 
   // let phoneCode: string | number = "";
   let emailCode: string | number = "";
@@ -109,17 +104,19 @@ const Signup = () => {
   };
 
   const phase2 = () => {
-    setIsPhase2((prev) => true);
+    if (form.getValues().email.length >= 1 &&  form.getValues().email.length <= 50 && form.getValues().username.length >= 1 &&  form.getValues().username.length <= 50) {
+      setIsPhase2((prev) => true);
+    }
   };
 
   const phase3 = () => {
-    setIsPhase3((prev) => true);
+    if (form.getValues().password.length >= 8 && form.getValues().password.length <= 50 && form.getValues().password && form.getValues().retype_password === form.getValues().password) {
+      setIsPhase3((prev) => true);
+    }
   };
 
   const phase4 = () => {
-    if (phoneVerification() == true) {
-      setIsPhase4((prev) => true);
-    }
+    setIsPhase4((prev) => true);
   };
 
   const [phoneCode, setPhoneCode] = useState("");
@@ -179,8 +176,19 @@ const Signup = () => {
     }
   }
 
-  function onSignup() {
-    console.log("user added", form.getValues())
+  async function onSignup() {
+    const userData = form.getValues()
+    console.log("user added", userData)
+
+    const response = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: userData.email
+      })
+    })
   }
 
   // console.log(form.getValues())
@@ -498,7 +506,7 @@ const Signup = () => {
                               </div>
                             </FormControl>
                             {/* <FormDescription>This is your email.</FormDescription> */}
-                            <FormMessage />
+                            {/* <FormMessage /> */}
                           </FormItem>
                         )}
                     />
@@ -543,7 +551,7 @@ const Signup = () => {
                   <button className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg" onClick={phase4}>Continue</button>
                 )}
                 {isPhase4 && (
-                  <button type="submit" className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg" onClick={emailVerification}>Sign Up</button>
+                  <button type="submit" className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg" onClick={onSignup}>Sign Up</button>
                 )}
                 {/* <div className="w-full flex justify-center items-center mt-3">
                   <div className="border-b-2 border-gray-800 w-[40%] mr-2"></div>

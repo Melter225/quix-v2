@@ -225,19 +225,32 @@ export default function Dashboard() {
                 </div>
             </header>
             <main>
-                <div className="mr-[25svw] w-[25svw]">
-                    <div className="bg-gray-200 h-[calc(100svh-8.2rem)]">
-                        <div className="flex w-full justify-center">
-                            <button className="flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-[10svw] mt-[-2.7rem] h-[5.5svh]">
-                                 + Topic
-                            </button>
+                <div className="relative">
+                    <div className="bg-gray-200 mr-[25svw] w-[25svw] h-[calc(100svh-10.9rem)]">
+                        <div className="flex w-full justify-center align-middle px-4">
+                        <button className="flex items-center justify-center px-2 py-[0.3rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-full mt-20">
+                            <div className="flex h-full justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5 sm:hidden self-center">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                            <span className="hidden sm:flex items-center">
+                                <div className="flex h-full justify-center align-middle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5 mr-[0.3rem] self-center">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
+                                </div>
+                                Topic
+                            </span>
+                        </button>
                         </div>
                     </div>
-                    <div className="w-[75svw] ml-[25svw] py-4 rounded-lg mt-[-15vh]">
-                        <div className="flex flex-col justify-center pt-2 items-center mt-[2rem]">
-                            <button
-                                data-dropdown-toggle="dropdownDivider"
-                                className="text-gray-200 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 lg:text-lg font-semibold rounded-xl px-5 py-2.5 text-center inline-flex items-center justify-center ml-[-62svw] w-[10svw] h-[5.5svh] sm:text-base"
+                    <div className="absolute right-0 bottom-0 w-[75svw] ml-[25svw] pt-[0.7rem] pb-4 rounded-lg mt-[-15vh]">
+                        <div className="flex flex-col pt-2 mt-[2rem]">
+                            <div className="flex justify-start items-start">
+                                <button
+                                    data-dropdown-toggle="dropdownDivider"
+                                className="text-gray-200 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 lg:text-lg font-semibold rounded-xl px-5 py-2.5 text-center inline-flex items-center justify-center ml-[0.5rem] sm:ml-[1rem] w-[15%] sm:w-[12%] h-10 sm:text-base"
                                 type="button"
                                 onClick={() => toggleDropdown('Mode')}
                             >
@@ -260,35 +273,43 @@ export default function Dashboard() {
                             </button>
 
                             <div
-                                className={`z-10 ${isOpen ? 'block' : 'hidden'} bg-gray-200 divide-y divide-gray-300 rounded-lg shadow w-[10svw] ml-[-62svw] mt-[-23.5svh]`}
+                                className={`z-10 ${isOpen ? 'block' : 'hidden'} bg-gray-200 divide-y divide-gray-300 rounded-lg shadow w-[15%] sm:w-[12%] ml-[-11svw] sm:ml-[-9svw] mt-[-7.8rem] sm:mt-[-8.1rem] lg:mt-[-8.9rem]`}
                             >
                                 <div className="py-2">
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-900 hover:bg-gray-300" onClick={() => toggleDropdown('Quiz')}>
+                                    <a href="#" className="block py-2 text-[0.6rem] sm:text-xs lg:text-sm text-center text-gray-900 hover:bg-gray-300" onClick={() => toggleDropdown('Quiz')}>
                                         Quiz
                                     </a>
                                 </div>
-                                <ul className="py-2 text-sm text-gray-700" aria-labelledby="dropdownDividerButton">
+                                <ul className="py-2 text-[0.6rem] sm:text-xs lg:text-sm text-center text-gray-700" aria-labelledby="dropdownDividerButton">
                                     <li>
-                                        <a href="#" className="block px-4 py-2 hover:bg-gray-300" onClick={() => toggleDropdown('Video')}>
+                                        <a href="#" className="block py-2 hover:bg-gray-300" onClick={() => toggleDropdown('Video')}>
                                             Video
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" className="block px-4 py-2 hover:bg-gray-300" onClick={() => toggleDropdown('Document')}>
+                                        <a href="#" className="block py-2 hover:bg-gray-300" onClick={() => toggleDropdown('Document')}>
                                             Document
                                         </a>
                                     </li>
                                 </ul>
                             </div>
-                            <input
-                                type="text"
-                                id="first_name"
-                                className={`bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[50svw] ml-[1.7svw] md:ml-[-0.25svw] lg:ml-[-0.25svw] p-2.5 ${isOpen ? 'mt-[0rem]' : 'mt-[-2.6rem]'} h-[5.5svh]`}
-                                placeholder="Topic"
-                            />
-                            <button className="flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-[10svw] mt-[-2.7rem] ml-[45svw] sm:ml-[47svw] md:ml-[50svw] lg:ml-[53svw] mr-[-7rem] h-[5.5svh]">
-                                Enter
-                            </button>
+                            </div>
+
+                            <div className="flex justify-center items-center">
+                                <input
+                                    type="text"
+                                    id="first_name"
+                                    className={`bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[60%] sm:w-[67%] lg:w-[70%] p-2.5 mt-[-2.6rem] h-10`}
+                                    placeholder="Topic"
+                                />
+                            </div>
+                            {/* ml-[1.7svw] md:ml-[-0.25svw] lg:ml-[-0.25svw] */}
+                            <div className="flex justify-end items-end">
+                                <button className="flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-[15%] sm:w-[12%] mt-[-2.7rem] mr-[0.5rem] sm:mr-[1rem] h-10">
+                                    Enter
+                                </button>
+                            </div>
+                            {/* ml-[45svw] sm:ml-[47svw] md:ml-[50svw] lg:ml-[53svw] mr-[-7rem] h-[5.5svh] */}
                         </div>
                     </div>
                 </div>
