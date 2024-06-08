@@ -6,7 +6,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { signOut, useSession } from "next-auth/react";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 
 const navigation = [
@@ -31,6 +31,9 @@ export default function Dashboard() {
   const userImage:any = session?.user?.image
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState('Mode');
+  const [isOpen2, setIsOpen2] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [topic, setTopic] = useState('');
 
   const toggleDropdown = (newMode: string) => {
       setIsOpen(!isOpen);
@@ -38,6 +41,34 @@ export default function Dashboard() {
         setMode(newMode);
       }
       console.log(mode)
+  };
+
+  const toggleDropdown2 = (newMode: string) => {
+      setIsOpen2(!isOpen2);
+  };
+  
+
+  console.log(JSON.stringify({ topic: topic }))
+
+  const generateQuestions = async () => {
+      try {
+          const response = await fetch('/api/generation', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ topic: topic }),
+          });
+
+          if (response.ok) {
+              const data = await response.json();
+              console.log('Generated questions:', data);
+          } else {
+              console.error('Failed to generate questions');
+          }
+      } catch (error) {
+          console.error('Error:', error);
+      }
   };
 
   if (status === "unauthenticated") {
@@ -83,9 +114,9 @@ export default function Dashboard() {
                         </div>
                     </div>
                     <div className="hidden md:flex md:gap-x-12 lg:flex lg:gap-x-12">
-                        <a href="/features" className="text-lg font-semibold leading-6 text-gray-200 hover:text-gray-300">Features</a>
+                        {/* <a href="/features" className="text-lg font-semibold leading-6 text-gray-200 hover:text-gray-300">Features</a>
                         <a href="/about" className="text-lg font-semibold leading-6 text-gray-200 hover:text-gray-300">About</a>
-                        <a href="/billing" className="text-lg font-semibold leading-6 text-gray-200 hover:text-gray-300">Billing</a>
+                        <a href="/billing" className="text-lg font-semibold leading-6 text-gray-200 hover:text-gray-300">Billing</a> */}
                     </div>
                     <div className="hidden md:block">
                         <div className="ml-4 flex items-center md:ml-6">
@@ -219,16 +250,52 @@ export default function Dashboard() {
             )}
             </Disclosure>
 
-            <header className="bg-gray-200 shadow">
+            {/* <header className="bg-gray-200 shadow">
                 <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     <h1 className="text-3xl font-bold tracking-tight text-gray-700">Dashboard</h1>
                 </div>
-            </header>
+            </header> */}
             <main>
                 <div className="relative">
-                    <div className="bg-gray-200 mr-[25svw] w-[25svw] h-[calc(100svh-10.9rem)]">
-                        <div className="flex w-full justify-center align-middle px-4">
-                        <button className="flex items-center justify-center px-2 py-[0.3rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-full mt-20">
+                    <div className="hidden md:flex flex-col h-full w-full justify-start items-start">
+                        <Disclosure>
+                            <Disclosure.Button className="mt-2 relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-gray-200 h-8" onClick={() => setOpen(!open)}>
+                                <span className="absolute -inset-0.5" />
+                                <span className="sr-only">Open main menu</span>
+                                {open ? (
+                                    <XMarkIcon className="block h-6 w-6 text-red-700 bg-gray-300 rounded-md" aria-hidden="true" />
+                                ) : (
+                                    <Bars3Icon className="block h-6 w-6 text-gray-700 bg-gray-300 rounded-md" aria-hidden="true" />
+                                )}
+                            </Disclosure.Button>
+                        </Disclosure>
+                    </div>
+                    <div className="relative z-50 flex md:hidden flex-col h-full w-full justify-start items-start">
+                        <Disclosure defaultOpen={!open}>
+                            <Disclosure.Button className="mt-2 relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-gray-200 h-8" onClick={() => setOpen(!open)}>
+                                <span className="absolute -inset-0.5" />
+                                <span className="sr-only">Open main menu</span>
+                                {open ? (
+                                    <XMarkIcon className="block h-6 w-6 text-red-700 bg-gray-300 rounded-md" aria-hidden="true" />
+                                ) : (
+                                    <Bars3Icon className="block h-6 w-6 text-gray-700 bg-gray-300 rounded-md" aria-hidden="true" />
+                                )}
+                            </Disclosure.Button>
+                        </Disclosure>
+                    </div>
+                    <div className={`bg-gray-200 mr-[25svw] w-[25svw] h-[calc(100svh-5.67rem)] hidden md:${open ? 'flex' : 'hidden'} mt-[-2.5rem]`}>
+                        <div className="flex flex-col h-full justify-end items-center px-4 w-full">
+                        <div className="relative z-50 flex-col h-full w-full justify-start items-start">
+                            <h1 className="text-center align-middle mt-2 text-xl font-bold tracking-tight text-gray-700">New Space</h1>
+                        </div>
+                        <button className="flex items-center justify-center px-2 py-[1rem] rounded-xl bg-gray-300 text-gray-600 hover:bg-gray-400 hover:text-gray-200 font-semibold lg:text-lg sm:text-base w-full h-11 mb-3">
+                            <span className="items-center">
+                                <div className="flex h-full justify-center align-middle">
+                                </div>
+                                Upgrade Plan
+                            </span>
+                        </button>
+                        {/* <button className="flex items-center justify-center px-2 py-[0.3rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-full h-9 mb-4">
                             <div className="flex h-full justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5 sm:hidden self-center">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -242,10 +309,65 @@ export default function Dashboard() {
                                 </div>
                                 Topic
                             </span>
+                        </button> */}
+                        </div>
+                        {/* <div className="w-full mt-3 px-4">
+                            <button className="bg-gray-200 flex items-center justify-start px-2 py-[0.6rem] rounded-xl text-gray-600 hover:bg-gray-300 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-full mt-2" onClick={() => toggleDropdown2('Mode')}>
+                                <Image className="ml-3 mr-4 rounded-full" src="/billing.png" alt="Profile Picture" width={30} height={30}></Image> 
+                                User
+                            </button>
+
+                            <div
+                                className={`relative z-50 ${isOpen2 ? 'block' : 'hidden'} bg-gray-200 divide-y divide-gray-300 rounded-lg shadow w-full ml-[0rem] mt-[-10.5rem] sm:mt-[-10.6rem] lg:mt-[-11.5rem]`}
+                            >
+                                <div className="py-2">
+                                    <a href="#" className="block py-1 text-[0.6rem] sm:text-xs lg:text-sm text-center text-gray-900 hover:bg-gray-300" onClick={() => toggleDropdown2('Quiz')}>
+                                        Billing
+                                    </a>
+                                </div>
+                                <div className="py-2">
+                                    <a href="#" className="block py-1 text-[0.6rem] sm:text-xs lg:text-sm text-center text-gray-900 hover:bg-gray-300" onClick={() => toggleDropdown2('Quiz')}>
+                                        Settings
+                                    </a>
+                                </div>
+                                <div className="py-2">
+                                    <a href="#" className="block py-1 text-[0.6rem] sm:text-xs lg:text-sm text-center text-gray-900 hover:bg-gray-300" onClick={() => toggleDropdown2('Quiz')}>
+                                        Log out
+                                    </a>
+                                </div>
+                            </div>
+                        </div> */}
+                    </div>
+                    <div className={`${open ? 'flex' : 'hidden'} relative z-40 bg-gray-200 mr-[25svw] w-[80svw] sm:w-[65svw] h-[calc(100svh-5.65rem)] md:hidden mt-[-2.5rem]`}>
+                        <div className="flex flex-col h-full justify-end items-center px-4 w-full">
+                        <div className="relative z-50 flex-col h-full w-full justify-start items-start">
+                            <h1 className="text-center align-middle mt-2 text-xl font-bold tracking-tight text-gray-700">New Space</h1>
+                        </div>
+                        <button className="flex items-center justify-center px-2 py-[1rem] rounded-xl bg-gray-300 text-gray-600 hover:bg-gray-400 hover:text-gray-200 font-semibold lg:text-lg sm:text-base w-full h-11 mb-3">
+                            <span className="items-center">
+                                <div className="flex h-full justify-center align-middle">
+                                </div>
+                                Upgrade Plan
+                            </span>
                         </button>
+                        {/* <button className="z-50 flex items-center justify-center px-2 py-[0.3rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-full h-9 mb-4">
+                            <div className="flex h-full justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5 sm:hidden self-center">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </div>
+                            <span className="hidden sm:flex items-center">
+                                <div className="flex h-full justify-center align-middle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5 mr-[0.3rem] self-center">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
+                                </div>
+                                Topic
+                            </span>
+                        </button> */}
                         </div>
                     </div>
-                    <div className="absolute right-0 bottom-0 w-[75svw] ml-[25svw] pt-[0.7rem] pb-4 rounded-lg mt-[-15vh]">
+                    <div className={`${open ? 'absolute right-0 bottom-0 mt-[-15vh] pt-[0.7rem]' : 'fixed right-0 bottom-4 '} w-full ${open ? 'md:w-[75svw]' : 'md:w-full'} ml-[25svw] ${open ? 'pb-4' : ''} rounded-lg`}>
                         <div className="flex flex-col pt-2 mt-[2rem]">
                             <div className="flex justify-start items-start">
                                 <button
@@ -273,14 +395,19 @@ export default function Dashboard() {
                             </button>
 
                             <div
-                                className={`z-10 ${isOpen ? 'block' : 'hidden'} bg-gray-200 divide-y divide-gray-300 rounded-lg shadow w-[15%] sm:w-[12%] ml-[-11svw] sm:ml-[-9svw] mt-[-7.8rem] sm:mt-[-8.1rem] lg:mt-[-8.9rem]`}
+                                className={`z-10 ${isOpen ? 'block' : 'hidden'} bg-gray-200 divide-y divide-gray-400 rounded-lg shadow w-[15%] sm:w-[12%] ml-[-15svw] ${open ? 'sm:ml-[-9svw]' : 'sm:ml-[-12svw]'} mt-[-4.9rem] sm:mt-[-5.4rem] lg:mt-[-5.4rem]`}
                             >
                                 <div className="py-2">
-                                    <a href="#" className="block py-2 text-[0.6rem] sm:text-xs lg:text-sm text-center text-gray-900 hover:bg-gray-300" onClick={() => toggleDropdown('Quiz')}>
+                                    <a href="#" className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-900 hover:bg-gray-300" onClick={() => toggleDropdown('Learn')}>
+                                        Learn
+                                    </a>
+                                </div>
+                                <div className="py-2">
+                                    <a href="#" className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-900 hover:bg-gray-300" onClick={() => toggleDropdown('Quiz')}>
                                         Quiz
                                     </a>
                                 </div>
-                                <ul className="py-2 text-[0.6rem] sm:text-xs lg:text-sm text-center text-gray-700" aria-labelledby="dropdownDividerButton">
+                                {/* <ul className="py-2 text-[0.6rem] sm:text-xs lg:text-sm text-center text-gray-700" aria-labelledby="dropdownDividerButton">
                                     <li>
                                         <a href="#" className="block py-2 hover:bg-gray-300" onClick={() => toggleDropdown('Video')}>
                                             Video
@@ -291,7 +418,7 @@ export default function Dashboard() {
                                             Document
                                         </a>
                                     </li>
-                                </ul>
+                                </ul> */}
                             </div>
                             </div>
 
@@ -301,11 +428,13 @@ export default function Dashboard() {
                                     id="first_name"
                                     className={`bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[60%] sm:w-[67%] lg:w-[70%] p-2.5 mt-[-2.6rem] h-10`}
                                     placeholder="Topic"
+                                    value={topic}
+                                    onChange={(e) => setTopic(e.target.value)}
                                 />
                             </div>
                             {/* ml-[1.7svw] md:ml-[-0.25svw] lg:ml-[-0.25svw] */}
                             <div className="flex justify-end items-end">
-                                <button className="flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-[15%] sm:w-[12%] mt-[-2.7rem] mr-[0.5rem] sm:mr-[1rem] h-10">
+                                <button className="flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-[15%] sm:w-[12%] mt-[-2.7rem] mr-[0.5rem] sm:mr-[1rem] h-10" onClick={generateQuestions}>
                                     Enter
                                 </button>
                             </div>

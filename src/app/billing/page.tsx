@@ -133,7 +133,7 @@ const Billing = () => {
                   </div>
                   {/* <h1 className="sm:text-4xl text-3xl font-medium font-poppins mb-2 text-gray-300">Billing</h1>
                   <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the testing feature of Quix; after you have used the provided 100 Credits, you will need to switch to either the Plus or the Premium plan.</p> */}
-                  <div className="flex mx-auto border-2 border-link rounded overflow-hidden mt-6">
+                  <div className="flex mx-auto border-2 border-link rounded-lg overflow-hidden mt-6">
                       <button className={`${clicked ? '' : 'bg-link'} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggleFalse}>Monthly</button>
                       <button className={`${clicked ? 'bg-link' : ''} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggleTrue}>Annually</button>
                   </div>
