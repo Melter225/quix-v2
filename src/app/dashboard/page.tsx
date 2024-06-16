@@ -51,8 +51,46 @@ export default function Dashboard() {
   console.log(JSON.stringify({ topic: topic }))
 
   const generateQuestions = async () => {
+    //   try {
+    //       const response = await fetch('/api/generation', {
+    //           method: 'POST',
+    //           headers: {
+    //               'Content-Type': 'application/json',
+    //           },
+    //           body: JSON.stringify({ topic: topic }),
+    //       });
+
+    //       if (response.ok) {
+    //           const data = await response.json();
+    //           console.log('Generated questions:', data);
+    //       } else {
+    //           console.error('Failed to generate questions');
+    //       }
+    //   } catch (error) {
+    //       console.error('Error:', error);
+    //   }
+    try {
+        const response = await fetch('/api/resources', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Generated resources:', data);
+        } else {
+            console.error('Failed to generate resources');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+  };
+
+  const learn = async () => {
       try {
-          const response = await fetch('/api/generation', {
+          const response = await fetch('/api/learn', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
@@ -62,9 +100,9 @@ export default function Dashboard() {
 
           if (response.ok) {
               const data = await response.json();
-              console.log('Generated questions:', data);
+              console.log('Generated resources:', data);
           } else {
-              console.error('Failed to generate questions');
+              console.error('Failed to generate resources');
           }
       } catch (error) {
           console.error('Error:', error);
@@ -434,7 +472,7 @@ export default function Dashboard() {
                             </div>
                             {/* ml-[1.7svw] md:ml-[-0.25svw] lg:ml-[-0.25svw] */}
                             <div className="flex justify-end items-end">
-                                <button className="flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-[15%] sm:w-[12%] mt-[-2.7rem] mr-[0.5rem] sm:mr-[1rem] h-10" onClick={generateQuestions}>
+                                <button className="flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-[15%] sm:w-[12%] mt-[-2.7rem] mr-[0.5rem] sm:mr-[1rem] h-10 cursor-pointer" onClick={topic ? (mode === 'Quiz' ? generateQuestions : learn) : undefined} disabled={!topic}>
                                     Enter
                                 </button>
                             </div>

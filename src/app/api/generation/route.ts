@@ -15,7 +15,7 @@ async function generateQuestion(topic: string, previousQuestions: string[]): Pro
       },
       {
         role: 'user',
-        content: `Generate 1 relevant and helpful practice question to help me learn more about my topic ${topic} quickly. Please ensure the question is unique and does not duplicate any of the previous questions: ${previousQuestions}. Avoid creating a similar question in any matter as long as you pertain to the provided topic. Do not provide additional messages such as 'Sure! Here's a practice question for you:'.`,
+        content: `Generate 1 relevant and helpful practice question to help me learn more about my topic ${topic} quickly. Please ensure the question is unique and does not duplicate any of the previous questions: ${previousQuestions}. Avoid creating a similar question in any matter as long as you pertain to the provided topic. Do not provide additional messages such as 'Sure! Here's a practice question for you:' or 'If you have any more questions or need further explanations on other topics, feel free to ask!'.`,
       },
     ],
   });
