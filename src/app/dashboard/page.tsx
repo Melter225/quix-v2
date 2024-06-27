@@ -51,46 +51,8 @@ export default function Dashboard() {
   console.log(JSON.stringify({ topic: topic }))
 
   const generateQuestions = async () => {
-    //   try {
-    //       const response = await fetch('/api/generation', {
-    //           method: 'POST',
-    //           headers: {
-    //               'Content-Type': 'application/json',
-    //           },
-    //           body: JSON.stringify({ topic: topic }),
-    //       });
-
-    //       if (response.ok) {
-    //           const data = await response.json();
-    //           console.log('Generated questions:', data);
-    //       } else {
-    //           console.error('Failed to generate questions');
-    //       }
-    //   } catch (error) {
-    //       console.error('Error:', error);
-    //   }
-    try {
-        const response = await fetch('/api/resources', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Generated resources:', data);
-        } else {
-            console.error('Failed to generate resources');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-  };
-
-  const learn = async () => {
       try {
-          const response = await fetch('/api/learn', {
+          const response = await fetch('/api/generation', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
@@ -100,13 +62,69 @@ export default function Dashboard() {
 
           if (response.ok) {
               const data = await response.json();
-              console.log('Generated resources:', data);
+              console.log('Generated questions:', data);
           } else {
-              console.error('Failed to generate resources');
+              console.error('Failed to generate questions');
           }
       } catch (error) {
           console.error('Error:', error);
       }
+    // try {
+    //     const response = await fetch('/api/resources', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //     });
+
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         console.log('Generated resources:', data);
+    //     } else {
+    //         console.error('Failed to generate resources');
+    //     }
+    // } catch (error) {
+    //     console.error('Error:', error);
+    // }
+  };
+
+  const learn = async () => {
+    //   try {
+    //       const response = await fetch('/api/learn', {
+    //           method: 'POST',
+    //           headers: {
+    //               'Content-Type': 'application/json',
+    //           },
+    //           body: JSON.stringify({ topic: topic }),
+    //       });
+
+    //       if (response.ok) {
+    //           const data = await response.json();
+    //           console.log('Generated resources:', data);
+    //       } else {
+    //           console.error('Failed to generate resources');
+    //       }
+    //   } catch (error) {
+    //       console.error('Error:', error);
+    //   }
+    try {
+        const response = await fetch('/api/notes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: '1 + 1 = 2, but 2 + 1 = 1 and 4 to the power of 3 = 209.',
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Generated accuracy:', data);
+        } else {
+            console.error('Failed to generate accuracy');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
   };
 
   if (status === "unauthenticated") {
