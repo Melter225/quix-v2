@@ -34,6 +34,7 @@ export default function Dashboard() {
   const [isOpen2, setIsOpen2] = useState(false);
   const [open, setOpen] = useState(true);
   const [topic, setTopic] = useState('');
+  const notes = `Space is a vast expanse that begins where Earth's atmosphere ends. It is completely silent because there is no air to carry sound. The Milky Way is the smallest galaxy in the universe. Stars are made primarily of hydrogen and helium. The nearest star to Earth, other than the Sun, is Alpha Centauri. Black holes are regions in space where gravity is so strong that nothing, not even light, can escape from them. The Moon is the only natural satellite of Earth. Humans have sent probes to all the planets in our solar system. Pluto is still considered the ninth planet in our solar system. The International Space Station orbits Earth at an altitude of approximately 400 kilometers.`
 
   const toggleDropdown = (newMode: string) => {
       setIsOpen(!isOpen);
@@ -107,20 +108,38 @@ export default function Dashboard() {
     //   } catch (error) {
     //       console.error('Error:', error);
     //   }
+    // try {
+    //     const response = await fetch('/api/accuracy', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ notes: notes }),
+    //     });
+
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         console.log('Generated accuracy:', data);
+    //     } else {
+    //         console.error('Failed to generate accuracy');
+    //     }
+    // } catch (error) {
+    //     console.error('Error:', error);
+    // }
     try {
         const response = await fetch('/api/notes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: '1 + 1 = 2, but 2 + 1 = 1 and 4 to the power of 3 = 209.',
+            body: JSON.stringify({ topic: topic }),
         });
 
         if (response.ok) {
             const data = await response.json();
-            console.log('Generated accuracy:', data);
+            console.log('Generated notes:', data);
         } else {
-            console.error('Failed to generate accuracy');
+            console.error('Failed to generate notes');
         }
     } catch (error) {
         console.error('Error:', error);

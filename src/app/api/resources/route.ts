@@ -82,16 +82,7 @@ function generateScore(areas: string[]): string {
 export async function POST(req: NextRequest, res: NextResponse) {
   if (req.method == 'POST') {
     try {
-      const questions = `What is the speed of light in a vacuum? (150,000 meters per second)
-How many bones are there in the human body? (300)
-What is the chemical symbol for gold? (Au)
-How many planets are there in our solar system? (8)
-What is the boiling point of water at sea level? (100 degrees Celsius)
-How many continents are there on Earth? (7)
-What is the formula for the area of a circle? (πr²)
-What is the atomic number of carbon? (6)
-What is the largest ocean on Earth? (Pacific Ocean)
-How many sides does a hexagon have? (6)`;
+      const questions = `What is the speed of light in a vacuum? (150,000 meters per second) How many bones are there in the human body? (300) What is the chemical symbol for gold? (Au) How many planets are there in our solar system? (8) What is the boiling point of water at sea level? (100 degrees Celsius) How many continents are there on Earth? (7) What is the formula for the area of a circle? (πr²) What is the atomic number of carbon? (6) What is the largest ocean on Earth? (Pacific Ocean) How many sides does a hexagon have? (6)`;
       const document = await generateDocument(questions);
       let areas = [''] 
 
