@@ -34,7 +34,15 @@ export default function Dashboard() {
   const [isOpen2, setIsOpen2] = useState(false);
   const [open, setOpen] = useState(true);
   const [topic, setTopic] = useState('');
+  const database = [
+    {quiz: "science", accuracy: 34},
+    {quiz: "math", accuracy: 71},
+    {quiz: "history", accuracy: 12},
+    {quiz: "english", accuracy: 4},
+    {quiz: "spanish", accuracy: 99},
+  ]
   const notes = `Space is a vast expanse that begins where Earth's atmosphere ends. It is completely silent because there is no air to carry sound. The Milky Way is the smallest galaxy in the universe. Stars are made primarily of hydrogen and helium. The nearest star to Earth, other than the Sun, is Alpha Centauri. Black holes are regions in space where gravity is so strong that nothing, not even light, can escape from them. The Moon is the only natural satellite of Earth. Humans have sent probes to all the planets in our solar system. Pluto is still considered the ninth planet in our solar system. The International Space Station orbits Earth at an altitude of approximately 400 kilometers.`
+  const order = 'score'
 
   const toggleDropdown = (newMode: string) => {
       setIsOpen(!isOpen);
@@ -52,24 +60,24 @@ export default function Dashboard() {
   console.log(JSON.stringify({ topic: topic }))
 
   const generateQuestions = async () => {
-      try {
-          const response = await fetch('/api/generation', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ topic: topic }),
-          });
+    //   try {
+    //       const response = await fetch('/api/generation', {
+    //           method: 'POST',
+    //           headers: {
+    //               'Content-Type': 'application/json',
+    //           },
+    //           body: JSON.stringify({ topic: topic }),
+    //       });
 
-          if (response.ok) {
-              const data = await response.json();
-              console.log('Generated questions:', data);
-          } else {
-              console.error('Failed to generate questions');
-          }
-      } catch (error) {
-          console.error('Error:', error);
-      }
+    //       if (response.ok) {
+    //           const data = await response.json();
+    //           console.log('Generated questions:', data);
+    //       } else {
+    //           console.error('Failed to generate questions');
+    //       }
+    //   } catch (error) {
+    //       console.error('Error:', error);
+    //   }
     // try {
     //     const response = await fetch('/api/resources', {
     //         method: 'POST',
@@ -87,6 +95,24 @@ export default function Dashboard() {
     // } catch (error) {
     //     console.error('Error:', error);
     // }
+    try {
+        const response = await fetch('/api/priority', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ topics: database, order }),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Generated priority:', data);
+        } else {
+            console.error('Failed to generate priority');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
   };
 
   const learn = async () => {
@@ -108,42 +134,42 @@ export default function Dashboard() {
     //   } catch (error) {
     //       console.error('Error:', error);
     //   }
-    // try {
-    //     const response = await fetch('/api/accuracy', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({ notes: notes }),
-    //     });
-
-    //     if (response.ok) {
-    //         const data = await response.json();
-    //         console.log('Generated accuracy:', data);
-    //     } else {
-    //         console.error('Failed to generate accuracy');
-    //     }
-    // } catch (error) {
-    //     console.error('Error:', error);
-    // }
     try {
-        const response = await fetch('/api/notes', {
+        const response = await fetch('/api/accuracy', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ topic: topic }),
+            body: JSON.stringify({ notes: notes }),
         });
 
         if (response.ok) {
             const data = await response.json();
-            console.log('Generated notes:', data);
+            console.log('Generated accuracy:', data);
         } else {
-            console.error('Failed to generate notes');
+            console.error('Failed to generate accuracy');
         }
     } catch (error) {
         console.error('Error:', error);
     }
+    // try {
+    //     const response = await fetch('/api/notes', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ topic: topic }),
+    //     });
+
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         console.log('Generated notes:', data);
+    //     } else {
+    //         console.error('Failed to generate notes');
+    //     }
+    // } catch (error) {
+    //     console.error('Error:', error);
+    // }
   };
 
   if (status === "unauthenticated") {

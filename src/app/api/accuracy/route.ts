@@ -2,6 +2,7 @@ import next, { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from "openai";
 import dotenv from 'dotenv';
 import { NextRequest, NextResponse } from 'next/server';
+import clientPromise from '@/src/configs/client';
 
 dotenv.config();
 const openai = new OpenAI();
@@ -50,6 +51,18 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const accuracy = await generateAccuracy(notes);
           
         if (accuracy != "No display" && accuracy != "No display.") {
+          const accuracyValue = parseFloat(accuracy);
+
+          // Adding Notes to SQL Database
+          if (accuracyValue >= 0) {
+            let client = await clientPromise
+            let db = await client.db("QuixDatabase")
+
+            await db
+                  .collection('notes')
+                  .updateOne({accuracyValue: notes}, {$set: {notes, accuracyValue}}, {upsert: true})
+          }
+
           return NextResponse.json ({
             accuracy,
             status: 200
@@ -78,5 +91,3 @@ export async function POST(req: NextRequest, res: NextResponse) {
         })
     }
 }
-  
-// Adding Notes to SQL Database
