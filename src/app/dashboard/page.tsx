@@ -41,8 +41,66 @@ export default function Dashboard() {
     {quiz: "english", accuracy: 4},
     {quiz: "spanish", accuracy: 99},
   ]
-  const notes = `Space is a vast expanse that begins where Earth's atmosphere ends. It is completely silent because there is no air to carry sound. The Milky Way is the smallest galaxy in the universe. Stars are made primarily of hydrogen and helium. The nearest star to Earth, other than the Sun, is Alpha Centauri. Black holes are regions in space where gravity is so strong that nothing, not even light, can escape from them. The Moon is the only natural satellite of Earth. Humans have sent probes to all the planets in our solar system. Pluto is still considered the ninth planet in our solar system. The International Space Station orbits Earth at an altitude of approximately 400 kilometers.`
+  const note = `The Pythagorean theorem states that in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The derivative of 
+�
+(
+�
+)
+=
+�
+2
+f(x)=x 
+2
+  with respect to 
+�
+x is 
+2
+�
+2x. In statistics, the mean is the sum of all data points divided by the number of data points. An isosceles triangle has two sides of equal length. The area of a circle is calculated using the formula 
+�
+�
+2
+πr 
+2
+ . A prime number has exactly two distinct positive divisors: 1 and itself. The Fibonacci sequence starts with 0 and 1, and each subsequent number is the sum of the previous two. A square has four sides of equal length and four right angles. The quadratic formula for solving 
+�
+�
+2
++
+�
+�
++
+�
+=
+0
+ax 
+2
+ +bx+c=0 is 
+�
+=
+−
+�
+±
+�
+2
+−
+4
+�
+�
+2
+�
+x= 
+2a
+−b± 
+b 
+2
+ −4ac
+​
+ 
+​
+ . The sum of the angles in a triangle is always 200 degrees.`
   const order = 'score'
+  const errors = ['Square root of 81', 'Boiling point of water']
 
   const toggleDropdown = (newMode: string) => {
       setIsOpen(!isOpen);
@@ -95,20 +153,38 @@ export default function Dashboard() {
     // } catch (error) {
     //     console.error('Error:', error);
     // }
+    // try {
+    //     const response = await fetch('/api/priority', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ topics: database, order }),
+    //     });
+
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         console.log('Generated priority:', data);
+    //     } else {
+    //         console.error('Failed to generate priority');
+    //     }
+    // } catch (error) {
+    //     console.error('Error:', error);
+    // }
     try {
-        const response = await fetch('/api/priority', {
+        const response = await fetch('/api/redo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ topics: database, order }),
+            body: JSON.stringify({ topics: errors }),
         });
 
         if (response.ok) {
             const data = await response.json();
-            console.log('Generated priority:', data);
+            console.log('Generated questions:', data);
         } else {
-            console.error('Failed to generate priority');
+            console.error('Failed to generate questions');
         }
     } catch (error) {
         console.error('Error:', error);
@@ -140,7 +216,7 @@ export default function Dashboard() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ notes: notes }),
+            body: JSON.stringify({ note: note }),
         });
 
         if (response.ok) {

@@ -26,9 +26,9 @@ async function generatePriority(topics: QuizEntry[], order: string): Promise<str
       }
     })
   } else if (order == 'complexity') {
-    
-  } else if (order == 'understanding') {
 
+  } else if (order == 'understanding') {
+    
   } else if (order == 'comprehensive') {
 
   }
