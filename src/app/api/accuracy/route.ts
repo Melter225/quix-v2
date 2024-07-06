@@ -8,7 +8,7 @@ dotenv.config();
 const openai = new OpenAI();
 
 // Notes Accuracy
-async function generateAccuracy(note: string): Promise<[string, string]> {
+async function generateAccuracy(note: string): Promise<[string, string, string]> {
     const sentences = note.trim().split(/(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/)
     const length = sentences.length
     console.log(length)
@@ -20,17 +20,19 @@ async function generateAccuracy(note: string): Promise<[string, string]> {
         },
         {
           role: 'user',
-          content: `Generate 1 relevant and helpful number to measure the accuracy of this notes page: ${note}. Identify the number of incorrect statements made in these notes, taking into account that there are ${length} sentences. Aim to only identify puerly factual innacuracies, and never give 100% accuracy. Additionally include a one to three word specific title of the main topic covered in the notes. Do not include a label such as Accuracy: (Example Response: 4 Quantum Mechanics). Do not provide additional messages such as 'Sure! Here's a notes page for you:' or 'If you have any more questions or need further explanations on other topics, feel free to ask!'.`,
+          content: `Generate 1 relevant and helpful number to measure the accuracy of this notes page: ${note}. Identify the number of incorrect statements made in these notes, taking into account that there are ${length} sentences. Aim to only identify puerly factual innacuracies, and never give 100% accuracy. Additionally include a one to three word specific title of the main topic covered in the notes as well as the three key points covered in the notes preceded by a semicolon. Do not include a label such as Accuracy: (Example Response: 4 Quantum Mechanics; Wave-Particle Duality, Uncertainty Principle, Quantum Entanglement). Do not provide additional messages such as 'Sure! Here's a notes page for you:' or 'If you have any more questions or need further explanations on other topics, feel free to ask!'.`,
         },
       ],
     });
   
     let accuracy
     let topic
+    let points
     if (response.choices[0].message.content != null) {
-      accuracy = response.choices[0].message.content
-      topic = accuracy.slice(2).trim().replace(/\s+/g, ' ')
-      accuracy = parseInt(accuracy)
+      let content = response.choices[0].message.content
+      topic = content.slice(2).trim().replace(/\s+/g, ' ').split(';', 2)[0]
+      points = content.slice(2).trim().replace(/\s+/g, ' ').split(';', 2)[1].trimStart()
+      accuracy = parseInt(content.slice(0, 2))
       accuracy = length - accuracy
       accuracy = accuracy/length
       accuracy = 100 * accuracy
@@ -38,11 +40,11 @@ async function generateAccuracy(note: string): Promise<[string, string]> {
       accuracy = `${accuracy}%`
     }
   
-    if (accuracy != undefined && topic != undefined) {
-      return [accuracy, topic]
+    if (accuracy != undefined && topic != undefined && points != undefined) {
+      return [accuracy, topic, points]
     }
     else {
-      return ['', ''];
+      return ['', '', ''];
     }
 }
 
@@ -50,7 +52,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (req.method == 'POST') {
       try {
         const { note } = await req.json();
-        const [accuracyValue, topic] = await generateAccuracy(note);
+        const [accuracyValue, topic, points] = await generateAccuracy(note);
+        console.log(points)
           
         if (accuracyValue != "No display" && accuracyValue != "No display.") {
           let accuracy = parseFloat(accuracyValue);
@@ -62,7 +65,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             //Do not add directly to the notes collection. Add to a sub-collection for the specific topic.
             await db
                   .collection('notes')
-                  .updateOne({accuracy: note}, {$set: {note, accuracy, topic}}, {upsert: true})
+                  .updateOne({accuracy: note}, {$set: {note, accuracy, topic, points}}, {upsert: true})
           }
 
           return NextResponse.json ({

@@ -2,12 +2,11 @@ import next, { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from "openai";
 import dotenv from 'dotenv';
 import { NextRequest, NextResponse } from 'next/server';
-import { IntegerType } from 'mongodb';
 
 dotenv.config();
 const openai = new OpenAI();
 
-async function redoQuestion(topic: string): Promise<string> {
+async function notesQuiz(point: string): Promise<string> {
   const response = await openai.chat.completions.create({
     model: 'gpt-4-turbo',
     messages: [
@@ -16,7 +15,7 @@ async function redoQuestion(topic: string): Promise<string> {
         },
         {
         role: 'user',
-        content: `Generate 1 relevant and helpful question that will thoroughly quiz the user on this topic: ${topic} quickly. The user will likely have already been quizzed on this topic and incorrectly answered, so, if possible, attempt to generate a question that looks at this topic from a unique perspective. Do not provide additional messages such as 'Sure! Here's a question for you:'.`,
+        content: `Generate 1 relevant and helpful question that will thoroughly quiz the user on this topic: ${point} quickly. The user's knowledge regarding the topic may be insufficient or incorrect, so do not necessarily provide extremely difficult questions while still ensuring that the questions are challenging. Do not provide additional messages such as 'Sure! Here's a question for you:'.`,
         },
     ],
   });
@@ -27,14 +26,14 @@ async function redoQuestion(topic: string): Promise<string> {
 export async function POST(req: NextRequest, res: NextResponse) {
     if (req.method == 'POST') {
       try {
-        const { topics } = await req.json();
-        const redoQuestions = async () => {
-          const promises = topics.map((topic: string) => redoQuestion(topic));
+        const { points } = await req.json();
+        const notesQuizzes = async () => {
+          const promises = points.map((point: string) => notesQuiz(point));
           const results = await Promise.all(promises);
           return results;
         };
 
-        const questions = await redoQuestions();
+        const questions = await notesQuizzes();
 
         return NextResponse.json ({
           questions,
