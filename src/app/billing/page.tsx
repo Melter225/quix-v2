@@ -128,12 +128,12 @@ const Billing = () => {
             <div className="container px-5 py-24 mx-auto">
                 <div className="flex flex-col text-center w-full mb-20">
                   <div className="mx-auto max-w-2xl text-center mt-10 mb-5">
-                    <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl mb-3">Billing</h2>
-                    <p className="mt-2 text-lg leading-8 text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the feature to access documents and videos related to the entered topic; after you have used the provided 100 Credits, you will still have the ability to access the testing feature of Quix, but you will no longer have the ability to access related documents and videos.</p>
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl">Billing</h2>
+                    {/* <p className="mt-2 text-lg leading-8 text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the feature to access documents and videos related to the entered topic; after you have used the provided 100 Credits, you will still have the ability to access the testing feature of Quix, but you will no longer have the ability to access related documents and videos.</p> */}
                   </div>
                   {/* <h1 className="sm:text-4xl text-3xl font-medium font-poppins mb-2 text-gray-300">Billing</h1>
                   <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-gray-200">Quix features affordable pricing, specifically highlighting a bundle of Credits that is included in both the Plus and Premium plans. Credits are an in-app currency that allow you to utilize the testing feature of Quix; after you have used the provided 100 Credits, you will need to switch to either the Plus or the Premium plan.</p> */}
-                  <div className="flex mx-auto border-2 border-link rounded-lg overflow-hidden mt-6">
+                  <div className="flex mx-auto border-2 border-link rounded-lg overflow-hidden mt-3 -mb-10">
                       <button className={`${clicked ? '' : 'bg-link'} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggleFalse}>Monthly</button>
                       <button className={`${clicked ? 'bg-link' : ''} py-1 px-4 text-gray-200 focus:outline-none`} onClick={toggleTrue}>Annually</button>
                   </div>
@@ -148,21 +148,35 @@ const Billing = () => {
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>100 Credits
+                        </span>Limited access to customized quizzes and documents
                     </p>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Access to a cutting-edge dashboard that displays upcoming tests
+                        </span>Access to AI with capabilities of GPT-3.5 Turbo
+                    </p>
+                    <p className="flex items-center text-gray-200 mb-2">
+                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5"></path>
+                        </svg>
+                        </span>Access to videos meticulously chosen to reinforce comprehension
+                    </p>
+                    <p className="flex items-center text-gray-200 mb-2">
+                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5"></path>
+                        </svg>
+                        </span>Ability to redo missed quiz questions once
                     </p>
                     <p className="flex items-center text-gray-200 mb-6">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Access to a login mechanism that uses Schoology data to provide an effective test preparation experience
+                        </span>Access to AI approved public notes pages
                     </p>
                     <a className="flex items-center mt-auto text-white bg-gray-500 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 font-semibold rounded-md transition-colors duration-200" href="/signin">Login
                     </a>
@@ -182,28 +196,49 @@ const Billing = () => {
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>500 Credits monthly
+                        </span>Up to 40x access to customized quizzes and documents
                     </p>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Access to additional dashboard features such as listing the priority of tests and displaying average test scores
+                        </span>Access to AI with capabilities of GPT-4o and GPT-4 Turbo
                     </p>
                     <p className="flex items-center text-gray-200 mb-2">
-                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
+                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Access to a cutting-edge dashboard that displays upcoming tests
+                        </span>Access to websites to bolster and correct user understanding
+                    </p>
+                    <p className="flex items-center text-gray-200 mb-2">
+                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5"></path>
+                        </svg>
+                        </span>Ability to redo missed questions unlimited times
+                    </p>
+                    <p className="flex items-center text-gray-200 mb-2">
+                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5"></path>
+                        </svg>
+                        </span>Key terms highlighted + interactive quizzes for key terms in notes pages
+                    </p>
+                    <p className="flex items-center text-gray-200 mb-2">
+                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5"></path>
+                        </svg>
+                        </span>Tailored sorting algorithms for quizzes by score, question complexity, and user understanding
                     </p>
                     <p className="flex items-center text-gray-200 mb-6">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Access to a login mechanism that uses Schoology data to provide an effective test preparation experience
+                        </span>All the features in Basic
                     </p>
                     <a className="flex items-center mt-auto text-gray-200 bg-link border-0 py-2 px-4 w-full focus:outline-none hover:bg-link_hover font-semibold rounded-md transition-colors duration-200" href="/payment">Get Plus
                     </a>
@@ -222,14 +257,28 @@ const Billing = () => {
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>1000 Credits monthly
+                        </span>Up to 80x access to customized quizzes and documents
                     </p>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Server priority access, leading to an overall faster and enhanced performance
+                        </span>Access to AI with capabilities of Whisper V3
+                    </p>
+                    <p className="flex items-center text-gray-200 mb-2">
+                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5"></path>
+                        </svg>
+                        </span>Unlimited interactive audio mechanism in real time to discuss errors and further improvement
+                    </p>
+                    <p className="flex items-center text-gray-200 mb-2">
+                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5"></path>
+                        </svg>
+                        </span>Comprehensive sorting algorithm for quizzes, considering the importance of several factors
                     </p>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
@@ -238,26 +287,12 @@ const Billing = () => {
                         </svg>
                         </span>Early access to new updates, bug patches, and features
                     </p>
-                    <p className="flex items-center text-gray-200 mb-2">
-                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                            <path d="M20 6L9 17l-5-5"></path>
-                        </svg>
-                        </span>Access to additional dashboard features such as listing the priority of tests and displaying average test scores
-                    </p>
-                    <p className="flex items-center text-gray-200 mb-2">
-                        <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                            <path d="M20 6L9 17l-5-5"></path>
-                        </svg>
-                        </span>Access to a cutting-edge dashboard that displays upcoming tests
-                    </p>
                     <p className="flex items-center text-gray-200 mb-6">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Access to a login mechanism that uses Schoology data to provide an effective test preparation experience
+                        </span>All the features in Plus
                     </p>
                     <a className="flex items-center mt-auto text-gray-200 bg-emerald-600 border-0 py-2 px-4 w-full focus:outline-none hover:bg-emerald-700 font-semibold rounded-md transition-colors duration-200" href="/payment">Get Premium
                     </a>

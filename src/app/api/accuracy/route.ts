@@ -8,19 +8,19 @@ dotenv.config();
 const openai = new OpenAI();
 
 // Notes Accuracy
-async function generateAccuracy(note: string): Promise<[string, string, string]> {
+async function generateAccuracy(note: string): Promise<[string, string, string[], string[]]> {
     const sentences = note.trim().split(/(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/)
     const length = sentences.length
     console.log(length)
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o-2024-05-13',
+      model: 'gpt-4-turbo',
       messages: [
         { role: 'system', 
-          content: 'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in English. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, respond with just this message: No display. Do not include additional introductory and conclusive messages such as "Sure! Here is a notes page for you:".' 
+          content: 'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in English. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, respond with just this message: No display. Do not include additional introductory and conclusive messages such as "Sure! Here is an accuracy measure for you:".' 
         },
         {
           role: 'user',
-          content: `Generate 1 relevant and helpful number to measure the accuracy of this notes page: ${note}. Identify the number of incorrect statements made in these notes, taking into account that there are ${length} sentences. Aim to only identify puerly factual innacuracies, and never give 100% accuracy. Additionally include a one to three word specific title of the main topic covered in the notes as well as the three key points covered in the notes preceded by a semicolon. Do not include a label such as Accuracy: (Example Response: 4 Quantum Mechanics; Wave-Particle Duality, Uncertainty Principle, Quantum Entanglement). Do not provide additional messages such as 'Sure! Here's a notes page for you:' or 'If you have any more questions or need further explanations on other topics, feel free to ask!'.`,
+          content: `Generate 1 relevant and helpful number to measure the accuracy of this notes page: ${note}. Identify the number of incorrect statements made in these notes, taking into account that there are ${length} sentences. Aim to only identify puerly factual innacuracies, and never give 100% accuracy. Additionally include a one to three word specific title of the main topic covered in the notes as well as the three specific key points covered in the notes preceded by a semicolon. The key points should be able to describe a sub-category within the topic without additional context. A sentence from the notes per key point should also be identified that best represents and explains each key point, with this entire section seperated by a semicolon. Do not precede each sentence with a semicolon, but rather the whole sectoin as in the example. Finally, explain why each error is incorrect, seperated by another semicolon. Do not include a label such as Accuracy: (Example Response: 4 Quantum Mechanics; Wave-Particle Duality, Uncertainty Principle, Quantum Entanglement; Wave-particle duality is the concept in quantum mechanics that every particle or quantum entity exhibits both wave and particle properties. The uncertainty principle, formulated by Heisenberg, states that it is impossible to precisely measure both the position and momentum of a particle simultaneously. Quantum entanglement is a phenomenon where particles become interconnected such that the state of one particle instantaneously influences the state of another, regardless of distance.). Do not provide additional messages such as 'Sure! Here's an accuracy measure for you:' or 'If you have any more questions or need further explanations on other topics, feel free to ask!'.`,
         },
       ],
     });
@@ -28,23 +28,28 @@ async function generateAccuracy(note: string): Promise<[string, string, string]>
     let accuracy
     let topic
     let points
+    let text
     if (response.choices[0].message.content != null) {
       let content = response.choices[0].message.content
-      topic = content.slice(2).trim().replace(/\s+/g, ' ').split(';', 2)[0]
-      points = content.slice(2).trim().replace(/\s+/g, ' ').split(';', 2)[1].trimStart()
+      console.log(content)
+      topic = content.slice(2).trim().replace(/\s+/g, ' ').split(';', 3)[0]
+      points = content.slice(2).trim().replace(/\s+/g, ' ').split(';', 3)[1].trimStart().split(',', 3)
+      points = [points[0].trimStart(), points[1].trimStart(), points[2].trimStart()]
+      text = content.slice(2).trim().replace(/\s+/g, ' ').split(';', 3)[2].trimStart().split('.', 3)
+      text = [text[0].trimStart(), text[1].trimStart(), text[2].trimStart()]
       accuracy = parseInt(content.slice(0, 2))
       accuracy = length - accuracy
       accuracy = accuracy/length
       accuracy = 100 * accuracy
-      accuracy = accuracy.toString()
+      accuracy = accuracy.toFixed(1).toString()
       accuracy = `${accuracy}%`
     }
   
-    if (accuracy != undefined && topic != undefined && points != undefined) {
-      return [accuracy, topic, points]
+    if (accuracy != undefined && topic != undefined && points != undefined && text != undefined) {
+      return [accuracy, topic, points, text]
     }
     else {
-      return ['', '', ''];
+      return ['', '', [''], ['']];
     }
 }
 
@@ -52,8 +57,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (req.method == 'POST') {
       try {
         const { note } = await req.json();
-        const [accuracyValue, topic, points] = await generateAccuracy(note);
-        console.log(points)
+        const [accuracyValue, topic, points, text] = await generateAccuracy(note);
+        console.log(text)
           
         if (accuracyValue != "No display" && accuracyValue != "No display.") {
           let accuracy = parseFloat(accuracyValue);
@@ -65,7 +70,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             //Do not add directly to the notes collection. Add to a sub-collection for the specific topic.
             await db
                   .collection('notes')
-                  .updateOne({accuracy: note}, {$set: {note, accuracy, topic, points}}, {upsert: true})
+                  .updateOne({accuracy: note}, {$set: {note, accuracy, topic, points, text}}, {upsert: true})
           }
 
           return NextResponse.json ({

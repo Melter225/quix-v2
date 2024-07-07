@@ -2,6 +2,8 @@ import next, { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from "openai";
 import dotenv from 'dotenv';
 import { NextRequest, NextResponse } from 'next/server';
+import matter from "gray-matter";
+import fs from "fs"
 
 dotenv.config();
 const openai = new OpenAI();
@@ -14,7 +16,7 @@ async function generateDocument(topic: string): Promise<string> {
     model: 'gpt-4o-2024-05-13',
     messages: [
       { role: 'system', 
-        content: 'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in that language. For example, if the user enters "Espanol", then the entire document should be in Spanish while also teaching the user about Spanish. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, respond with just this message: No display. Aim to not sound like an AI or human response but rather, a 3rd person document. To do this, do not address the reader directly, do not use the imperative mood, do not use second person or first person, and do not include additional introductory and conclusive messages such as "Sure! Here is a document for you:".' 
+        content: 'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in that language. For example, if the user enters "Espanol", then the entire document should be in Spanish while also teaching the user about Spanish. The entire document should be in raw Markdown. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, respond with just this message: No display. Aim to not sound like an AI or human response but rather, a 3rd person document. To do this, do not address the reader directly, do not use the imperative mood, do not use second person or first person, and do not include additional introductory and conclusive messages such as "Sure! Here is a document for you:".' 
       },
       {
         role: 'user',
@@ -123,6 +125,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
         const website = await generateWebsite(areas);
         console.log(website)
+
+        // const content = fs.readFileSync(document, "utf8")
+        // let matter_result = matter(content).content
 
         return NextResponse.json ({
           document,

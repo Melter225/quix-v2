@@ -6,7 +6,11 @@ import { NextRequest, NextResponse } from 'next/server';
 dotenv.config();
 const openai = new OpenAI();
 
-async function notesQuiz(point: string): Promise<string> {
+async function notesQuiz(point: string, previousPoints?: string[]): Promise<string> {
+  let additionalQuery = ''
+  if (previousPoints && previousPoints.length > 0) {
+    additionalQuery = `Do not duplicate or generate questions similar to the previous questions: ${previousPoints?.join(", ")}.`
+  }
   const response = await openai.chat.completions.create({
     model: 'gpt-4-turbo',
     messages: [
@@ -15,7 +19,7 @@ async function notesQuiz(point: string): Promise<string> {
         },
         {
         role: 'user',
-        content: `Generate 1 relevant and helpful question that will thoroughly quiz the user on this topic: ${point} quickly. The user's knowledge regarding the topic may be insufficient or incorrect, so do not necessarily provide extremely difficult questions while still ensuring that the questions are challenging. Do not provide additional messages such as 'Sure! Here's a question for you:'.`,
+        content: `Generate 1 relevant and helpful question that will thoroughly quiz the user on this topic: ${point} quickly. ${additionalQuery} The user's knowledge regarding the topic may be insufficient or incorrect, so do not necessarily provide extremely difficult questions while still ensuring that the questions are challenging. Do not provide additional messages such as 'Sure! Here's a question for you:'.`,
         },
     ],
   });
@@ -27,10 +31,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (req.method == 'POST') {
       try {
         const { points } = await req.json();
+        console.log(points)
         const notesQuizzes = async () => {
           const promises = points.map((point: string) => notesQuiz(point));
-          const results = await Promise.all(promises);
-          return results;
+          const results = await Promise.all([...promises]);
+          const promises2 = points.map((point: string) => notesQuiz(point, results));
+          const results2 = await Promise.all([...promises2]);``
+          return [...results, ...results2];
         };
 
         const questions = await notesQuizzes();
