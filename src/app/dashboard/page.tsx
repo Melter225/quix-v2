@@ -35,15 +35,15 @@ export default function Dashboard() {
   const [open, setOpen] = useState(true);
   const [topic, setTopic] = useState('');
   const database = [
-    {quiz: "Solve for x: 3x + 5 = 14", accuracy: 34},
-    {quiz: "Solve for x: 2x + 7 = 15", accuracy: 71},
-    {quiz: "Solve for y: 3y - 5 = 4y + 2", accuracy: 12},
-    {quiz: "Solve for x: 5x = 25", accuracy: 4},
-    {quiz: "Solve for x: x^2 = 16", accuracy: 99},
+    {quiz: "Solve for x: 3x + 5 = 14", accuracy: 100},
+    {quiz: "Solve for x: 2x + 7 = 15", accuracy: 70},
+    {quiz: "Solve for y: 3y - 5 = 4y + 2", accuracy: 80},
+    {quiz: "Solve for x: 5x = 25", accuracy: 100},
+    {quiz: "Solve for x: x^2 = 16", accuracy: 50},
   ]
   const answers = ['Answer: x = 3. Explanation: To solve for x, I first subtract 5 from both sides of the equation: 3x + 5 - 5 = 14 - 5. This simplifies to: 3x = 9. Next, I divide both sides by 3: 3x / 3 = 9 / 3. x = 3.', 'Answer: x = 1 Explanation: To solve for x, I subtract 7 from both sides: 2x + 7 - 7 = 15 - 7 This simplifies to: 2x = 8 Then, I divide both sides by 2: 2x / 2 = 8 / 2 x = 1', 'Answer: y = -7 Explanation: To solve for y, I subtract 3y from both sides: 3y - 5 - 3y = 4y + 2 - 3y This simplifies to: -5 = y + 2 Next, I subtract 2 from both sides: -5 - 2 = y + 2 - 2 y = -7', 'Answer: x = 5 Explanation: To solve for x, I divide both sides by 5: 5x / 5 = 25 / 5 x = 5', 'Answer: x = 4 Explanation: To solve for x, I take the square root of both sides: sqrt(x^2) = sqrt(16) This simplifies to: x = 4']
   const note = `The Pythagorean theorem is a fundamental principle in geometry. It states that in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. This relationship can be expressed as a^2 + b^2 = c^2, where c is the hypotenuse. The theorem is named after the ancient Greek mathematician Pythagoras. It is widely used in various fields such as architecture, engineering, and physics. A common example of its application is determining the distance between two points on a plane. The theorem only applies to right-angled triangles. It has been proven through various methods, including algebraic and geometric proofs. Understanding the Pythagorean theorem is essential for studying more advanced mathematical concepts.`
-  const order = 'understanding'
+  const order = 'comprehensive'
   const errors = ['Square root of 81', 'Boiling point of water']
   const points = ['Pythagorean Theorem', 'Derivatives', 'Prime Numbers']
 
