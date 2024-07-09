@@ -98,24 +98,24 @@ export default function Dashboard() {
     // } catch (error) {
     //     console.error('Error:', error);
     // }
-    try {
-        const response = await fetch('/api/priority', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ topics: database, order, answers }),
-        });
+    // try {
+    //     const response = await fetch('/api/priority', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ topics: database, order, answers }),
+    //     });
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Generated priority:', data);
-        } else {
-            console.error('Failed to generate priority');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         console.log('Generated priority:', data);
+    //     } else {
+    //         console.error('Failed to generate priority');
+    //     }
+    // } catch (error) {
+    //     console.error('Error:', error);
+    // }
     // try {
     //     const response = await fetch('/api/redo', {
     //         method: 'POST',
@@ -134,6 +134,23 @@ export default function Dashboard() {
     // } catch (error) {
     //     console.error('Error:', error);
     // }
+    try {
+        const response = await fetch('/api/luna', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Generated priority:', data);
+        } else {
+            console.error('Failed to generate priority');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
   };
 
   const learn = async () => {
