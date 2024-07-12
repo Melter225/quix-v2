@@ -264,14 +264,14 @@ const Billing = () => {
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Access to AI with capabilities of Whisper V3
+                        </span>Access to AI with capabilities of Whisper V1
                     </p>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">
                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
-                        </span>Unlimited interactive audio mechanism in real time to discuss errors and further improvement
+                        </span>Unlimited interactive audio AI &quot;Luna&quot; in real time to learn about a new topic or discuss errors
                     </p>
                     <p className="flex items-center text-gray-200 mb-2">
                         <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-600 text-white rounded-full flex-shrink-0">

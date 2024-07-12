@@ -6,7 +6,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { signOut, useSession } from "next-auth/react";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 const navigation = [
@@ -34,6 +34,7 @@ export default function Dashboard() {
   const [isOpen2, setIsOpen2] = useState(false);
   const [open, setOpen] = useState(true);
   const [topic, setTopic] = useState('');
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const database = [
     {quiz: "Solve for x: 3x + 5 = 14", accuracy: 100},
     {quiz: "Solve for x: 2x + 7 = 15", accuracy: 70},
@@ -144,9 +145,30 @@ export default function Dashboard() {
 
         if (response.ok) {
             const data = await response.json();
-            console.log('Generated priority:', data);
+            console.log('Generated audio:', data);
+
+            const audioBlob = await response.blob();
+            const audioObjectUrl = URL.createObjectURL(audioBlob);
+            setAudioUrl(audioObjectUrl);
+
+            const playAudio = () => {
+                if (audioUrl) {
+                  const audio = new Audio(audioUrl);
+                  audio.play().catch(error => {
+                    console.error('Error playing audio:', error);
+                  });
+                }
+              };
+            // const playAudio = () => {
+            //     const audio = new Audio('/output.mp3');
+            //     audio.play().catch(error => {
+            //     console.error('Error playing audio:', error);
+            //     });
+            // };
+
+            playAudio();
         } else {
-            console.error('Failed to generate priority');
+            console.error('Failed to generate audio');
         }
     } catch (error) {
         console.error('Error:', error);
