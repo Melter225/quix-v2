@@ -2,8 +2,6 @@ import next, { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from "openai";
 import dotenv from 'dotenv';
 import { NextRequest, NextResponse } from 'next/server';
-import matter from "gray-matter";
-import fs from "fs"
 
 dotenv.config();
 const openai = new OpenAI();
@@ -13,10 +11,10 @@ interface SearchResultItem {
 
 async function generateDocument(topic: string): Promise<string> {
   const response = await openai.chat.completions.create({
-    model: 'gpt-4o-2024-05-13',
+    model: 'gpt-4-turbo',
     messages: [
       { role: 'system', 
-        content: 'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in that language. For example, if the user enters "Espanol", then the entire document should be in Spanish while also teaching the user about Spanish. The entire document should be in raw Markdown. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, respond with just this message: No display. Aim to not sound like an AI or human response but rather, a 3rd person document. To do this, do not address the reader directly, do not use the imperative mood, do not use second person or first person, and do not include additional introductory and conclusive messages such as "Sure! Here is a document for you:".' 
+        content: 'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in that language. For example, if the user enters "Espanol", then the entire document should be in Spanish while also teaching the user about Spanish. The entire document should be in pure Markdown, meaning there should be no LaTeX or other similar parsing methods. Use delimiters for division and square roots and render inline math the same way as display math. For example, pi should be written as: $$\\pi$$. Rendering inline math as such is very important, so remember the double dollar signs and double backslashes. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, respond with just this message: No display. Aim to not sound like an AI or human response but rather, a 3rd person document. To do this, do not address the reader directly, do not use the imperative mood, do not use second person or first person, and do not include additional introductory and conclusive messages such as "Sure! Here is a document for you:".' 
       },
       {
         role: 'user',
@@ -77,7 +75,6 @@ async function generateVideo(areas: string[]): Promise<string[]> {
 
 async function generateWebsite(areas: string[]): Promise<string[]> {
   const websiteUrls = [''];
-  let urls = [''];
 
   for (let i = 0; i < 3; i++) {
     const query = areas[i];
@@ -86,7 +83,8 @@ async function generateWebsite(areas: string[]): Promise<string[]> {
       const apiKey = process.env.WEBSITE_API_KEY;
       const searchEngineId = process.env.SEARCH_ENGINE_ID;
 
-      const apiUrl = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${encodeURIComponent(query)}`;
+      const exclusionQuery = `${encodeURIComponent(query)} -site:youtube.com -site:youtu.be`;
+      const apiUrl = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${exclusionQuery}&num=1`;
 
       const response = await fetch(apiUrl);
       if (!response.ok) {
@@ -94,9 +92,11 @@ async function generateWebsite(areas: string[]): Promise<string[]> {
       }
 
       const data = await response.json();
-      let fetchedUrls = data.items.map((item: SearchResultItem) => item.link);
-      console.log(fetchedUrls)
-      websiteUrls.push(...fetchedUrls)
+      if (data.items && data.items.length > 0) {
+        websiteUrls.push(data.items[0].link);
+      } else {
+        console.warn('No search results found for query:', query);
+      }
     } catch (error) {
       console.error('Error fetching websites:', error);
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -104,8 +104,8 @@ async function generateWebsite(areas: string[]): Promise<string[]> {
     }
   }
 
-  urls = [websiteUrls[1], websiteUrls[11], websiteUrls[21]]
-  return urls;
+  websiteUrls.splice(0, 1)
+  return websiteUrls;
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -125,9 +125,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
         const website = await generateWebsite(areas);
         console.log(website)
-
-        // const content = fs.readFileSync(document, "utf8")
-        // let matter_result = matter(content).content
 
         return NextResponse.json ({
           document,

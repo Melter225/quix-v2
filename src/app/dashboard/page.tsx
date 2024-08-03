@@ -7,6 +7,13 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { signOut, useSession } from "next-auth/react";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import React, { useState, useEffect } from 'react';
+import Markdown from 'react-markdown'
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw';
+import { MathJax, MathJaxContext } from "better-react-mathjax";
+import 'katex/dist/katex.min.css';
+import prisma from "@/lib/db"
 
 
 const navigation = [
@@ -29,12 +36,26 @@ function classNames(...classes:string[]) {
 export default function Dashboard() {
   const { data: session, status } = useSession()
   const userImage:any = session?.user?.image
+  const email_signin: string | undefined = window.location.pathname.match(/\/dashboard\/(.+)$/)?.[1]
+  const [username, setUsername] = useState('')
+  const profile_signin: string | undefined = window.location.pathname.match(/\/dashboard\/(.+)$/)?.[1]
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState('Mode');
   const [isOpen2, setIsOpen2] = useState(false);
   const [open, setOpen] = useState(true);
   const [topic, setTopic] = useState('');
+  const [audio, setAudio] = useState(false)
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [document, setDocument] = useState('')
+  const config = {
+      loader: { load: ["input/asciimath"] },
+    // loader: { load: ["input/tex", "output/chtml"] },
+    //   tex2jax: {
+    //     inlineMath: [["\\(", "\\)"]],
+    //     displayMath: [["$$", "$$"]],
+    //   },
+  };
+  // const document = `The lift coefficient ($C_L$) is a dimensionless coefficient.`
   const database = [
     {quiz: "Solve for x: 3x + 5 = 14", accuracy: 100},
     {quiz: "Solve for x: 2x + 7 = 15", accuracy: 70},
@@ -60,6 +81,28 @@ export default function Dashboard() {
       setIsOpen2(!isOpen2);
   };
   
+  const signOut2 = () => {
+    window.location.href = "/"
+  }
+
+  const fetchUsername = async (email: string | null | undefined) => {
+    try {
+      const user = await prisma.user.findUnique({
+        where: { email } as { email: string },
+        select: { name: true }
+      });
+
+      if (user) {
+        setUsername(user.name);
+      } else {
+        console.error('User not found');
+      }
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+    }
+  };
+
+  fetchUsername(email_signin ?? session?.user?.email)
 
   console.log(JSON.stringify({ topic: topic }))
 
@@ -82,23 +125,23 @@ export default function Dashboard() {
     //   } catch (error) {
     //       console.error('Error:', error);
     //   }
-    // try {
-    //     const response = await fetch('/api/resources', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //     });
+    try {
+        const response = await fetch('/api/resources', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
-    //     if (response.ok) {
-    //         const data = await response.json();
-    //         console.log('Generated resources:', data);
-    //     } else {
-    //         console.error('Failed to generate resources');
-    //     }
-    // } catch (error) {
-    //     console.error('Error:', error);
-    // }
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Generated resources:', data);
+        } else {
+            console.error('Failed to generate resources');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
     // try {
     //     const response = await fetch('/api/priority', {
     //         method: 'POST',
@@ -135,45 +178,58 @@ export default function Dashboard() {
     // } catch (error) {
     //     console.error('Error:', error);
     // }
-    try {
-        const response = await fetch('/api/luna', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+    // try {
+    //     const response = await fetch('/api/luna', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //     });
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Generated audio:', data);
+    //     setAudio(true)
 
-            const audioBlob = await response.blob();
-            const audioObjectUrl = URL.createObjectURL(audioBlob);
-            setAudioUrl(audioObjectUrl);
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         console.log('Generated audio:', data);
 
-            const playAudio = () => {
-                if (audioUrl) {
-                  const audio = new Audio(audioUrl);
-                  audio.play().catch(error => {
-                    console.error('Error playing audio:', error);
-                  });
-                }
-              };
+            // const audioBlob = new Blob([JSON.stringify(data.audio)], {
+            //     type: "application/json",
+            // });
+            // const audioObjectUrl = URL.createObjectURL(audioBlob);
+            // setAudioUrl(audioObjectUrl);
+
             // const playAudio = () => {
-            //     const audio = new Audio('/output.mp3');
-            //     audio.play().catch(error => {
-            //     console.error('Error playing audio:', error);
-            //     });
-            // };
-
-            playAudio();
-        } else {
-            console.error('Failed to generate audio');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
+            //     if (audioUrl) {
+            //       const audio = new Audio(audioUrl);
+            //       audio.play().catch(error => {
+            //         console.error('Error playing audio:', error);
+            //       });
+            //     }
+            //   };
+    //     } else {
+    //         console.error('Failed to generate audio');
+    //     }
+    // } catch (error) {
+    //     console.error('Error:', error);
+    // }
   };
+
+  const playAudio = () => {
+      const audio = new Audio('/output.mp3');
+      audio.play().catch(error => {
+      console.error('Error playing audio:', error);
+      });
+  };
+
+  if (audio == true) {
+      console.log(audio)
+      playAudio();
+      setAudio(false)
+      return
+  }
+  else {
+      console.log(audio)
+  }
 
   const learn = async () => {
       try {
@@ -188,6 +244,8 @@ export default function Dashboard() {
           if (response.ok) {
               const data = await response.json();
               console.log('Generated resources:', data);
+              console.log(data.document)
+              setDocument(data.document)
           } else {
               console.error('Failed to generate resources');
           }
@@ -250,9 +308,9 @@ export default function Dashboard() {
     // }
   };
 
-  if (status === "unauthenticated") {
-    return <p>You are not logged in</p>
-  }
+//   if (status === "unauthenticated") {
+//     window.location.href = "/"
+//   }
 
   return (
     <main className="font-poppins">
@@ -336,6 +394,7 @@ export default function Dashboard() {
                                             if (item.name === "Sign out") {
                                                 e.preventDefault()
                                                 signOut()
+                                                signOut2()
                                             }
                                         }}
                                         className={classNames(
@@ -390,11 +449,11 @@ export default function Dashboard() {
                     <div className="pb-3 pt-4">
                     <div className="flex items-center px-5">
                         <div className="flex-shrink-0">
-                            <Image className="rounded-full" src={userImage} width={30} height={30} alt="" />
+                            <Image className="rounded-full" src={profile_signin !== undefined ? profile_signin : userImage} width={30} height={30} alt="" />
                         </div>
                         <div className="ml-3">
-                            <div className="text-base font-semibold leading-none text-gray-200">{session?.user?.name}</div>
-                            <div className="text-sm font-semibold leading-none text-gray-400">{session?.user?.email}</div>
+                            <div className="text-base font-semibold leading-none text-gray-200">{username}</div>
+                            <div className="text-sm font-semibold leading-none text-gray-400">{email_signin !== undefined ? email_signin : session?.user?.email}</div>
                         </div>
                         <button
                         type="button"
@@ -413,6 +472,7 @@ export default function Dashboard() {
                                 if (item.name === "Sign out") {
                                     e.preventDefault()
                                     signOut()
+                                    signOut2()
                                 }
                             }}
                             as="a"
@@ -548,6 +608,15 @@ export default function Dashboard() {
                     </div>
                     <div className={`${open ? 'absolute right-0 bottom-0 mt-[-15vh] pt-[0.7rem]' : 'fixed right-0 bottom-4 '} w-full ${open ? 'md:w-[75svw]' : 'md:w-full'} ml-[25svw] ${open ? 'pb-4' : ''} rounded-lg`}>
                         <div className="flex flex-col pt-2 mt-[2rem]">
+                            <div className="markdown-styling text-gray-200 font-poppins">
+                                <MathJaxContext config={config}>
+                                    <MathJax>
+                                        <Markdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex, rehypeRaw]}>
+                                            {document}
+                                        </Markdown>
+                                    </MathJax>
+                                </MathJaxContext>
+                            </div>
                             <div className="flex justify-start items-start">
                                 <button
                                     data-dropdown-toggle="dropdownDivider"

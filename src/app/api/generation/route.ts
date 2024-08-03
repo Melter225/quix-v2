@@ -55,7 +55,6 @@ async function generateQuery(topic: string, questions: string[]): Promise<string
 
 async function generateWebsite(areas: string[]): Promise<string[]> {
   const websiteUrls = [''];
-  let urls = [''];
 
   for (let i = 0; i < 3; i++) {
     const query = areas[i];
@@ -64,7 +63,8 @@ async function generateWebsite(areas: string[]): Promise<string[]> {
       const apiKey = process.env.WEBSITE_API_KEY;
       const searchEngineId = process.env.SEARCH_ENGINE_ID;
 
-      const apiUrl = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${encodeURIComponent(query)}`;
+      const exclusionQuery = `${encodeURIComponent(query)} -site:youtube.com -site:youtu.be`;
+      const apiUrl = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${exclusionQuery}&num=1`;
 
       const response = await fetch(apiUrl);
       if (!response.ok) {
@@ -72,9 +72,11 @@ async function generateWebsite(areas: string[]): Promise<string[]> {
       }
 
       const data = await response.json();
-      let fetchedUrls = data.items.map((item: SearchResultItem) => item.link);
-      console.log(fetchedUrls)
-      websiteUrls.push(...fetchedUrls)
+      if (data.items && data.items.length > 0) {
+        websiteUrls.push(data.items[0].link);
+      } else {
+        console.warn('No search results found for query:', query);
+      }
     } catch (error) {
       console.error('Error fetching websites:', error);
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -82,8 +84,8 @@ async function generateWebsite(areas: string[]): Promise<string[]> {
     }
   }
 
-  urls = [websiteUrls[1], websiteUrls[11], websiteUrls[21]]
-  return urls;
+  websiteUrls.splice(0, 1)
+  return websiteUrls;
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {

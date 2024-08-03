@@ -1,35 +1,36 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
   // direct_url = env("DATABASE_DIRECTURL")
 }
 
 model User {
-  id        String @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email     String 
-  password  String
-  name      String
-  quizzes   Quiz[]
-  premium   Boolean
+  id       String  @id @default(cuid())
+  email    String @unique
+  password String
+  name     String @unique
+  // quizzes  Quiz[]
+  // premium  Boolean
 }
 
-model Quiz {
-  id            String @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id       String @db.Uuid
-  user          User @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  quiz_name     String
-  quiz_number   String
-  questions     String[]
-  taken         Boolean
-  right         String[]
-  wrong         String[]
-  correct       String[]
-  incorrect     String[]
-}
+// model Quiz {
+//   quiz_id     String     @id @default(cuid())
+//   user_id     String     @default(cuid())
+//   user        User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+//   quiz_name   String
+//   quiz_number String
+//   questions   Question[]
+//   taken       Boolean
+//   score       String
+// }
+
+// model Question {
+//   question_id String  @id @default(cuid())
+//   question    String
+//   Quiz        Quiz?   @relation(fields: [quizQuiz_id], references: [quiz_id])
+//   quizQuiz_id String?
+// }

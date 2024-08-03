@@ -12,7 +12,11 @@ const openai = new OpenAI();
 // const uri = process.env.MONGODB_URI || ''
 
 async function audioGeneration(res: NextResponse) {
+    const speechFile = path.resolve("./public/output.mp3");
     let content = ''
+
+    await fs.promises.writeFile(speechFile, '');
+
     const transcription = await openai.audio.transcriptions.create({
       file: fs.createReadStream("./public/QuixAudio.m4a"),
       model: "whisper-1",
@@ -23,7 +27,7 @@ async function audioGeneration(res: NextResponse) {
       model: 'gpt-4-turbo',
       messages: [
         { role: 'system', 
-          content: 'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in that language. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, explain this. Do not ever directly mention that you are an AI. Only use text symbols that could be typed with a standard keyboard without additional extensions. Your name is Luna. Do not include additional introductory and conclusive messages such as "Sure! Here is a response for you:".' 
+          content: 'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in that language. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, explain this. Do not ever directly mention that you are an AI. Do not use any symbols other than numbers and letters. Your name is Luna. Do not include additional introductory and conclusive messages such as "Sure! Here is a response for you:".' 
         },
         {
           role: 'user',
@@ -43,14 +47,17 @@ async function audioGeneration(res: NextResponse) {
       input: content,
     });
 
-    console.log(audio, audio.body)
-    const audioStream = audio.body;
+    const buffer = Buffer.from(await audio.arrayBuffer());
+    await fs.promises.writeFile(speechFile, buffer);
+
+    // console.log(`audio body: ${audio.body}`)
+    // const audioStream = audio.body;
     
-    return new NextResponse(audioStream, {
-      headers: {
-        'Content-Type': 'audio/mpeg',
-      },
-    });
+    // return new NextResponse(audioStream, {
+    //   headers: {
+    //     'Content-Type': 'audio/mpeg',
+    //   },
+    // });
     // if (audio.body != null) {
     //   const audioStream = new ReadableStream({
     //     start(controller) {
@@ -83,9 +90,8 @@ async function audioGeneration(res: NextResponse) {
 export async function POST(req: NextRequest, res: NextResponse) {
   if (req.method == 'POST') {
     try {
-      const audio = await audioGeneration(res);        
+      await audioGeneration(res);        
       return NextResponse.json ({
-        audio,
         status: 200
       })
     } catch (error) {

@@ -7,6 +7,7 @@ import { TypeAnimation } from "react-type-animation"
 import { z } from "zod"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
+import prisma from "@/lib/db"
 import {
   Form,
   FormControl,
@@ -22,7 +23,7 @@ import {
 } from "@/components/ui/input";
 
 
-const emailSchema = z.object({
+const signUpSchema = z.object({
   email: z.string()
     .min(1, 
       {message: "Please enter an email"})
@@ -41,7 +42,7 @@ const emailSchema = z.object({
     .refine((value) => /[A-Z]/.test(value), 
       {message: "Please enter a password with at least one uppercase character"})
     .refine((value) => /[^a-zA-Z0-9\s]/.test(value), 
-    {message: "Please enter a password with at least one uppercase character"}),
+    {message: "Please enter a password with at least one special character"}),
   retype_password: z.string(),
   phone: z.string()
     .optional(),
@@ -55,15 +56,15 @@ const emailSchema = z.object({
     .refine((value) => /[0-9]/.test(value), 
     {message: "Please enter a valid verification code"}),
 }).refine((value) => value.password === value.retype_password,
-  {message: "Please enter a password with at least one uppercase character", path: ["retype_password"]}) 
+  {message: "Please ensure that you retyped your password correctly", path: ["retype_password"]}) 
 
 const Signup = () => {
   const GoogleOAuth = async () => {
-    await signIn('google', {callbackUrl:"/dashboard"}); // This triggers the authentication flow with Google
+    await signIn('google', {callbackUrl:"/dashboard"});
   };
 
-  const [isPasswordVisible, setIsPasswordVisible] = useState(true);
-  const [isPasswordVisible2, setIsPasswordVisible2] = useState(true);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isPasswordVisible2, setIsPasswordVisible2] = useState(false);
   const [isPhase2, setIsPhase2] = useState(false)
   const [isPhase3, setIsPhase3] = useState(false)
   const [isPhase4, setIsPhase4] = useState(false)
@@ -76,10 +77,10 @@ const Signup = () => {
   // const [verifyEmail, setVerifyEmail] = useState("")
 
   // let phoneCode: string | number = "";
-  let emailCode: string | number = "";
+  const [emailCode, setEmailCode] = useState<Number | String>("")
 
-  const form = useForm<z.infer<typeof emailSchema>>({
-    resolver: zodResolver(emailSchema),
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
       username: "",
@@ -155,12 +156,13 @@ const Signup = () => {
   }
 
   function emailGeneration() {
-    emailCode = getRandomInt(100000,999999)
-    console.log(emailCode)
+    let emailCodeNumber = getRandomInt(100000,999999)
+    setEmailCode(emailCodeNumber)
+    console.log(emailCodeNumber)
 
     //`${document.getElementById("userEmail").value}`
 
-    handleSubmit("romahapatra@gmail.com", `${emailCode}`);
+    handleSubmit("romahapatra@gmail.com", `${emailCodeNumber}`);
   }
 
   function emailVerification() {
@@ -169,26 +171,34 @@ const Signup = () => {
 
     if (email === emailCode) {
       console.log("approved", emailCode, email)
-      window.location.href = "/"
+      // window.location.href = "/signin"
+      return true
     }
     else {
-      console.log(emailCode, email)
+      console.log("emailCode", emailCode, "email", email)
+      return false
     }
   }
 
   async function onSignup() {
-    const userData = form.getValues()
-    console.log("user added", userData)
-
-    const response = await fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: userData.email
+    if (emailVerification()) {
+      const userData = form.getValues()
+      console.log("user added", userData)
+  
+      await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: userData.email,
+          password: userData.password,
+          username: userData.username,
+        })
       })
-    })
+
+      window.location.href = "/signin"
+    }
   }
 
   // console.log(form.getValues())
@@ -325,7 +335,7 @@ const Signup = () => {
                                 </svg>
                                 <input className="pl-2 outline-none border-none ring-0 bg-gray-300 text-gray-800 w-[80%]" type={isPasswordVisible ? 'text' : 'password' } id="password"
                                   placeholder="Password" {...field} />
-                                <Image className="mr-4 hover:cursor-pointer" src={isPasswordVisible ? '/eye_off.png' : '/eye.png'} alt="eye" id="eye" width={25} height={25} onClick={passwordEye} />
+                                <Image className="mr-4 hover:cursor-pointer" src={isPasswordVisible ? '/eye.png' : '/eye_off.png'} alt="eye" id="eye" width={25} height={25} onClick={passwordEye} />
                                 {/* <input placeholder="Password" id="password" className="pl-2 outline-none border-none ring-0 bg-gray-300 text-gray-800 w-[80%]" {...field} /> */}
                               </div>
                             </FormControl>
@@ -380,7 +390,7 @@ const Signup = () => {
                               </svg>
                               <input className="pl-2 outline-none border-none ring-0 bg-gray-300 text-gray-800 w-[80%]" type={isPasswordVisible2 ? 'text' : 'password' } id="password"
                                 placeholder="Retype Password" {...field} />
-                              <Image className="mr-4 hover:cursor-pointer" src={isPasswordVisible2 ? '/eye_off.png' : '/eye.png'} alt="eye" id="eye" width={25} height={25} onClick={passwordEye2} />
+                              <Image className="mr-4 hover:cursor-pointer" src={isPasswordVisible2 ? '/eye.png' : '/eye_off.png'} alt="eye" id="eye" width={25} height={25} onClick={passwordEye2} />
                               {/* <input placeholder="Password" id="password" className="pl-2 outline-none border-none ring-0 bg-gray-300 text-gray-800 w-[80%]" {...field} /> */}
                             </div>
                           </FormControl>
@@ -551,7 +561,7 @@ const Signup = () => {
                   <button className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg" onClick={phase4}>Continue</button>
                 )}
                 {isPhase4 && (
-                  <button type="submit" className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg" onClick={onSignup}>Sign Up</button>
+                  <button type="submit" className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg">Sign Up</button>
                 )}
                 {/* <div className="w-full flex justify-center items-center mt-3">
                   <div className="border-b-2 border-gray-800 w-[40%] mr-2"></div>

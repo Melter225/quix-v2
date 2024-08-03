@@ -7,14 +7,41 @@ import { useState } from 'react'
 
 const Signin = () => {
   const GoogleOAuth = async () => {
-    await signIn('google', {callbackUrl:"/dashboard"}); // This triggers the authentication flow with Google
+    await signIn('google', {callbackUrl:"/dashboard"});
   };
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+  const [identifier, setIdentifier] = useState("")
 
   const passwordEye = () => {
     setIsPasswordVisible((prev) => !prev);
   };
+
+  async function onLogin(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log("user logging in", identifier)
+
+    const response = await fetch("/api/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        identifier: identifier,
+      })
+    })
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result)
+      if (result.user_status === true && result.email != "") {
+        console.log("login successful")
+        window.location.href = `/dashboard/${result.email}`;
+      }
+    } else {
+      console.error("Failed to sign in", response.statusText);
+    }
+  }
 
   return (
     <main className="font-poppins bg-gradient-to-b from-[#030c17] via-[#030c17] to-[#1C497C]">
@@ -52,7 +79,7 @@ const Signin = () => {
             <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 z-0"></div>
           </div>
           <div className="flex md:w-[50%] sm:w-full h-screen justify-center py-10 items-center">
-            <form className="bg-gray-300 rounded-xl lg:w-[69%] md:w-[82%] sm:w-[69%] w-[69%] shadow-gray-800 shadow-lg">
+            <form className="bg-gray-300 rounded-xl lg:w-[69%] md:w-[82%] sm:w-[69%] w-[69%] shadow-gray-800 shadow-lg" onSubmit={onLogin}>
               <div className="w-full text-center">
                 <h1 className="text-gray-700 font-bold text-[2.1rem] mb-1 mt-12">Welcome Back</h1>
                 <p className="text-xl font-normal text-gray-800 mb-7">Please enter your credentials</p>
@@ -102,7 +129,7 @@ const Signin = () => {
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
                 </svg>
-                <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="text" name="" id="" placeholder="Username or Email" />
+                <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="text" name="" id="" placeholder="Username or Email" onChange={(e) => setIdentifier(e.target.value)} />
               </div>
               <label className="ml-[10%] font-semibold text-lg text-gray-700">Password</label>
               <div className="flex items-center border-2 py-3 rounded-lg mb-2 mt-1 border-gray-800 w-[80%] ml-[10%]">
@@ -129,7 +156,7 @@ const Signin = () => {
                 <a className="underline text-center text-link hover:text-link_hover cursor-pointer text-sm transition-colors duration-200 mr-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] ml-[10%] mb-0 sm:ml-[10%] md:ml-[10%] lg:ml-0 lg:mb-2 md:mb-0 sm:mb-0 mt-[-0.5rem] lg:mt-0 md:mt-[-0.5rem] sm:[-0.5rem]" href="/reset">Forgot Password?</a>
               </div>
               {/* <p className="text-sm text-center mb-1">By creating an account, you accept our <a className="text-link hover:text-link_hover transition-colors duration-200" href="/termsofservice">terms and conditions</a></p> */}
-              <a type="submit" className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg" href="/login">Login</a>
+              <button type="submit" className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg">Login</button>
               {/* <div className="w-full flex justify-center items-center mt-3">
                 <div className="border-b-2 border-gray-800 w-[40%] mr-2"></div>
                 <p className="text-gray-800 w-[6%]">Or</p>
