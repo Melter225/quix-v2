@@ -59,9 +59,9 @@ const signUpSchema = z.object({
   {message: "Please ensure that you retyped your password correctly", path: ["retype_password"]}) 
 
 const Signup = () => {
-  const GoogleOAuth = async () => {
-    await signIn('google', {callbackUrl:"/dashboard"});
-  };
+  // const GoogleOAuth = async () => {
+  //   await signIn('google', {callbackUrl:"/dashboard"});
+  // };
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPasswordVisible2, setIsPasswordVisible2] = useState(false);

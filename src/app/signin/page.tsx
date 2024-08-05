@@ -1,17 +1,66 @@
-"use client"
+"use client";
 
 import Image from "next/image";
-import { signIn } from 'next-auth/react';
-import { useState } from 'react'
-
+import { useState } from "react";
+import { signIn, signOut, useSession, getSession } from "next-auth/react";
 
 const Signin = () => {
+  const { data: session, status } = useSession();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+  const [identifier, setIdentifier] = useState("");
+
   const GoogleOAuth = async () => {
-    await signIn('google', {callbackUrl:"/dashboard"});
+    localStorage.setItem("OAuthCompletion", "true");
+    console.log("Starting Google OAuth");
+    const result = await signIn("google", { redirect: false });
+    console.log("Sign-in result:", result);
   };
 
-  const [isPasswordVisible, setIsPasswordVisible] = useState(true);
-  const [identifier, setIdentifier] = useState("")
+  const handleAuthCallback = async () => {
+    const session = await getSession();
+    console.log(session?.user?.email);
+    if (session?.user?.email) {
+      try {
+        const response = await fetch("/api/checkEmail", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: session.user.email }),
+        });
+        const data = await response.json();
+        console.log(data);
+
+        if (data.response === true) {
+          console.log("email exists in database");
+          window.location.href = "/dashboard";
+          localStorage.setItem("email", session.user.email);
+          // setSessionEmail(session?.user?.email);
+        } else {
+          console.log("email does not exist in database");
+          await signOut({ redirect: false });
+          await signIn("credentials", {
+            email: localStorage.getItem("email"),
+            redirect: false,
+          });
+          // session.user.email = "romahapatra@gmail.com";
+          window.location.href = "/signup";
+          // if (sessionEmail != "") {
+          // }
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+  };
+
+  const OAuthCompletion = localStorage.getItem("OAuthCompletion");
+  console.log(OAuthCompletion);
+
+  if (status === "authenticated" && OAuthCompletion === "true") {
+    handleAuthCallback();
+    localStorage.setItem("OAuthCompletion", "false");
+  }
 
   const passwordEye = () => {
     setIsPasswordVisible((prev) => !prev);
@@ -19,24 +68,28 @@ const Signin = () => {
 
   async function onLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("user logging in", identifier)
+    console.log("user logging in", identifier);
 
     const response = await fetch("/api/signin", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         identifier: identifier,
-      })
-    })
+      }),
+    });
 
     if (response.ok) {
       const result = await response.json();
-      console.log(result)
+      console.log(result);
       if (result.user_status === true && result.email != "") {
-        console.log("login successful")
-        window.location.href = `/dashboard/${result.email}`;
+        console.log("login successful");
+        await signIn("credentials", {
+          email: result.email,
+          callbackUrl: "/dashboard",
+        });
+        // window.location.href = '/dashboard';
       }
     } else {
       console.error("Failed to sign in", response.statusText);
@@ -49,28 +102,57 @@ const Signin = () => {
         <div className="h-screen md:flex font-poppins">
           <div className="relative overflow-hidden sm:hidden md:flex lg:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
             <div className="mt-12 text-center px-4">
-              <h1 className="text-gray-300 font-bold text-5xl relative z-10">Quix</h1>
+              <h1 className="text-gray-300 font-bold text-5xl relative z-10">
+                Quix
+              </h1>
               <br></br>
               <p className="flex items-center text-gray-200 mb-2 text-xl font-semibold justify-center relative z-10">
-                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-500 text-gray-200 rounded-full flex-shrink-0 text">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                      <path d="M20 6L9 17l-5-5"></path>
+                <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-500 text-gray-200 rounded-full flex-shrink-0 text">
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    className="w-3 h-3"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20 6L9 17l-5-5"></path>
                   </svg>
-                  </span>Study with tailored practice questions, videos, and documents
+                </span>
+                Study with tailored practice questions, videos, and documents
               </p>
               <p className="flex items-center text-gray-200 mb-2 text-xl font-semibold justify-center relative z-10">
-                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-500 text-gray-200 rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                      <path d="M20 6L9 17l-5-5"></path>
+                <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-500 text-gray-200 rounded-full flex-shrink-0">
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    className="w-3 h-3"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20 6L9 17l-5-5"></path>
                   </svg>
-                  </span>Utilize optimized effeciency across affordable plans
+                </span>
+                Utilize optimized effeciency across affordable plans
               </p>
               <p className="flex items-center text-gray-200 mb-2 text-xl font-semibold justify-center relative z-10">
-                  <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-500 text-gray-200 rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" className="w-3 h-3" viewBox="0 0 24 24">
-                      <path d="M20 6L9 17l-5-5"></path>
+                <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-emerald-500 text-gray-200 rounded-full flex-shrink-0">
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    className="w-3 h-3"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20 6L9 17l-5-5"></path>
                   </svg>
-                  </span>Leverage the power of highly trained artificial intelligence
+                </span>
+                Leverage the power of highly trained artificial intelligence
               </p>
             </div>
             <div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 z-0"></div>
@@ -79,10 +161,17 @@ const Signin = () => {
             <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 z-0"></div>
           </div>
           <div className="flex md:w-[50%] sm:w-full h-screen justify-center py-10 items-center">
-            <form className="bg-gray-300 rounded-xl lg:w-[69%] md:w-[82%] sm:w-[69%] w-[69%] shadow-gray-800 shadow-lg" onSubmit={onLogin}>
+            <form
+              className="bg-gray-300 rounded-xl lg:w-[69%] md:w-[82%] sm:w-[69%] w-[69%] shadow-gray-800 shadow-lg"
+              onSubmit={onLogin}
+            >
               <div className="w-full text-center">
-                <h1 className="text-gray-700 font-bold text-[2.1rem] mb-1 mt-12">Welcome Back</h1>
-                <p className="text-xl font-normal text-gray-800 mb-7">Please enter your credentials</p>
+                <h1 className="text-gray-700 font-bold text-[2.1rem] mb-1 mt-12">
+                  Welcome Back
+                </h1>
+                <p className="text-xl font-normal text-gray-800 mb-7">
+                  Please enter your credentials
+                </p>
               </div>
               <div className="flex mt-4 gap-x-2 w-[80%] ml-[10%]">
                 <button
@@ -90,7 +179,12 @@ const Signin = () => {
                   type="button"
                   className="flex items-center justify-center w-full p-2 border-2 border-gray-700 rounded-lg focus:ring-2 focus:ring-offset-1 focus:ring-violet-600"
                 >
-                  <Image src="/google.png" alt="google" width={20} height={20} />
+                  <Image
+                    src="/google.png"
+                    alt="google"
+                    width={20}
+                    height={20}
+                  />
                   {/* <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 32 32"
@@ -120,51 +214,114 @@ const Signin = () => {
                 </button> */}
               </div>
               <div className="relative flex items-center justify-center w-[80%] ml-[10%] my-6 border border-t border-gray-700">
-                <div className="absolute px-3 text-gray-800 bg-gray-300">Or</div>
+                <div className="absolute px-3 text-gray-800 bg-gray-300">
+                  Or
+                </div>
               </div>
-              <label className="ml-[10%] font-semibold text-lg text-gray-700">Username or Email</label>
+              <label className="ml-[10%] font-semibold text-lg text-gray-700">
+                Username or Email
+              </label>
               <div className="flex items-center border-2 py-3 rounded-lg mb-4 mt-1 border-gray-800 w-[80%] ml-[10%]">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800 ml-5" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-800 ml-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"
+                  />
                 </svg>
-                <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="text" name="" id="" placeholder="Username or Email" onChange={(e) => setIdentifier(e.target.value)} />
+                <input
+                  className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]"
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Username or Email"
+                  onChange={(e) => setIdentifier(e.target.value)}
+                />
               </div>
-              <label className="ml-[10%] font-semibold text-lg text-gray-700">Password</label>
+              <label className="ml-[10%] font-semibold text-lg text-gray-700">
+                Password
+              </label>
               <div className="flex items-center border-2 py-3 rounded-lg mb-2 mt-1 border-gray-800 w-[80%] ml-[10%]">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800 ml-5" viewBox="0 0 20 20"
-                  fill="currentColor">
-                  <path fill-rule="evenodd"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-800 ml-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
                     d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                    clip-rule="evenodd" />
+                    clip-rule="evenodd"
+                  />
                 </svg>
                 {isPasswordVisible ? (
-                  <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="password" name="" id=""
-                    placeholder="Password" />
+                  <input
+                    className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]"
+                    type="password"
+                    name=""
+                    id=""
+                    placeholder="Password"
+                  />
                 ) : (
-                  <input className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]" type="text" name="" id=""
-                    placeholder="Password" />
+                  <input
+                    className="pl-2 outline-none border-none bg-gray-300 text-gray-800 w-[80%]"
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Password"
+                  />
                 )}
-                <Image className="mr-4 hover:cursor-pointer" src={isPasswordVisible ? '/eye_off.png' : '/eye.png'} alt="eye" id="eye" width={25} height={25} onClick={passwordEye} />
+                <Image
+                  className="mr-4 hover:cursor-pointer"
+                  src={isPasswordVisible ? "/eye_off.png" : "/eye.png"}
+                  alt="eye"
+                  id="eye"
+                  width={25}
+                  height={25}
+                  onClick={passwordEye}
+                />
               </div>
               <div className="w-full flex flex-wrap justify-between items-center mt-4">
                 <div className="flex items-center mb-2 ml-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] justify-center">
                   {/* <input type="checkbox" className="mr-1 text-link font-poppins bg-gray-100 border-gray-300 rounded-full"></input>
                   <p className="text-gray-800 text-sm">Remember Me</p> */}
                 </div>
-                <a className="underline text-center text-link hover:text-link_hover cursor-pointer text-sm transition-colors duration-200 mr-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] ml-[10%] mb-0 sm:ml-[10%] md:ml-[10%] lg:ml-0 lg:mb-2 md:mb-0 sm:mb-0 mt-[-0.5rem] lg:mt-0 md:mt-[-0.5rem] sm:[-0.5rem]" href="/reset">Forgot Password?</a>
+                <a
+                  className="underline text-center text-link hover:text-link_hover cursor-pointer text-sm transition-colors duration-200 mr-[10%] md:w-[80%] md:justify-center lg:w-auto lg:justify-start sm:w-[80%] sm:justify-center w-[80%] ml-[10%] mb-0 sm:ml-[10%] md:ml-[10%] lg:ml-0 lg:mb-2 md:mb-0 sm:mb-0 mt-[-0.5rem] lg:mt-0 md:mt-[-0.5rem] sm:[-0.5rem]"
+                  href="/reset"
+                >
+                  Forgot Password?
+                </a>
               </div>
               {/* <p className="text-sm text-center mb-1">By creating an account, you accept our <a className="text-link hover:text-link_hover transition-colors duration-200" href="/termsofservice">terms and conditions</a></p> */}
-              <button type="submit" className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg">Login</button>
+              <button
+                type="submit"
+                className="w-[80%] ml-[10%] bg-emerald-600 hover:bg-emerald-700 transition duration-300 mt-4 py-2 rounded-xl text-gray-200 font-semibold mb-2 cursor-pointer text-center text-lg"
+              >
+                Login
+              </button>
               {/* <div className="w-full flex justify-center items-center mt-3">
                 <div className="border-b-2 border-gray-800 w-[40%] mr-2"></div>
                 <p className="text-gray-800 w-[6%]">Or</p>
                 <div className="border-b-2 border-gray-800 w-[40%] ml-2"></div>
               </div> */}
               <div className="w-full flex text-center justify-center mt-4">
-                <p className="text-gray-800 sm:text-sm md:text-sm lg:text-base text-sm mr-1">Don&apos;t have an account?</p>
-                <a className="text-link hover:text-link_hover cursor-pointer sm:text-sm md:text-sm lg:text-base text-sm mb-12 transition-colors duration-200" href="/signup">Sign up</a>
+                <p className="text-gray-800 sm:text-sm md:text-sm lg:text-base text-sm mr-1">
+                  Don&apos;t have an account?
+                </p>
+                <a
+                  className="text-link hover:text-link_hover cursor-pointer sm:text-sm md:text-sm lg:text-base text-sm mb-12 transition-colors duration-200"
+                  href="/signup"
+                >
+                  Sign up
+                </a>
               </div>
             </form>
           </div>
@@ -172,6 +329,6 @@ const Signin = () => {
       </div>
     </main>
   );
-}
+};
 
 export default Signin;
