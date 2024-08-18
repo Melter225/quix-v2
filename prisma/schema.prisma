@@ -9,28 +9,102 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  email    String @unique
-  password String
-  name     String @unique
-  // quizzes  Quiz[]
-  // premium  Boolean
+  id            String     @id @default(cuid()) @unique
+  email         String     @unique
+  password      String
+  name          String     @unique
+  profile       String
+  status        String
+  spaces        Space[]
 }
 
-// model Quiz {
-//   quiz_id     String     @id @default(cuid())
-//   user_id     String     @default(cuid())
-//   user        User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
-//   quiz_name   String
-//   quiz_number String
-//   questions   Question[]
-//   taken       Boolean
-//   score       String
-// }
+model Space {
+  space_id      String     @id @default(cuid()) @unique
+  user_id       String     @default(cuid()) @unique
+  user          User       @relation(fields: [user_id], references: [id])
+  space_name    String     @unique
+  space_number  Int
+  resources     Resource[]
+}
 
-// model Question {
-//   question_id String  @id @default(cuid())
-//   question    String
-//   Quiz        Quiz?   @relation(fields: [quizQuiz_id], references: [quiz_id])
-//   quizQuiz_id String?
-// }
+model Resource {
+  resource_id   String     @id @default(cuid()) @unique
+  space_id      String     @default(cuid()) @unique
+  space         Space      @relation(fields: [space_id], references: [space_id])
+  quiz_id       String?    @unique
+  learn_id      String?    @unique
+  quiz          Quiz?
+  learn         Learn?
+}
+
+model Quiz {
+  quiz_id       String     @id @default(cuid()) @unique
+  question_id   String     @unique
+  answer_id     String     @unique
+  document_id   String     @unique
+  video_id      String     @unique
+  website_id    String     @unique
+  resource_id   String     @default(cuid()) @unique
+  resource      Resource   @relation(fields: [resource_id], references: [quiz_id])
+  quiz_name     String
+  questions     Question[]
+  answers       Answer[]
+  document      Document?
+  videos        Video[]
+  websites      Website[]
+}
+
+model Learn {
+  learn_id      String     @id @default(cuid()) @unique
+  resource_id   String     @default(cuid()) @unique
+  document_id   String?    @unique
+  video_id      String?    @unique
+  website_id    String?    @unique
+  resource      Resource   @relation(fields: [resource_id], references: [learn_id])
+  learn_name    String
+  document      Document?
+  videos        Video[]
+  websites      Website[]
+}
+
+model Question {
+  question_id   String     @id @default(cuid()) @unique
+  quiz_id       String     @default(cuid()) @unique
+  quiz          Quiz       @relation(fields: [quiz_id], references: [question_id])
+  question      String
+}
+
+model Answer {
+  answer_id     String     @id @default(cuid()) @unique
+  quiz_id       String     @default(cuid()) @unique
+  quiz          Quiz       @relation(fields: [quiz_id], references: [answer_id])
+  answer        String
+  correct       Boolean
+}
+
+model Document {
+  document_id   String     @id @default(cuid()) @unique
+  quiz_id       String?    @default(cuid()) @unique
+  learn_id      String?    @default(cuid()) @unique
+  quiz          Quiz?      @relation(fields: [quiz_id], references: [document_id])
+  learn         Learn?     @relation(fields: [learn_id], references: [document_id])
+  document      String
+}
+
+model Video {
+  video_id      String     @id @default(cuid()) @unique
+  quiz_id       String?    @default(cuid()) @unique
+  learn_id      String?    @default(cuid()) @unique
+  quiz          Quiz?      @relation(fields: [quiz_id], references: [video_id])
+  learn         Learn?     @relation(fields: [learn_id], references: [video_id])
+  video         String
+}
+
+model Website {
+  website_id    String     @id @default(cuid()) @unique
+  quiz_id       String?    @default(cuid()) @unique
+  learn_id      String?    @default(cuid()) @unique
+  quiz          Quiz?      @relation(fields: [quiz_id], references: [website_id])
+  learn         Learn?     @relation(fields: [learn_id], references: [website_id])
+  website       String
+}

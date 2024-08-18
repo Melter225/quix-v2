@@ -34,12 +34,11 @@ function classNames(...classes: string[]) {
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
-  const userImage: any = session?.user?.image;
-  const email_signin: string | undefined =
-    window.location.pathname.match(/\/dashboard\/(.+)$/)?.[1];
+  // const userImage: any = session?.user?.image;
+  // const email_signin: string | undefined =
+  //   window.location.pathname.match(/\/dashboard\/(.+)$/)?.[1];
   const [username, setUsername] = useState("");
-  const profile_signin: string | undefined =
-    window.location.pathname.match(/\/dashboard\/(.+)$/)?.[1];
+  const [profile, setProfile] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState("Mode");
   const [isOpen2, setIsOpen2] = useState(false);
@@ -88,26 +87,50 @@ export default function Dashboard() {
     setIsOpen2(!isOpen2);
   };
 
-  const fetchUsername = async () => {
+  const convertStringToImage = (base64String: string): string => {
+    if (
+      base64String.startsWith("http://") ||
+      base64String.startsWith("https://")
+    ) {
+      return base64String;
+    }
+
+    try {
+      const byteCharacters = atob(base64String.split(",")[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: "image/jpeg" });
+      return URL.createObjectURL(blob);
+    } catch (error) {
+      console.error("Error converting base64 to image URL:", error);
+      return "";
+    }
+  };
+
+  const fetchCredentials = async () => {
     try {
       const response = await fetch("/api/dashboardCredentials", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: email_signin ?? session?.user?.email }),
+        body: JSON.stringify({ email: session?.user?.email }),
       });
 
       const data = await response.json();
       console.log(data);
       setUsername(data.username);
+      setProfile(convertStringToImage(data.profile));
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-  fetchUsername();
-  console.log(username);
+  fetchCredentials();
+  // console.log(username, profile);
   console.log(JSON.stringify({ topic: topic }));
 
   const generateQuestions = async () => {
@@ -241,7 +264,7 @@ export default function Dashboard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ topic: topic }),
+        body: JSON.stringify({ topic: topic, space: "Coding" }),
       });
 
       if (response.ok) {
@@ -376,8 +399,8 @@ export default function Dashboard() {
                               <span className="absolute -inset-1.5" />
                               <span className="sr-only">Open user menu</span>
                               <Image
-                                className="rounded-full"
-                                src={userImage}
+                                className="rounded-full w-[1.8rem] h-[1.8rem] max-w-none"
+                                src={profile}
                                 width={30}
                                 height={30}
                                 alt=""
@@ -468,12 +491,8 @@ export default function Dashboard() {
                     <div className="flex items-center px-5">
                       <div className="flex-shrink-0">
                         <Image
-                          className="rounded-full"
-                          src={
-                            profile_signin !== undefined
-                              ? profile_signin
-                              : userImage
-                          }
+                          className="rounded-full w-[1.8rem] h-[1.8rem] max-w-none"
+                          src={profile}
                           width={30}
                           height={30}
                           alt=""
@@ -484,9 +503,7 @@ export default function Dashboard() {
                           {username}
                         </div>
                         <div className="text-sm font-semibold leading-none text-gray-400">
-                          {email_signin !== undefined
-                            ? email_signin
-                            : session?.user?.email}
+                          {session?.user?.email}
                         </div>
                       </div>
                       <button
