@@ -138,48 +138,68 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const website = await generateWebsite(areas);
         console.log(website);
 
-        const resourceData = {
-          space: {
-            connect: {
-              space_name: space,
-            },
-          },
-        };
+        // const resourceData = {
+        //   space: {
+        //     connect: {
+        //       space_name: space,
+        //     },
+        //   },
+        //   learn: {
+        //     create: {
+        //       learn_name: `Learn `,
+        //       document: {
+        //         create: {
+        //           document: document,
+        //         },
+        //       },
+        //       videos: {
+        //         create: {
+        //           video: video.map((url) => ({ video: url })),
+        //         },
+        //       },
+        //       websites: {
+        //         create: {
+        //           website: website.map((url) => ({ website: url })),
+        //         },
+        //       },
+        //     },
+        //   },
+        // };
 
-        const learnData = {
-          resource: {
-            connect: {
-              resource_id: "resource_id",
-            },
-          },
-          learn_name: "Learn ",
-        };
+        // console.log(
+        //   "resource_data",
+        //   await prisma.resource.create({
+        //     data: resourceData,
+        // include: {
+        //   space: {
+        //     include: {
+        //       user: true,
+        //     },
+        //   },
+        //   learn: true,
+        // },
+        //   })
+        // );
 
-        console.log("resource_data",
-          await prisma.resource.create({
-            data: resourceData,
-            include: {
-              space: {
-                include: {
-                  user: true,
-                },
-              },
-              quiz: true,
-              learn: true,
-            },
-          })
-        );
+        // const learnData = {
+        //   resource: {
+        //     connect: {
+        //       resource_id: "cm08efnoj0000xusy8k6geim6",
+        //     },
+        //   },
+        //   learn_name: `Learn `,
+        // };
 
-        await prisma.learn.create({
-          data: learnData,
-          include: {
-            resource: {
-              include: {
-                space: true,
-              },
-            },
-          },
-        });
+        // await prisma.learn.create({
+        //   data: learnData,
+        //   include: {
+        //     resource: {
+        //       include: {
+        //         space: true,
+        //       },
+        //     },
+        //   },
+        // });
 
         return NextResponse.json({
           document,

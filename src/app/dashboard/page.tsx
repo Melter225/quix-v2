@@ -3,17 +3,18 @@
 import Image from "next/image";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { signOut, useSession } from "next-auth/react";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import React, { useState, useEffect } from "react";
+import prisma from "@/lib/db";
 import Markdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import "katex/dist/katex.min.css";
-import prisma from "@/lib/db";
+import ReactDOMServer from "react-dom/server";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", current: true },
@@ -47,14 +48,7 @@ export default function Dashboard() {
   const [audio, setAudio] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [document, setDocument] = useState("");
-  const config = {
-    loader: { load: ["input/asciimath"] },
-    // loader: { load: ["input/tex", "output/chtml"] },
-    //   tex2jax: {
-    //     inlineMath: [["\\(", "\\)"]],
-    //     displayMath: [["$$", "$$"]],
-    //   },
-  };
+  const [space, setSpace] = useState("");
   // const document = `The lift coefficient ($C_L$) is a dimensionless coefficient.`
   const database = [
     { quiz: "Solve for x: 3x + 5 = 14", accuracy: 100 },
@@ -74,6 +68,9 @@ export default function Dashboard() {
   const order = "comprehensive";
   const errors = ["Square root of 81", "Boiling point of water"];
   const points = ["Pythagorean Theorem", "Derivatives", "Prime Numbers"];
+  const config = {
+    loader: { load: ["input/asciimath"] },
+  };
 
   const toggleDropdown = (newMode: string) => {
     setIsOpen(!isOpen);
@@ -121,7 +118,7 @@ export default function Dashboard() {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setUsername(data.username);
       setProfile(convertStringToImage(data.profile));
     } catch (error) {
@@ -131,7 +128,7 @@ export default function Dashboard() {
 
   fetchCredentials();
   // console.log(username, profile);
-  console.log(JSON.stringify({ topic: topic }));
+  // console.log(JSON.stringify({ topic: topic }));
 
   const generateQuestions = async () => {
     //   try {
@@ -254,7 +251,7 @@ export default function Dashboard() {
     setAudio(false);
     return;
   } else {
-    console.log(audio);
+    // console.log(audio);
   }
 
   const learn = async () => {
@@ -272,6 +269,40 @@ export default function Dashboard() {
         console.log("Generated resources:", data);
         console.log(data.document);
         setDocument(data.document);
+        const learnContainers =
+          window.document.getElementsByClassName("learn-container");
+        const learnContainer = learnContainers[0];
+        const learn = window.document.createElement("div");
+        const learnDocument = (
+          <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-4 rounded-lg">
+            <h2 className="mt-1">Learn</h2>
+            <div className="relative">
+              <div className="text-gray-700 mask-image-fade">
+                <MathJaxContext config={config}>
+                  <MathJax>
+                    <Markdown
+                      remarkPlugins={[remarkMath]}
+                      rehypePlugins={[rehypeKatex, rehypeRaw]}
+                    >
+                      {data.document.split("\n").slice(0, 3).join("\n")}
+                    </Markdown>
+                  </MathJax>
+                </MathJaxContext>
+              </div>
+            </div>
+          </div>
+        );
+        // const mathJaxContext = window.document.createElement(MathJaxContext);
+        if (learnContainer) {
+          // mathJax.append(markdown);
+          // mathJaxContext.append(mathJax);
+          // learnDocument.append(mathJaxContext);
+          const learnDocumentString = window.document.createElement("div");
+          learnDocumentString.innerHTML =
+            ReactDOMServer.renderToString(learnDocument);
+          learn.append(learnDocumentString);
+          learnContainer.appendChild(learn);
+        }
       } else {
         console.error("Failed to generate resources");
       }
@@ -383,14 +414,14 @@ export default function Dashboard() {
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-4 flex items-center md:ml-6">
-                        <button
+                        {/* <button
                           type="button"
                           className="relative rounded-full bg-navy p-1 text-gray-300 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 focus:ring-offset-gray-700"
                         >
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">View notifications</span>
                           <BellIcon className="h-6 w-6" aria-hidden="true" />
-                        </button>
+                        </button> */}
 
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-4">
@@ -506,14 +537,14 @@ export default function Dashboard() {
                           {session?.user?.email}
                         </div>
                       </div>
-                      <button
+                      {/* <button
                         type="button"
                         className="relative ml-auto flex-shrink-0 rounded-full bg-navy p-1 text-gray-300 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 focus:ring-offset-gray-700"
                       >
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">View notifications</span>
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
+                      </button> */}
                     </div>
                     <div className="mt-3 space-y-1 px-2">
                       {userNavigation.map((item) => (
@@ -596,11 +627,11 @@ export default function Dashboard() {
                 } mt-[-2.5rem]`}
               >
                 <div className="flex flex-col h-full justify-end items-center px-4 w-full">
-                  <div className="relative z-50 flex-col h-full w-full justify-start items-start">
+                  {/* <div className="relative z-50 flex-col h-full w-full justify-start items-start">
                     <h1 className="text-center align-middle mt-2 text-xl font-bold tracking-tight text-gray-700">
                       New Space
                     </h1>
-                  </div>
+                  </div> */}
                   <button className="flex items-center justify-center px-2 py-[1rem] rounded-xl bg-gray-300 text-gray-600 hover:bg-gray-400 hover:text-gray-200 font-semibold lg:text-lg sm:text-base w-full h-11 mb-3">
                     <span className="items-center">
                       <div className="flex h-full justify-center align-middle"></div>
@@ -686,27 +717,14 @@ export default function Dashboard() {
               </div>
               <div
                 className={`${
-                  open
-                    ? "absolute right-0 bottom-0 mt-[-15vh] pt-[0.7rem]"
-                    : "fixed right-0 bottom-4 "
-                } w-full ${open ? "md:w-[75svw]" : "md:w-full"} ml-[25svw] ${
-                  open ? "pb-4" : ""
-                } rounded-lg`}
+                  open ? "absolute" : "fixed"
+                } flex flex-col w-full h-full top-0 ${
+                  open ? "md:w-[75svw]" : "md:w-full"
+                } ml-[25svw] rounded-lg`}
               >
-                <div className="flex flex-col pt-2 mt-[2rem]">
-                  <div className="markdown-styling text-gray-200 font-poppins">
-                    <MathJaxContext config={config}>
-                      <MathJax>
-                        <Markdown
-                          remarkPlugins={[remarkMath]}
-                          rehypePlugins={[rehypeKatex, rehypeRaw]}
-                        >
-                          {document}
-                        </Markdown>
-                      </MathJax>
-                    </MathJaxContext>
-                  </div>
-                  <div className="flex justify-start items-start">
+                <div className="learn-container relative flex flex-col flex-grow top-0 overflow-y-auto max-h-[80svh]"></div>
+                <div className="flex flex-col right-0 relative bottom-0 mt-auto pb-4">
+                  <div className="flex justify-start items-end">
                     <button
                       data-dropdown-toggle="dropdownDivider"
                       className="text-gray-200 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 lg:text-lg font-semibold rounded-xl px-5 py-2.5 text-center inline-flex items-center justify-center ml-[0.5rem] sm:ml-[1rem] w-[15%] sm:w-[12%] h-10 sm:text-base"
@@ -738,7 +756,7 @@ export default function Dashboard() {
                         isOpen ? "block" : "hidden"
                       } bg-gray-200 divide-y divide-gray-400 rounded-lg shadow w-[15%] sm:w-[12%] ml-[-15svw] ${
                         open ? "sm:ml-[-9svw]" : "sm:ml-[-12svw]"
-                      } mt-[-4.9rem] sm:mt-[-5.4rem] lg:mt-[-5.4rem]`}
+                      } mt-[-4.9rem] sm:mt-[-5.4rem] lg:mt-[-5.4rem] mb-[2.5rem]`}
                     >
                       <div className="py-2">
                         <a
@@ -773,7 +791,7 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <div className="flex justify-center items-center">
+                  <div className="flex justify-center items-end">
                     <input
                       type="text"
                       id="first_name"

@@ -20,20 +20,10 @@ import {
 
 import { Input } from "@/components/ui/input";
 
-const phoneFormats = {
-  US: /^1?\d{10}$/,
-  UK: /^(44|0)?\d{10}$/,
-  India: /^(91|0)?[6-9]\d{9}$/,
-  China: /^(86|0)?1\d{10}$/,
-  Brazil: /^(55|0)?[1-9]{2}\d{8,9}$/,
-  Germany: /^(49|0)?[1-9]\d{9,14}$/,
-};
-
-const validPhoneFormat = (value: string) => {
-  for (const regex of Object.values(phoneFormats)) {
-    if (regex.test(value)) {
-      return true;
-    }
+const PhoneFormat = (value: string) => {
+  const [pattern, setPattern] = useState(new RegExp(""));
+  if (pattern.test(value)) {
+    return true;
   }
   return false;
 };
@@ -67,7 +57,7 @@ const signUpSchema = z
     retype_password: z.string(),
     phone: z.string().refine(
       (value) => {
-        validPhoneFormat(value);
+        PhoneFormat(value);
       },
       {
         message: "Please enter a valid phone number",
@@ -164,7 +154,7 @@ const Signup = () => {
 
   const phase4 = () => {
     if (
-      validPhoneFormat(form.getValues().phone) &&
+      PhoneFormat(form.getValues().phone) &&
       form.getValues().verify_phone.length === 6 &&
       /[0-9]/.test(form.getValues().verify_phone)
     ) {

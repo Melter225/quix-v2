@@ -12,7 +12,22 @@ body {
   .markdown-styling h3,
   .markdown-styling h4,
   .markdown-styling h5,
-  .markdown-styling h6 {
+  .markdown-styling h6,
+  .markdown-styling-2 h1,
+  .markdown-styling-2 h4,
+  .markdown-styling-2 h5,
+  .markdown-styling-2 h6 {
+    margin-top: 1em;
+    margin-bottom: -0.2em;
+    font-weight: bold;
+  }
+
+  .markdown-styling-2 h2 {
+    margin-bottom: -0.2em;
+    font-weight: bold;
+  }
+
+  .markdown-styling-2 h3 {
     margin-top: 1em;
     margin-bottom: -0.2em;
     font-weight: bold;
@@ -30,8 +45,22 @@ body {
     font-size: 1.5em;
   }
 
+  .markdown-styling-2 h1 {
+    font-size: 1.75em;
+  }
+
+  .markdown-styling-2 h2 {
+    font-size: 1.5em;
+  }
+
+  .markdown-styling-2 h3 {
+    font-size: 1.2em;
+  }
+
   .markdown-styling ul,
-  .markdown-styling ol {
+  .markdown-styling ol,
+  .markdown-styling-2 ul,
+  .markdown-styling-2 ol {
     margin-left: 2em;
     list-style-type: disc;
   }
@@ -39,6 +68,12 @@ body {
   .markdown-styling p {
     margin-top: 1em;
     margin-bottom: 1em;
+  }
+
+  .markdown-styling-2 p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: 0.8em;
   }
 }
 
@@ -67,4 +102,9 @@ body {
   background: rgba(4, 4, 4, 0.2);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+}
+
+.mask-image-fade {
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
