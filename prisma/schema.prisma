@@ -9,7 +9,7 @@ datasource db {
 }
 
 model User {
-  id            String     @id @default(cuid()) @unique
+  user_id       String     @id @default(cuid()) @unique
   email         String     @unique
   password      String
   name          String     @unique
@@ -20,8 +20,8 @@ model User {
 
 model Space {
   space_id      String     @id @default(cuid()) @unique
-  user_id       String     @default(cuid()) @unique
-  user          User       @relation(fields: [user_id], references: [id])
+  user_id       String     
+  user          User       @relation(fields: [user_id], references: [user_id])
   space_name    String     @unique
   space_number  Int
   resources     Resource[]
@@ -29,7 +29,7 @@ model Space {
 
 model Resource {
   resource_id   String     @id @default(cuid()) @unique
-  space_id      String     @default(cuid()) @unique
+  space_id      String     
   space         Space      @relation(fields: [space_id], references: [space_id])
   quiz_id       String?    @unique
   learn_id      String?    @unique
@@ -93,8 +93,8 @@ model Document {
 
 model Video {
   video_id      String     @id @default(cuid()) @unique
-  quiz_id       String?    @unique
-  learn_id      String?    @unique
+  quiz_id       String?
+  learn_id      String?
   quiz          Quiz?      @relation(fields: [quiz_id], references: [quiz_id])
   learn         Learn?     @relation(fields: [learn_id], references: [learn_id])
   video         String
@@ -102,8 +102,8 @@ model Video {
 
 model Website {
   website_id    String     @id @default(cuid()) @unique
-  quiz_id       String?    @unique
-  learn_id      String?    @unique
+  quiz_id       String?
+  learn_id      String?
   quiz          Quiz?      @relation(fields: [quiz_id], references: [quiz_id])
   learn         Learn?     @relation(fields: [learn_id], references: [learn_id])
   website       String

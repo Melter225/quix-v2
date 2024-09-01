@@ -7,8 +7,9 @@ import { NextRequest, NextResponse } from "next/server";
 dotenv.config();
 const openai = new OpenAI();
 const prisma = new PrismaClient();
-interface SearchResultItem {
-  link: string;
+interface videoGeneration {
+  videoUrls: string[];
+  videoIds: string[];
 }
 
 async function generateDocument(topic: string): Promise<string> {
@@ -47,11 +48,12 @@ function extractErrors(document: string): string[] {
   return errors.slice(0, 3);
 }
 
-async function generateVideo(areas: string[]): Promise<string[]> {
+async function generateVideo(areas: string[]): Promise<videoGeneration> {
   console.log("The videos will be generated for the following areas:", areas);
 
   const YOUTUBE_VIDEO_API = "https://www.googleapis.com/youtube/v3/search";
   const videoUrls = [];
+  const videoIds = [];
 
   for (let i = 0; i < 3; i++) {
     // Loop through first 3 items in areas array
@@ -69,7 +71,8 @@ async function generateVideo(areas: string[]): Promise<string[]> {
       if (data.items && data.items.length > 0) {
         const videoId = data.items[0].id.videoId;
         const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-        videoUrls.push(videoUrl); // Add the video URL to the array
+        videoUrls.push(videoUrl);
+        videoIds.push(videoId);
       } else {
         throw new Error("No videos found");
       }
@@ -79,7 +82,7 @@ async function generateVideo(areas: string[]): Promise<string[]> {
     }
   }
 
-  return videoUrls; // Return the array of video URLs
+  return { videoUrls, videoIds };
 }
 
 async function generateWebsite(areas: string[]): Promise<string[]> {
@@ -135,75 +138,83 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const video = await generateVideo(areas);
         console.log(video);
 
+        const videoUrls = video.videoUrls;
+        const videoIds = video.videoIds;
+
         const website = await generateWebsite(areas);
         console.log(website);
 
-        // const resourceData = {
-        //   space: {
-        //     connect: {
-        //       space_name: space,
-        //     },
-        //   },
-        //   learn: {
-        //     create: {
-        //       learn_name: `Learn `,
-        //       document: {
-        //         create: {
-        //           document: document,
-        //         },
-        //       },
-        //       videos: {
-        //         create: {
-        //           video: video.map((url) => ({ video: url })),
-        //         },
-        //       },
-        //       websites: {
-        //         create: {
-        //           website: website.map((url) => ({ website: url })),
-        //         },
-        //       },
-        //     },
-        //   },
-        // };
+        const lastLearn = await prisma.learn.findFirst({
+          orderBy: {
+            learn_name: "desc",
+          },
+          where: {
+            learn_name: {
+              contains: "Learn ",
+            },
+          },
+        });
 
-        // console.log(
-        //   "resource_data",
-        //   await prisma.resource.create({
-        //     data: resourceData,
-        // include: {
-        //   space: {
-        //     include: {
-        //       user: true,
-        //     },
-        //   },
-        //   learn: true,
-        // },
-        //   })
-        // );
+        let learnValue = 1;
+        if (lastLearn) {
+          const value = lastLearn.learn_name.match(/Learn (\d+)/);
+          if (value) {
+            learnValue = parseInt(value[1]) + 1;
+          }
+        }
 
-        // const learnData = {
-        //   resource: {
-        //     connect: {
-        //       resource_id: "cm08efnoj0000xusy8k6geim6",
-        //     },
-        //   },
-        //   learn_name: `Learn `,
-        // };
+        const resourceData = {
+          space: {
+            connect: {
+              space_name: space,
+            },
+          },
+          learn: {
+            create: {
+              learn_name: `Learn ${learnValue}`,
+              document: {
+                create: {
+                  document: document,
+                },
+              },
+              videos: {
+                create: [
+                  { video: videoUrls[0] },
+                  { video: videoUrls[1] },
+                  { video: videoUrls[2] },
+                ],
+              },
+              websites: {
+                create: [
+                  { website: website[0] },
+                  { website: website[1] },
+                  { website: website[2] },
+                ],
+              },
+            },
+          },
+        };
 
-        // await prisma.learn.create({
-        //   data: learnData,
-        //   include: {
-        //     resource: {
-        //       include: {
-        //         space: true,
-        //       },
-        //     },
-        //   },
-        // });
+        console.log(
+          "resource_data",
+          await prisma.resource.create({
+            data: resourceData,
+            include: {
+              space: {
+                include: {
+                  user: true,
+                },
+              },
+              learn: true,
+            },
+          })
+        );
 
         return NextResponse.json({
+          learnValue,
           document,
-          video,
+          videoUrls,
+          videoIds,
           website,
           status: 200,
         });

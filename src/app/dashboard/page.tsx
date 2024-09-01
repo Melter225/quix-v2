@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { signOut, useSession } from "next-auth/react";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import prisma from "@/lib/db";
 import Markdown from "react-markdown";
 import remarkMath from "remark-math";
@@ -70,6 +69,97 @@ export default function Dashboard() {
   const points = ["Pythagorean Theorem", "Derivatives", "Prime Numbers"];
   const config = {
     loader: { load: ["input/asciimath"] },
+  };
+
+  window.onload = async function loadResources() {
+    try {
+      const response = await fetch("/api/loadResources", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ space: "Coding" }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Generated learns:", data);
+        for (const resource of data.learns) {
+          console.log(resource, resource.document);
+          const learnContainers =
+            window.document.getElementsByClassName("learn-container");
+          const learnContainer = learnContainers[0];
+          const learn = window.document.createElement("div");
+          console.log(
+            resource.videos[0].video.replace(
+              "https://www.youtube.com/watch?v=",
+              ""
+            )
+          );
+          const learnDocument = (
+            <a
+              href={`/viewing?${encodeURIComponent(
+                resource.document.document
+              )}`}
+            >
+              <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-6 rounded-lg">
+                <h2 className="mt-1">{resource.learn_name}</h2>
+                <div className="relative">
+                  <div className="text-gray-700 mask-image-fade">
+                    <MathJaxContext config={config}>
+                      <MathJax>
+                        <Markdown
+                          remarkPlugins={[remarkMath]}
+                          rehypePlugins={[rehypeKatex, rehypeRaw]}
+                        >
+                          {resource.document.document
+                            .split("\n")
+                            .slice(0, 3)
+                            .join("\n")}
+                        </Markdown>
+                      </MathJax>
+                    </MathJaxContext>
+                  </div>
+                </div>
+                <div className="flex flex-row h-24">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${resource.videos[0].video.replace(
+                      "https://www.youtube.com/watch?v=",
+                      ""
+                    )}`}
+                    className="rounded-md w-[32%] md:w-[16%] mt-2"
+                  ></iframe>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${resource.videos[1].video.replace(
+                      "https://www.youtube.com/watch?v=",
+                      ""
+                    )}`}
+                    className="rounded-md w-[32%] md:w-[16%] mt-2 ml-[0.8%]"
+                  ></iframe>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${resource.videos[2].video.replace(
+                      "https://www.youtube.com/watch?v=",
+                      ""
+                    )}`}
+                    className="rounded-md w-[32%] md:w-[16%] mt-2 ml-[0.8%]"
+                  ></iframe>
+                </div>
+              </div>
+            </a>
+          );
+          if (learnContainer) {
+            const learnDocumentString = window.document.createElement("div");
+            learnDocumentString.innerHTML =
+              ReactDOMServer.renderToString(learnDocument);
+            learn.append(learnDocumentString);
+            learnContainer.appendChild(learn);
+          }
+        }
+      } else {
+        console.error("Failed to generate learns");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const toggleDropdown = (newMode: string) => {
@@ -274,23 +364,45 @@ export default function Dashboard() {
         const learnContainer = learnContainers[0];
         const learn = window.document.createElement("div");
         const learnDocument = (
-          <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-4 rounded-lg">
-            <h2 className="mt-1">Learn</h2>
-            <div className="relative">
-              <div className="text-gray-700 mask-image-fade">
-                <MathJaxContext config={config}>
-                  <MathJax>
-                    <Markdown
-                      remarkPlugins={[remarkMath]}
-                      rehypePlugins={[rehypeKatex, rehypeRaw]}
-                    >
-                      {data.document.split("\n").slice(0, 3).join("\n")}
-                    </Markdown>
-                  </MathJax>
-                </MathJaxContext>
+          <a href={`/viewing?${encodeURIComponent(data.document)}`}>
+            <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-12 rounded-lg">
+              <h2 className="mt-1">Learn {data.learnValue}</h2>
+              <div className="relative">
+                <div className="text-gray-700 mask-image-fade">
+                  <MathJaxContext config={config}>
+                    <MathJax>
+                      <Markdown
+                        remarkPlugins={[remarkMath]}
+                        rehypePlugins={[rehypeKatex, rehypeRaw]}
+                      >
+                        {data.document.split("\n").slice(0, 3).join("\n")}
+                      </Markdown>
+                    </MathJax>
+                  </MathJaxContext>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${data.videoIds[0]}`}
+                    className=""
+                  ></iframe>
+                </div>
+                <div>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${data.videoIds[1]}`}
+                    className=""
+                  ></iframe>
+                </div>
+                <div>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${data.videoIds[2]}`}
+                    className=""
+                  ></iframe>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
         );
         // const mathJaxContext = window.document.createElement(MathJaxContext);
         if (learnContainer) {
@@ -583,7 +695,7 @@ export default function Dashboard() {
                     className="mt-2 relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-gray-200 h-8"
                     onClick={() => setOpen(!open)}
                   >
-                    <span className="absolute -inset-0.5" />
+                    <span className="absolute -inset-0.5 z-40" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon
@@ -622,8 +734,8 @@ export default function Dashboard() {
                 </Disclosure>
               </div>
               <div
-                className={`bg-gray-200 mr-[25svw] w-[25svw] h-[calc(100svh-5.67rem)] hidden md:${
-                  open ? "flex" : "hidden"
+                className={`bg-gray-200 w-[25svw] h-[calc(100svh-5.67rem)] hidden md:${
+                  open ? "flex mr-[25svw]" : "hidden"
                 } mt-[-2.5rem]`}
               >
                 <div className="flex flex-col h-full justify-end items-center px-4 w-full">
@@ -719,8 +831,8 @@ export default function Dashboard() {
                 className={`${
                   open ? "absolute" : "fixed"
                 } flex flex-col w-full h-full top-0 ${
-                  open ? "md:w-[75svw]" : "md:w-full"
-                } ml-[25svw] rounded-lg`}
+                  open ? "md:w-[75svw] md:ml-[25svw]" : "md:w-full"
+                } rounded-lg`}
               >
                 <div className="learn-container relative flex flex-col flex-grow top-0 overflow-y-auto max-h-[80svh]"></div>
                 <div className="flex flex-col right-0 relative bottom-0 mt-auto pb-4">
