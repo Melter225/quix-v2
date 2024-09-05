@@ -82,27 +82,29 @@ export default function Dashboard() {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log("Generated learns:", data);
-        for (const resource of data.learns) {
+        console.log("Generated resources:", data);
+        for (const resource of data.resources) {
           console.log(resource, resource.document);
-          const learnContainers =
-            window.document.getElementsByClassName("learn-container");
-          const learnContainer = learnContainers[0];
-          const learn = window.document.createElement("div");
+          const resourceContainers =
+            window.document.getElementsByClassName("resource-container");
+          const resourceContainer = resourceContainers[0];
+          const resourceDiv = window.document.createElement("div");
           console.log(
             resource.videos[0].video.replace(
               "https://www.youtube.com/watch?v=",
               ""
             )
           );
-          const learnDocument = (
+          const resourceDocument = (
             <a
               href={`/viewing?${encodeURIComponent(
                 resource.document.document
               )}`}
             >
-              <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-6 rounded-lg">
-                <h2 className="mt-1">{resource.learn_name}</h2>
+              <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mb-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-6 rounded-lg">
+                <h2 className="mt-1">
+                  {resource.learn_name || resource.quiz_name}
+                </h2>
                 <div className="relative">
                   <div className="text-gray-700 mask-image-fade">
                     <MathJaxContext config={config}>
@@ -114,7 +116,8 @@ export default function Dashboard() {
                           {resource.document.document
                             .split("\n")
                             .slice(0, 3)
-                            .join("\n")}
+                            .join("\n") ||
+                            resource.questions.splice(0, 2).join("\n\n")}
                         </Markdown>
                       </MathJax>
                     </MathJaxContext>
@@ -133,25 +136,25 @@ export default function Dashboard() {
                       "https://www.youtube.com/watch?v=",
                       ""
                     )}`}
-                    className="rounded-md w-[32%] md:w-[16%] mt-2 ml-[0.8%]"
+                    className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
                   ></iframe>
                   <iframe
                     src={`https://www.youtube.com/embed/${resource.videos[2].video.replace(
                       "https://www.youtube.com/watch?v=",
                       ""
                     )}`}
-                    className="rounded-md w-[32%] md:w-[16%] mt-2 ml-[0.8%]"
+                    className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
                   ></iframe>
                 </div>
               </div>
             </a>
           );
-          if (learnContainer) {
-            const learnDocumentString = window.document.createElement("div");
-            learnDocumentString.innerHTML =
-              ReactDOMServer.renderToString(learnDocument);
-            learn.append(learnDocumentString);
-            learnContainer.appendChild(learn);
+          if (resourceContainer) {
+            const resourceDocumentString = window.document.createElement("div");
+            resourceDocumentString.innerHTML =
+              ReactDOMServer.renderToString(resourceDocument);
+            resourceDiv.append(resourceDocumentString);
+            resourceContainer.appendChild(resourceDiv);
           }
         }
       } else {
@@ -221,41 +224,77 @@ export default function Dashboard() {
   // console.log(JSON.stringify({ topic: topic }));
 
   const generateQuestions = async () => {
-    //   try {
-    //       const response = await fetch('/api/generation', {
-    //           method: 'POST',
-    //           headers: {
-    //               'Content-Type': 'application/json',
-    //           },
-    //           body: JSON.stringify({ topic: topic }),
-    //       });
-
-    //       if (response.ok) {
-    //           const data = await response.json();
-    //           console.log('Generated questions:', data);
-    //       } else {
-    //           console.error('Failed to generate questions');
-    //       }
-    //   } catch (error) {
-    //       console.error('Error:', error);
-    //   }
     try {
-      const response = await fetch("/api/resources", {
+      const response = await fetch("/api/generation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ topic: topic, space: "Coding" }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Generated resources:", data);
+        console.log("Generated questions:", data);
+        const quizContainers =
+          window.document.getElementsByClassName("resource-container");
+        const quizContainer = quizContainers[0];
+        const quiz = window.document.createElement("div");
+        const quizQuestions = (
+          <a href={`/viewing?${encodeURIComponent(data.questions)}`}>
+            <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-12 rounded-lg">
+              <h2 className="mt-1">Quiz {data.quizValue}</h2>
+              <div className="relative">
+                <div className="text-gray-700 mask-image-fade">
+                  <MathJaxContext config={config}>
+                    <MathJax>
+                      <Markdown
+                        remarkPlugins={[remarkMath]}
+                        rehypePlugins={[rehypeKatex, rehypeRaw]}
+                      >
+                        {data.questions.splice(0, 2).join("\n\n")}
+                      </Markdown>
+                    </MathJax>
+                  </MathJaxContext>
+                </div>
+              </div>
+            </div>
+          </a>
+        );
+        // const mathJaxContext = window.document.createElement(MathJaxContext);
+        if (quizContainer) {
+          // mathJax.append(markdown);
+          // mathJaxContext.append(mathJax);
+          // learnDocument.append(mathJaxContext);
+          const learnDocumentString = window.document.createElement("div");
+          learnDocumentString.innerHTML =
+            ReactDOMServer.renderToString(quizQuestions);
+          quiz.append(learnDocumentString);
+          quizContainer.appendChild(quiz);
+        }
       } else {
-        console.error("Failed to generate resources");
+        console.error("Failed to generate questions");
       }
     } catch (error) {
       console.error("Error:", error);
     }
+    // try {
+    //   const response = await fetch("/api/resources", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     console.log("Generated resources:", data);
+    //   } else {
+    //     console.error("Failed to generate resources");
+    //   }
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
     // try {
     //     const response = await fetch('/api/priority', {
     //         method: 'POST',
@@ -360,7 +399,7 @@ export default function Dashboard() {
         console.log(data.document);
         setDocument(data.document);
         const learnContainers =
-          window.document.getElementsByClassName("learn-container");
+          window.document.getElementsByClassName("resource-container");
         const learnContainer = learnContainers[0];
         const learn = window.document.createElement("div");
         const learnDocument = (
@@ -834,7 +873,7 @@ export default function Dashboard() {
                   open ? "md:w-[75svw] md:ml-[25svw]" : "md:w-full"
                 } rounded-lg`}
               >
-                <div className="learn-container relative flex flex-col flex-grow top-0 overflow-y-auto max-h-[80svh]"></div>
+                <div className="resource-container relative flex flex-col flex-grow top-0 overflow-y-auto max-h-[80svh]"></div>
                 <div className="flex flex-col right-0 relative bottom-0 mt-auto pb-4">
                   <div className="flex justify-start items-end">
                     <button

@@ -31,19 +31,19 @@ model Resource {
   resource_id   String     @id @default(cuid()) @unique
   space_id      String     
   space         Space      @relation(fields: [space_id], references: [space_id])
-  quiz_id       String?    @unique
-  learn_id      String?    @unique
+  quiz_id       String?
+  learn_id      String?
   quiz          Quiz?
   learn         Learn?
 }
 
 model Quiz {
   quiz_id       String     @id @default(cuid()) @unique
-  question_id   String     @unique
-  answer_id     String     @unique
-  document_id   String     @unique
-  video_id      String     @unique
-  website_id    String     @unique
+  question_id   String?    @unique
+  answer_id     String?    @unique
+  document_id   String?
+  video_id      String?
+  website_id    String?
   resource_id   String     @unique
   resource      Resource   @relation(fields: [resource_id], references: [resource_id])
   quiz_name     String
@@ -57,9 +57,9 @@ model Quiz {
 model Learn {
   learn_id      String     @id @default(cuid()) @unique
   resource_id   String     @unique
-  document_id   String?    @unique
-  video_id      String?    @unique
-  website_id    String?    @unique
+  document_id   String?
+  video_id      String?
+  website_id    String?
   resource      Resource   @relation(fields: [resource_id], references: [resource_id])
   learn_name    String
   document      Document?
@@ -69,14 +69,14 @@ model Learn {
 
 model Question {
   question_id   String     @id @default(cuid()) @unique
-  quiz_id       String     @default(cuid()) @unique
+  quiz_id       String     @unique
   quiz          Quiz       @relation(fields: [quiz_id], references: [question_id])
   question      String
 }
 
 model Answer {
   answer_id     String     @id @default(cuid()) @unique
-  quiz_id       String     @default(cuid()) @unique
+  quiz_id       String     @unique
   quiz          Quiz       @relation(fields: [quiz_id], references: [answer_id])
   answer        String
   correct       Boolean

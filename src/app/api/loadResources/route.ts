@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 async function loadLearns(space: string) {
-  const learnData = await prisma.space.findUnique({
+  const resourceData = await prisma.space.findUnique({
     where: {
       space_name: space,
     },
@@ -18,33 +18,42 @@ async function loadLearns(space: string) {
               websites: true,
             },
           },
+          quiz: {
+            include: {
+              questions: true,
+              answers: true,
+              document: true,
+              videos: true,
+              websites: true,
+            },
+          },
         },
       },
     },
   });
 
-  console.log(learnData);
+  console.log(resourceData);
 
-  let learns;
-  if (learnData) {
-    console.log(learnData.resources);
-    learns = learnData.resources
-      .map((resource) => resource.learn)
+  let resources;
+  if (resourceData) {
+    console.log(resourceData.resources);
+    resources = resourceData.resources
+      .map((resource) => resource.learn || resource.quiz)
       .filter(Boolean);
   }
 
-  return learns;
+  return resources;
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
   if (req.method == "POST") {
     try {
       const { space } = await req.json();
-      const learns = await loadLearns(space);
-      console.log(learns);
+      const resources = await loadLearns(space);
+      console.log(resources);
 
       return NextResponse.json({
-        learns,
+        resources,
         status: 200,
       });
     } catch (error) {

@@ -15,7 +15,6 @@ const Signin = () => {
     const result = await signIn("google", { redirect: false });
     console.log("Sign-in result:", result);
   };
-  a;
 
   const handleAuthCallback = async () => {
     const session = await getSession();
