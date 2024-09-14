@@ -67,6 +67,8 @@ export default function Dashboard() {
   const order = "comprehensive";
   const errors = ["Square root of 81", "Boiling point of water"];
   const points = ["Pythagorean Theorem", "Derivatives", "Prime Numbers"];
+  let firstName;
+  let lastName;
   const config = {
     loader: { load: ["input/asciimath"] },
   };
@@ -89,19 +91,14 @@ export default function Dashboard() {
             window.document.getElementsByClassName("resource-container");
           const resourceContainer = resourceContainers[0];
           const resourceDiv = window.document.createElement("div");
-          console.log(
-            resource.videos[0].video.replace(
-              "https://www.youtube.com/watch?v=",
-              ""
-            )
-          );
           const resourceDocument = (
             <a
               href={`/viewing?${encodeURIComponent(
-                resource.document.document
+                resource.document?.document ||
+                  resource.questions.map((question) => question.question)
               )}`}
             >
-              <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mb-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-6 rounded-lg">
+              <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-6 rounded-lg">
                 <h2 className="mt-1">
                   {resource.learn_name || resource.quiz_name}
                 </h2>
@@ -113,39 +110,44 @@ export default function Dashboard() {
                           remarkPlugins={[remarkMath]}
                           rehypePlugins={[rehypeKatex, rehypeRaw]}
                         >
-                          {resource.document.document
+                          {resource.document?.document
                             .split("\n")
                             .slice(0, 3)
                             .join("\n") ||
-                            resource.questions.splice(0, 2).join("\n\n")}
+                            resource.questions
+                              .map((question) => question.question)
+                              .splice(0, 2)
+                              .join("\n\n")}
                         </Markdown>
                       </MathJax>
                     </MathJaxContext>
                   </div>
                 </div>
-                <div className="flex flex-row h-24">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${resource.videos[0].video.replace(
-                      "https://www.youtube.com/watch?v=",
-                      ""
-                    )}`}
-                    className="rounded-md w-[32%] md:w-[16%] mt-2"
-                  ></iframe>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${resource.videos[1].video.replace(
-                      "https://www.youtube.com/watch?v=",
-                      ""
-                    )}`}
-                    className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
-                  ></iframe>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${resource.videos[2].video.replace(
-                      "https://www.youtube.com/watch?v=",
-                      ""
-                    )}`}
-                    className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
-                  ></iframe>
-                </div>
+                {resource.videos.length > 0 && (
+                  <div className="flex flex-row h-24">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${resource.videos[0].video.replace(
+                        "https://www.youtube.com/watch?v=",
+                        ""
+                      )}`}
+                      className="rounded-md w-[32%] md:w-[16%] mt-2"
+                    ></iframe>
+                    <iframe
+                      src={`https://www.youtube.com/embed/${resource.videos[1].video.replace(
+                        "https://www.youtube.com/watch?v=",
+                        ""
+                      )}`}
+                      className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
+                    ></iframe>
+                    <iframe
+                      src={`https://www.youtube.com/embed/${resource.videos[2].video.replace(
+                        "https://www.youtube.com/watch?v=",
+                        ""
+                      )}`}
+                      className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
+                    ></iframe>
+                  </div>
+                )}
               </div>
             </a>
           );
@@ -164,6 +166,14 @@ export default function Dashboard() {
       console.error("Error:", error);
     }
   };
+
+  if (username) {
+    firstName = username.split(" ")[0];
+  }
+
+  if (username) {
+    lastName = username.split(" ")[1];
+  }
 
   const toggleDropdown = (newMode: string) => {
     setIsOpen(!isOpen);
@@ -242,7 +252,7 @@ export default function Dashboard() {
         const quiz = window.document.createElement("div");
         const quizQuestions = (
           <a href={`/viewing?${encodeURIComponent(data.questions)}`}>
-            <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-12 rounded-lg">
+            <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 r-8 ml-8 pr-8 pl-8 pt-4 pb-12 rounded-lg">
               <h2 className="mt-1">Quiz {data.quizValue}</h2>
               <div className="relative">
                 <div className="text-gray-700 mask-image-fade">
@@ -404,7 +414,7 @@ export default function Dashboard() {
         const learn = window.document.createElement("div");
         const learnDocument = (
           <a href={`/viewing?${encodeURIComponent(data.document)}`}>
-            <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-12 rounded-lg">
+            <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-6 rounded-lg">
               <h2 className="mt-1">Learn {data.learnValue}</h2>
               <div className="relative">
                 <div className="text-gray-700 mask-image-fade">
@@ -420,25 +430,19 @@ export default function Dashboard() {
                   </MathJaxContext>
                 </div>
               </div>
-              <div>
-                <div>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${data.videoIds[0]}`}
-                    className=""
-                  ></iframe>
-                </div>
-                <div>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${data.videoIds[1]}`}
-                    className=""
-                  ></iframe>
-                </div>
-                <div>
-                  <iframe
-                    src={`https://www.youtube.com/embed/${data.videoIds[2]}`}
-                    className=""
-                  ></iframe>
-                </div>
+              <div className="flex flex-row h-24">
+                <iframe
+                  src={`https://www.youtube.com/embed/${data.videoIds[0]}`}
+                  className="rounded-md w-[32%] md:w-[16%] mt-2"
+                ></iframe>
+                <iframe
+                  src={`https://www.youtube.com/embed/${data.videoIds[1]}`}
+                  className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
+                ></iframe>
+                <iframe
+                  src={`https://www.youtube.com/embed/${data.videoIds[2]}`}
+                  className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
+                ></iframe>
               </div>
             </div>
           </a>
@@ -516,227 +520,97 @@ export default function Dashboard() {
     // }
   };
 
+  const newSpace = async () => {
+    console.log(session?.user?.email);
+    try {
+      const response = await fetch("/api/space", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: session?.user?.email }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const spaceContainers =
+          window.document.getElementsByClassName("space-container");
+        const spaceContainer = spaceContainers[0];
+        const space = window.document.createElement("div");
+        const spaceDocument = (
+          <div className="p-2">
+            <Image
+              src="/space.png"
+              alt="Space"
+              className="block h-6 w-6 mr-2"
+              width={24}
+              height={24}
+              style={{
+                imageRendering: "auto",
+              }}
+            />
+            <p className="mr-2">Space {data.spaceValue}</p>
+          </div>
+        );
+        if (spaceContainer) {
+          const spaceDocumentString = window.document.createElement("div");
+          spaceDocumentString.innerHTML =
+            ReactDOMServer.renderToString(spaceDocument);
+          space.append(spaceDocumentString);
+          spaceContainer.appendChild(space);
+        }
+      } else {
+        console.error("Failed to generate resources");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   //   if (status === "unauthenticated") {
   //     window.location.href = "/"
   //   }
 
   return (
     <main className="font-poppins">
+      <div
+        className={`absolute top-0 ${
+          open ? "left-[25svw]" : "left-0"
+        } right-0 h-[80svh] bg-[radial-gradient(ellipse_at_top,rgba(123,97,255,0.1)_0%,rgba(123,97,255,0.05)_25%,rgba(123,97,255,0)_70%)]`}
+      />
+      <div
+        className={`absolute top-0 ${
+          open ? "left-[25svw]" : "left-0"
+        } right-0 h-[70svh] bg-[radial-gradient(circle_at_center_top,rgba(123,97,255,0.05)_0%,rgba(123,97,255,0.02)_30%,rgba(123,97,255,0)_60%)]`}
+      />
       <div>
         <div className="min-h-full">
-          <Disclosure as="nav" className="bg-navy py-[0.83rem]">
-            {({ open }) => (
-              <>
-                <div className="mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="flex h-16 items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="-m-1.5 p-1.5">
-                        <Image
-                          width={96}
-                          height={51}
-                          src="/QuixLogo.png"
-                          alt="Quix"
-                        />
-                      </div>
-                      <div className="hidden md:block">
-                        {/* <div className="ml-10 flex items-baseline space-x-4">
-                            {navigation.map((item) => (
-                            <a
-                                key={item.name}
-                                href={item.href}
-                                className={classNames(
-                                item.current
-                                    ? 'bg-gray-900 text-white'
-                                    : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                'rounded-md px-3 py-2 text-sm font-medium'
-                                )}
-                                aria-current={item.current ? 'page' : undefined}
-                            >
-                                {item.name}
-                            </a>
-                            ))}
-                        </div> */}
-                      </div>
-                    </div>
-                    <div className="hidden md:flex md:gap-x-12 lg:flex lg:gap-x-12">
-                      {/* <a href="/features" className="text-lg font-semibold leading-6 text-gray-200 hover:text-gray-300">Features</a>
-                        <a href="/about" className="text-lg font-semibold leading-6 text-gray-200 hover:text-gray-300">About</a>
-                        <a href="/billing" className="text-lg font-semibold leading-6 text-gray-200 hover:text-gray-300">Billing</a> */}
-                    </div>
-                    <div className="hidden md:block">
-                      <div className="ml-4 flex items-center md:ml-6">
-                        {/* <button
-                          type="button"
-                          className="relative rounded-full bg-navy p-1 text-gray-300 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 focus:ring-offset-gray-700"
-                        >
-                          <span className="absolute -inset-1.5" />
-                          <span className="sr-only">View notifications</span>
-                          <BellIcon className="h-6 w-6" aria-hidden="true" />
-                        </button> */}
-
-                        {/* Profile dropdown */}
-                        <Menu as="div" className="relative ml-4">
-                          <div>
-                            <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-navy text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 focus:ring-offset-gray-800">
-                              <span className="absolute -inset-1.5" />
-                              <span className="sr-only">Open user menu</span>
-                              <Image
-                                className="rounded-full w-[1.8rem] h-[1.8rem] max-w-none"
-                                src={profile}
-                                width={30}
-                                height={30}
-                                alt=""
-                              />
-                            </Menu.Button>
-                          </div>
-                          <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-100"
-                            enterFrom="transform opacity-0 scale-95"
-                            enterTo="transform opacity-100 scale-100"
-                            leave="transition ease-in duration-75"
-                            leaveFrom="transform opacity-100 scale-100"
-                            leaveTo="transform opacity-0 scale-95"
-                          >
-                            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-200 py-1 shadow-lg ring-1 ring-gray-800 ring-opacity-5 focus:outline-none">
-                              {userNavigation.map((item) => (
-                                <Menu.Item key={item.name}>
-                                  {({ active }) => (
-                                    <a
-                                      href={item.href}
-                                      onClick={(e) => {
-                                        if (item.name === "Sign out") {
-                                          e.preventDefault();
-                                          signOut();
-                                        }
-                                      }}
-                                      className={classNames(
-                                        active ? "bg-gray-300" : "",
-                                        item.name !== "Sign out"
-                                          ? "border-b-2 border-gray-300"
-                                          : "",
-                                        "block px-4 py-2 text-sm text-gray-700 font-medium"
-                                      )}
-                                    >
-                                      {item.name}
-                                    </a>
-                                  )}
-                                </Menu.Item>
-                              ))}
-                            </Menu.Items>
-                          </Transition>
-                        </Menu>
-                      </div>
-                    </div>
-                    <div className="-mr-2 flex md:hidden">
-                      {/* Mobile menu button */}
-                      <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-navy p-2 text-gray-300 hover:bg-navy hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 focus:ring-offset-gray-800">
-                        <span className="absolute -inset-0.5" />
-                        <span className="sr-only">Open main menu</span>
-                        {open ? (
-                          <XMarkIcon
-                            className="block h-6 w-6"
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <Bars3Icon
-                            className="block h-6 w-6"
-                            aria-hidden="true"
-                          />
-                        )}
-                      </Disclosure.Button>
-                    </div>
-                  </div>
-                </div>
-
-                <Disclosure.Panel className="md:hidden">
-                  <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                    {navigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-gray-200"
-                            : "text-gray-300 hover:bg-gray-800 hover:text-gray-200",
-                          "block rounded-md px-3 py-2 text-base font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </Disclosure.Button>
-                    ))}
-                  </div>
-                  <div className="border-t border-gray-300 w-[93%] ml-[3.5%]"></div>
-                  <div className="pb-3 pt-4">
-                    <div className="flex items-center px-5">
-                      <div className="flex-shrink-0">
-                        <Image
-                          className="rounded-full w-[1.8rem] h-[1.8rem] max-w-none"
-                          src={profile}
-                          width={30}
-                          height={30}
-                          alt=""
-                        />
-                      </div>
-                      <div className="ml-3">
-                        <div className="text-base font-semibold leading-none text-gray-200">
-                          {username}
-                        </div>
-                        <div className="text-sm font-semibold leading-none text-gray-400">
-                          {session?.user?.email}
-                        </div>
-                      </div>
-                      {/* <button
-                        type="button"
-                        className="relative ml-auto flex-shrink-0 rounded-full bg-navy p-1 text-gray-300 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 focus:ring-offset-gray-700"
-                      >
-                        <span className="absolute -inset-1.5" />
-                        <span className="sr-only">View notifications</span>
-                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button> */}
-                    </div>
-                    <div className="mt-3 space-y-1 px-2">
-                      {userNavigation.map((item) => (
-                        <Disclosure.Button
-                          key={item.name}
-                          onClick={(e) => {
-                            if (item.name === "Sign out") {
-                              e.preventDefault();
-                              signOut();
-                            }
-                          }}
-                          as="a"
-                          href={item.href}
-                          className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-gray-200"
-                        >
-                          {item.name}
-                        </Disclosure.Button>
-                      ))}
-                    </div>
-                  </div>
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
-
           {/* <header className="bg-gray-200 shadow">
                 <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     <h1 className="text-3xl font-bold tracking-tight text-gray-700">Dashboard</h1>
                 </div>
             </header> */}
           <main>
-            <div className="relative">
-              <div className="hidden md:flex flex-col h-full w-full justify-start items-start">
+            <div className="h-[100svh]">
+              <div className="hidden md:flex flex-col h-full w-full justify-start items-start pl-6 pt-6">
                 <Disclosure>
                   <Disclosure.Button
-                    className="mt-2 relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-gray-200 h-8"
+                    className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-gray-200 h-8"
                     onClick={() => setOpen(!open)}
                   >
                     <span className="absolute -inset-0.5 z-40" />
                     <span className="sr-only">Open main menu</span>
-                    {open ? (
+                    <Image
+                      src="/togglesidebar.png"
+                      alt="Toggle Sidebar"
+                      className="block h-6 w-6"
+                      width={24}
+                      height={24}
+                      style={{
+                        imageRendering: "auto",
+                      }}
+                    />
+                    {/* {open ? (
                       <XMarkIcon
                         className="block h-6 w-6 text-red-700 bg-gray-300 rounded-md"
                         aria-hidden="true"
@@ -746,19 +620,59 @@ export default function Dashboard() {
                         className="block h-6 w-6 text-gray-700 bg-gray-300 rounded-md"
                         aria-hidden="true"
                       />
-                    )}
+                    )} */}
+                  </Disclosure.Button>
+                  <Disclosure.Button
+                    className={`relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-gray-200 h-8 ml-[calc(25svw-4.5rem)] mt-[-2rem] ${
+                      open ? "flex" : "hidden"
+                    }`}
+                    onClick={newSpace}
+                  >
+                    <span className="absolute -inset-0.5 z-40" />
+                    <span className="sr-only">Open main menu</span>
+                    <Image
+                      src="/newspace.png"
+                      alt="New Space"
+                      className="block h-[1.375rem] w-[1.375rem]"
+                      width={24}
+                      height={24}
+                      style={{
+                        imageRendering: "auto",
+                      }}
+                    />
+                    {/* {open ? (
+                      <XMarkIcon
+                        className="block h-6 w-6 text-red-700 bg-gray-300 rounded-md"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <Bars3Icon
+                        className="block h-6 w-6 text-gray-700 bg-gray-300 rounded-md"
+                        aria-hidden="true"
+                      />
+                    )} */}
                   </Disclosure.Button>
                 </Disclosure>
               </div>
               <div className="relative z-50 flex md:hidden flex-col h-full w-full justify-start items-start">
                 <Disclosure defaultOpen={!open}>
                   <Disclosure.Button
-                    className="mt-2 relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-gray-200 h-8"
+                    className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-gray-200 h-8"
                     onClick={() => setOpen(!open)}
                   >
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
-                    {open ? (
+                    <Image
+                      src="/togglesidebar.png"
+                      alt="Toggle Sidebar"
+                      className="block h-6 w-6"
+                      width={24}
+                      height={24}
+                      style={{
+                        imageRendering: "auto",
+                      }}
+                    />
+                    {/* {open ? (
                       <XMarkIcon
                         className="block h-6 w-6 text-red-700 bg-gray-300 rounded-md"
                         aria-hidden="true"
@@ -768,14 +682,14 @@ export default function Dashboard() {
                         className="block h-6 w-6 text-gray-700 bg-gray-300 rounded-md"
                         aria-hidden="true"
                       />
-                    )}
+                    )} */}
                   </Disclosure.Button>
                 </Disclosure>
               </div>
               <div
-                className={`bg-gray-200 w-[25svw] h-[calc(100svh-5.67rem)] hidden md:${
+                className={`bg-[#221e2cf6] w-[calc(25svw-1rem)] h-[calc(100svh-2rem)] ml-4 rounded-[1rem] border border-[#63567d88] hidden md:${
                   open ? "flex mr-[25svw]" : "hidden"
-                } mt-[-2.5rem]`}
+                } mt-[calc(-100svh+1rem)]`}
               >
                 <div className="flex flex-col h-full justify-end items-center px-4 w-full">
                   {/* <div className="relative z-50 flex-col h-full w-full justify-start items-start">
@@ -783,7 +697,8 @@ export default function Dashboard() {
                       New Space
                     </h1>
                   </div> */}
-                  <button className="flex items-center justify-center px-2 py-[1rem] rounded-xl bg-gray-300 text-gray-600 hover:bg-gray-400 hover:text-gray-200 font-semibold lg:text-lg sm:text-base w-full h-11 mb-3">
+                  <div className="space-container relative flex flex-col flex-grow mt-12 overflow-y-auto max-h-[75svh] mb-6"></div>
+                  <button className="flex items-center justify-center px-2 py-[1rem] rounded-xl text-gray-200 hover:text-gray-300 border-[1px] border-gray-200 hover:border-gray-300 font-semibold lg:text-base sm:text-base w-full h-11 mb-3">
                     <span className="items-center">
                       <div className="flex h-full justify-center align-middle"></div>
                       Upgrade Plan
@@ -838,12 +753,12 @@ export default function Dashboard() {
                 } relative z-40 bg-gray-200 mr-[25svw] w-[80svw] sm:w-[65svw] h-[calc(100svh-5.65rem)] md:hidden mt-[-2.5rem]`}
               >
                 <div className="flex flex-col h-full justify-end items-center px-4 w-full">
-                  <div className="relative z-50 flex-col h-full w-full justify-start items-start">
+                  {/* <div className="relative z-50 flex-col h-full w-full justify-start items-start">
                     <h1 className="text-center align-middle mt-2 text-xl font-bold tracking-tight text-gray-700">
                       New Space
                     </h1>
-                  </div>
-                  <button className="flex items-center justify-center px-2 py-[1rem] rounded-xl bg-gray-300 text-gray-600 hover:bg-gray-400 hover:text-gray-200 font-semibold lg:text-lg sm:text-base w-full h-11 mb-3">
+                  </div> */}
+                  <button className="flex items-center justify-center px-2 py-[1rem] rounded-xl text-gray-200 hover:text-gray-300 border-[1px] border-gray-200 hover:border-gray-300 font-semibold lg:text-base sm:text-base w-full h-11 mb-3">
                     <span className="items-center">
                       <div className="flex h-full justify-center align-middle"></div>
                       Upgrade Plan
@@ -873,18 +788,164 @@ export default function Dashboard() {
                   open ? "md:w-[75svw] md:ml-[25svw]" : "md:w-full"
                 } rounded-lg`}
               >
-                <div className="resource-container relative flex flex-col flex-grow top-0 overflow-y-auto max-h-[80svh]"></div>
+                <div
+                  className={`resource-container relative flex flex-col flex-grow top-0 overflow-y-auto max-h-[90svh] mb-6 z-40 ${
+                    open ? "" : "w-[95%] ml-[5%]"
+                  }`}
+                >
+                  <div
+                    className={`flex mt-4 ${
+                      open
+                        ? "ml-[calc(75svw-40%-1rem)]"
+                        : "ml-[calc(100svw-45.3%-1rem)]"
+                    } bg-[#221e2cf6] border-[1px] border-[#63567d88] rounded-lg w-[40%] h-[3.25rem] pt-1 justify-center hover:cursor-pointer`}
+                  >
+                    <div className="ml-2 flex flex-row w-[45%] mr-2 h-full justify-center">
+                      <Image
+                        src="/settings.png"
+                        alt="Settings"
+                        className="block h-5 w-5 mt-[0.125rem] mr-3"
+                        width={24}
+                        height={24}
+                        style={{
+                          imageRendering: "auto",
+                        }}
+                      />
+                      <p className="text-gray-200 mr-2">Settings</p>
+                    </div>
+                    <div className="ml-[-0.25rem] mt-[-0.25rem] border-r-[1px] border-r-[#63567d88]"></div>
+                    <div className="flex flex-row w-[45%] justify-center">
+                      <Image
+                        src="/logout.png"
+                        alt="Logout"
+                        className="block h-5 w-5 mt-[0.125rem] ml-2 mr-3"
+                        width={24}
+                        height={24}
+                        style={{
+                          imageRendering: "auto",
+                        }}
+                      />
+                      <p className="text-gray-200">Logout</p>
+                    </div>
+                  </div>
+                  <h1
+                    className={`text-5xl font-bold text-center justify-center mt-[8%]`}
+                  >
+                    <div>
+                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-300 to-gray-500">
+                        Hi,
+                      </span>
+                      <span className="mx-2"></span>
+                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-300 to-gray-500">
+                        {firstName}
+                      </span>
+                    </div>
+                    {lastName && (
+                      <div className="mt-2">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-300 to-gray-500">
+                          {lastName}
+                        </span>
+                      </div>
+                    )}
+                  </h1>
+                  <div
+                    className={`flex flex-row mt-14 w-full h-full ${
+                      open ? "" : "ml-[-2.5%]"
+                    }`}
+                  >
+                    <div className="ml-[2.5%] mr-[2.5%] border-[1px] border-[#63567d88] rounded-lg h-[85%] w-[30%]">
+                      <div className="bg-indigo-800 rounded-lg w-[92%] h-[24%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <Image
+                          src="/examples.png"
+                          alt="Examples"
+                          className="block h-6 w-6 mr-2"
+                          width={24}
+                          height={24}
+                          style={{
+                            imageRendering: "auto",
+                          }}
+                        />
+                        <p className="text-gray-200">Examples</p>
+                      </div>
+                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <p className="text-gray-200 text-[0.7rem] px-2">
+                          Explain the water cycle to a five year old using a
+                          bathtub as an analogy.
+                        </p>
+                      </div>
+                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <p className="text-gray-200">Examples</p>
+                      </div>
+                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <p className="text-gray-200">Examples</p>
+                      </div>
+                    </div>
+                    <div className="border-[1px] border-[#63567d88] rounded-lg h-[85%] w-[30%]">
+                      <div className="bg-indigo-800 rounded-lg w-[92%] h-[24%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <Image
+                          src="/capabilities.png"
+                          alt="Capabilities"
+                          className="block h-6 w-6 mr-2"
+                          width={24}
+                          height={24}
+                          style={{
+                            imageRendering: "auto",
+                          }}
+                        />
+                        <p className="text-gray-200">Capabilities</p>
+                      </div>
+                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <p className="text-gray-200">Examples</p>
+                      </div>
+                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <p className="text-gray-200">Examples</p>
+                      </div>
+                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <p className="text-gray-200">Examples</p>
+                      </div>
+                    </div>
+                    <div className="ml-[2.5%] mr-[2.5%] border-[1px] border-[#63567d88] rounded-lg h-[85%] w-[30%]">
+                      <div className="bg-indigo-800 rounded-lg w-[92%] h-[24%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <Image
+                          src="/limitations.png"
+                          alt="Limitations"
+                          className="block h-6 w-6 mr-2"
+                          width={24}
+                          height={24}
+                          style={{
+                            imageRendering: "auto",
+                          }}
+                        />
+                        <p className="text-gray-200">Limitations</p>
+                      </div>
+                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <p className="text-gray-200 text-[0.7rem] px-2">
+                          Knowledge of current events is limited, and Quix may
+                          not recognize events within the past few years.
+                        </p>
+                      </div>
+                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <p className="text-gray-200">Examples</p>
+                      </div>
+                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
+                        <p className="text-gray-200">Examples</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div className="flex flex-col right-0 relative bottom-0 mt-auto pb-4">
                   <div className="flex justify-start items-end">
                     <button
                       data-dropdown-toggle="dropdownDivider"
-                      className="text-gray-200 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 lg:text-lg font-semibold rounded-xl px-5 py-2.5 text-center inline-flex items-center justify-center ml-[0.5rem] sm:ml-[1rem] w-[15%] sm:w-[12%] h-10 sm:text-base"
+                      className={`text-gray-200 bg-indigo-700 hover:bg-indigo-800 lg:text-base font-semibold rounded-lg px-5 py-2.5 text-center inline-flex items-center justify-center z-40 ml-[17%] lg:ml-[15.45%] w-[12%] ${
+                        open ? "sm:w-[11%]" : "sm:w-[9%]"
+                      } h-9 mb-[0.125rem] sm:text-base xs:text-sm text-xs`}
                       type="button"
                       onClick={() => toggleDropdown("Mode")}
                     >
                       {mode}
                       <svg
-                        className={`hidden lg:block w-2.5 h-2.5 ms-3 ${
+                        className={`hidden w-0 h-0 ms-0 xl:block xl:w-2 xl:h-2 xl:ms-3 ${
                           isOpen ? "transform rotate-180" : ""
                         }`}
                         aria-hidden="true"
@@ -905,14 +966,16 @@ export default function Dashboard() {
                     <div
                       className={`z-10 ${
                         isOpen ? "block" : "hidden"
-                      } bg-gray-200 divide-y divide-gray-400 rounded-lg shadow w-[15%] sm:w-[12%] ml-[-15svw] ${
-                        open ? "sm:ml-[-9svw]" : "sm:ml-[-12svw]"
-                      } mt-[-4.9rem] sm:mt-[-5.4rem] lg:mt-[-5.4rem] mb-[2.5rem]`}
+                      } bg-[#221e2cf6] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow ${
+                        open
+                          ? "w-[12%] ml-[-12%] sm:w-[11%] sm:ml-[-11%]"
+                          : "w-[12%] ml-[-12%] sm:w-[9%] sm:ml-[-9%]"
+                      } mt-[-4.9rem] sm:mt-[-5.4rem] lg:mt-[-5.4rem] mb-[3rem]`}
                     >
                       <div className="py-2">
                         <a
                           href="#"
-                          className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-900 hover:bg-gray-300"
+                          className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
                           onClick={() => toggleDropdown("Learn")}
                         >
                           Learn
@@ -921,7 +984,7 @@ export default function Dashboard() {
                       <div className="py-2">
                         <a
                           href="#"
-                          className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-900 hover:bg-gray-300"
+                          className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
                           onClick={() => toggleDropdown("Quiz")}
                         >
                           Quiz
@@ -946,7 +1009,7 @@ export default function Dashboard() {
                     <input
                       type="text"
                       id="first_name"
-                      className={`bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[60%] sm:w-[67%] lg:w-[70%] p-2.5 mt-[-2.6rem] h-10`}
+                      className={`bg-[#221e2cf6] border-[1px] border-[#63567d88] text-gray-200 text-xs sm:text-sm rounded-lg block w-[67%] lg:w-[70%] p-2.5 mt-[-2.6rem] h-[2.75rem]`}
                       placeholder="Topic"
                       value={topic}
                       onChange={(e) => setTopic(e.target.value)}
@@ -955,7 +1018,9 @@ export default function Dashboard() {
                   {/* ml-[1.7svw] md:ml-[-0.25svw] lg:ml-[-0.25svw] */}
                   <div className="flex justify-end items-end">
                     <button
-                      className="flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-xl bg-emerald-600 text-gray-200 hover:bg-emerald-700 duration-200 transition-colors font-semibold lg:text-lg sm:text-base w-[15%] sm:w-[12%] mt-[-2.7rem] mr-[0.5rem] sm:mr-[1rem] h-10 cursor-pointer"
+                      className={`flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-lg bg-indigo-700 text-gray-200 hover:bg-indigo-800 duration-200 transition-colors font-semibold lg:text-[0.92rem] sm:text-sm text-xs w-[12%] ${
+                        open ? "sm:w-[11%]" : "sm:w-[9%]"
+                      } mt-[-2.7rem] mr-[17%] lg:mr-[15.45%] h-9 mb-1 cursor-pointer`}
                       onClick={
                         topic
                           ? mode === "Quiz"
@@ -965,6 +1030,16 @@ export default function Dashboard() {
                       }
                       disabled={!topic}
                     >
+                      <Image
+                        src="/enter.png"
+                        alt="Enter"
+                        className="block h-0 w-0 xs:h-3 xs:w-3 xs:mr-[0.35rem] sm:h-[0.825rem] sm:w-[0.825rem] sm:mr-2"
+                        width={24}
+                        height={24}
+                        style={{
+                          imageRendering: "auto",
+                        }}
+                      />
                       Enter
                     </button>
                   </div>

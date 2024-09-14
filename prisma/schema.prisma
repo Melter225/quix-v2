@@ -21,7 +21,7 @@ model User {
 model Space {
   space_id      String     @id @default(cuid()) @unique
   user_id       String     
-  user          User       @relation(fields: [user_id], references: [user_id])
+  user          User       @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   space_name    String     @unique
   space_number  Int
   resources     Resource[]
@@ -30,22 +30,15 @@ model Space {
 model Resource {
   resource_id   String     @id @default(cuid()) @unique
   space_id      String     
-  space         Space      @relation(fields: [space_id], references: [space_id])
-  quiz_id       String?
-  learn_id      String?
+  space         Space      @relation(fields: [space_id], references: [space_id], onDelete: Cascade)
   quiz          Quiz?
   learn         Learn?
 }
 
 model Quiz {
   quiz_id       String     @id @default(cuid()) @unique
-  question_id   String?    @unique
-  answer_id     String?    @unique
-  document_id   String?
-  video_id      String?
-  website_id    String?
   resource_id   String     @unique
-  resource      Resource   @relation(fields: [resource_id], references: [resource_id])
+  resource      Resource   @relation(fields: [resource_id], references: [resource_id], onDelete: Cascade)
   quiz_name     String
   questions     Question[]
   answers       Answer[]
@@ -57,10 +50,7 @@ model Quiz {
 model Learn {
   learn_id      String     @id @default(cuid()) @unique
   resource_id   String     @unique
-  document_id   String?
-  video_id      String?
-  website_id    String?
-  resource      Resource   @relation(fields: [resource_id], references: [resource_id])
+  resource      Resource   @relation(fields: [resource_id], references: [resource_id], onDelete: Cascade)
   learn_name    String
   document      Document?
   videos        Video[]
@@ -69,15 +59,15 @@ model Learn {
 
 model Question {
   question_id   String     @id @default(cuid()) @unique
-  quiz_id       String     @unique
-  quiz          Quiz       @relation(fields: [quiz_id], references: [question_id])
+  quiz_id       String
+  quiz          Quiz       @relation(fields: [quiz_id], references: [quiz_id], onDelete: Cascade)
   question      String
 }
 
 model Answer {
   answer_id     String     @id @default(cuid()) @unique
-  quiz_id       String     @unique
-  quiz          Quiz       @relation(fields: [quiz_id], references: [answer_id])
+  quiz_id       String
+  quiz          Quiz       @relation(fields: [quiz_id], references: [quiz_id], onDelete: Cascade)
   answer        String
   correct       Boolean
 }
@@ -86,8 +76,8 @@ model Document {
   document_id   String     @id @default(cuid()) @unique
   quiz_id       String?    @unique
   learn_id      String?    @unique
-  quiz          Quiz?      @relation(fields: [quiz_id], references: [quiz_id])
-  learn         Learn?     @relation(fields: [learn_id], references: [learn_id])
+  quiz          Quiz?      @relation(fields: [quiz_id], references: [quiz_id], onDelete: Cascade)
+  learn         Learn?     @relation(fields: [learn_id], references: [learn_id], onDelete: Cascade)
   document      String
 }
 
@@ -95,8 +85,8 @@ model Video {
   video_id      String     @id @default(cuid()) @unique
   quiz_id       String?
   learn_id      String?
-  quiz          Quiz?      @relation(fields: [quiz_id], references: [quiz_id])
-  learn         Learn?     @relation(fields: [learn_id], references: [learn_id])
+  quiz          Quiz?      @relation(fields: [quiz_id], references: [quiz_id], onDelete: Cascade)
+  learn         Learn?     @relation(fields: [learn_id], references: [learn_id], onDelete: Cascade)
   video         String
 }
 
@@ -104,7 +94,7 @@ model Website {
   website_id    String     @id @default(cuid()) @unique
   quiz_id       String?
   learn_id      String?
-  quiz          Quiz?      @relation(fields: [quiz_id], references: [quiz_id])
-  learn         Learn?     @relation(fields: [learn_id], references: [learn_id])
+  quiz          Quiz?      @relation(fields: [quiz_id], references: [quiz_id], onDelete: Cascade)
+  learn         Learn?     @relation(fields: [learn_id], references: [learn_id], onDelete: Cascade)
   website       String
 }

@@ -124,6 +124,10 @@ const config: Config = {
       maskImage: {
         fade: "linear-gradient(to bottom, black 60%, transparent 100%)",
       },
+      screens: {
+        xs: "480px",
+        xxs: "360px",
+      },
     },
   },
   plugins: [
