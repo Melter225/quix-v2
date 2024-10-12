@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
-async function loadLearns(space: string) {
+async function loadResources(space: string) {
   const resourceData = await prisma.space.findUnique({
     where: {
       space_name: space,
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   if (req.method == "POST") {
     try {
       const { space } = await req.json();
-      const resources = await loadLearns(space);
+      const resources = await loadResources(space);
       console.log(resources);
 
       return NextResponse.json({

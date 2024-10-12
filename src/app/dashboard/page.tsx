@@ -14,6 +14,9 @@ import rehypeRaw from "rehype-raw";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import "katex/dist/katex.min.css";
 import ReactDOMServer from "react-dom/server";
+import { createRoot } from "react-dom/client";
+import { Button } from "@/components/ui/button";
+import { Globe } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", current: true },
@@ -48,6 +51,11 @@ export default function Dashboard() {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [document, setDocument] = useState("");
   const [space, setSpace] = useState("");
+  const [spaceClicked, setSpaceClicked] = useState(false);
+  const [menuVisibility, setMenuVisibility] = useState(false);
+  const [popupContent, setPopupContent] = useState("");
+  const [popupVisibility, setPopupVisibility] = useState(false);
+
   // const document = `The lift coefficient ($C_L$) is a dimensionless coefficient.`
   const database = [
     { quiz: "Solve for x: 3x + 5 = 14", accuracy: 100 },
@@ -67,100 +75,300 @@ export default function Dashboard() {
   const order = "comprehensive";
   const errors = ["Square root of 81", "Boiling point of water"];
   const points = ["Pythagorean Theorem", "Derivatives", "Prime Numbers"];
+
   let firstName;
   let lastName;
   const config = {
     loader: { load: ["input/asciimath"] },
   };
 
-  window.onload = async function loadResources() {
+  const showPopup = (document: string) => {
+    console.log(document);
+    setPopupVisibility(!popupVisibility);
+    setPopupContent(document);
+  };
+
+  window.onload = async function loadSpaces() {
+    try {
+      const response = await fetch("/api/loadSpaces", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: session?.user?.email }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Generated spaces:", data);
+        for (const item of data.spaces) {
+          const spaceContainers =
+            window.document.getElementsByClassName("space-container");
+          const spaceContainer = spaceContainers[0];
+          const spaceDiv = window.document.createElement("div");
+          const SpaceDocument = () => (
+            <button
+              className="w-full"
+              onClick={() => {
+                const spaceName = item;
+                console.log(spaceName, space);
+                // if (spaceName !== space) {
+                loadResources(spaceName);
+                // }
+              }}
+            >
+              <div className="flex p-2 px-3 mb-3 justify-end bg-[#2a2638] hover:bg-[#302c41] transition-colors duration-200 rounded-lg hover:cursor-pointer items-center group">
+                <div className="flex w-full justify-start">
+                  <p className="mr-2 text-gray-200">{item}</p>
+                </div>
+                <Image
+                  src="/menu.png"
+                  alt="Menu"
+                  className="hidden invert-hover group-hover:block h-4 w-4"
+                  width={24}
+                  height={24}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setMenuVisibility(
+                      (prev_menuVisibility) => !prev_menuVisibility
+                    );
+                    console.log(menuVisibility);
+                  }}
+                  style={{
+                    imageRendering: "auto",
+                    filter: "invert(80%)",
+                  }}
+                />
+              </div>
+              <div
+                className={`z-10 ${
+                  menuVisibility ? "block" : "hidden"
+                } bg-[hsla(257,19%,15%,1)] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-40 ${
+                  menuVisibility ? "w-[12%] sm:w-[50%]" : "w-[12%] sm:w-[50%]"
+                } mt-[-10rem] mb-[3rem]`}
+              >
+                <div className="py-2">
+                  <a
+                    href="#"
+                    className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
+                    onClick={() => renameSpace()}
+                  >
+                    Rename
+                  </a>
+                </div>
+                <div className="py-2">
+                  <a
+                    href="#"
+                    className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
+                    onClick={() => deleteSpace()}
+                  >
+                    Delete
+                  </a>
+                </div>
+              </div>
+            </button>
+          );
+          if (spaceContainer) {
+            const spaceDocumentString = window.document.createElement("div");
+            spaceDiv.append(spaceDocumentString);
+            spaceContainer.appendChild(spaceDiv);
+            const root = createRoot(spaceDocumentString);
+            root.render(<SpaceDocument />);
+          }
+        }
+      } else {
+        console.error("Failed to generate spaces");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const loadResources = async (spaceName: string) => {
+    console.log("Old space:", space);
+    console.log("New space name:", spaceName);
+    // console.log(spaceName);
+    setSpace(spaceName);
     try {
       const response = await fetch("/api/loadResources", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ space: "Coding" }),
+        body: JSON.stringify({ space: spaceName }),
       });
       if (response.ok) {
         const data = await response.json();
         console.log("Generated resources:", data);
-        for (const resource of data.resources) {
-          console.log(resource, resource.document);
-          const resourceContainers =
-            window.document.getElementsByClassName("resource-container");
-          const resourceContainer = resourceContainers[0];
-          const resourceDiv = window.document.createElement("div");
-          const resourceDocument = (
+        let websites = [
+          {
+            url: "",
+            title: "",
+            icon: "",
+          },
+          {
+            url: "",
+            title: "",
+            icon: "",
+          },
+          {
+            url: "",
+            title: "",
+            icon: "",
+          },
+        ];
+        const resourceContainers =
+          window.document.getElementsByClassName("resource-container");
+        const resourceContainer = resourceContainers[0];
+        while (
+          resourceContainer.childElementCount > 1 &&
+          resourceContainer.lastElementChild
+        ) {
+          resourceContainer.removeChild(resourceContainer.lastElementChild);
+        }
+        resourceContainer.firstElementChild?.classList.add("hidden");
+        resourceContainer.classList.add("pt-1");
+        setSpaceClicked(true);
+        for (const item of data.resources) {
+          console.log(item);
+          websites = [
+            {
+              url: item.websites[0].website,
+              title: "",
+              icon: "/placeholder.svg?height=80&width=80",
+            },
+            {
+              url: item.websites[1].website,
+              title: "",
+              icon: "/placeholder.svg?height=80&width=80",
+            },
+            {
+              url: item.websites[2].website,
+              title: "",
+              icon: "/placeholder.svg?height=80&width=80",
+            },
+          ];
+          const resource = window.document.createElement("div");
+          const ResourceDocument = () => (
             <a
-              href={`/viewing?${encodeURIComponent(
-                resource.document?.document ||
-                  resource.questions.map((question) => question.question)
-              )}`}
+              href={
+                item.learn_name
+                  ? ""
+                  : `/testing?${item.quiz_name
+                      .concat("||##||||##||||##||")
+                      .concat(
+                        item.questions
+                          ?.map((model) => model.question)
+                          .join("||##||||##||||##||")
+                      )}`
+              }
+              onClick={(e) => {
+                if (item.learn_name) {
+                  e.preventDefault();
+                  showPopup(item.document?.document);
+                }
+              }}
             >
-              <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-6 rounded-lg">
-                <h2 className="mt-1">
-                  {resource.learn_name || resource.quiz_name}
-                </h2>
-                <div className="relative">
-                  <div className="text-gray-700 mask-image-fade">
-                    <MathJaxContext config={config}>
-                      <MathJax>
-                        <Markdown
-                          remarkPlugins={[remarkMath]}
-                          rehypePlugins={[rehypeKatex, rehypeRaw]}
-                        >
-                          {resource.document?.document
-                            .split("\n")
-                            .slice(0, 3)
-                            .join("\n") ||
-                            resource.questions
-                              .map((question) => question.question)
-                              .splice(0, 2)
-                              .join("\n\n")}
-                        </Markdown>
-                      </MathJax>
-                    </MathJaxContext>
+              <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] mr-8 ml-8 pr-8 pl-8 pb-6 rounded-lg">
+                <div className="markdown-styling-2">
+                  <h2 className="mt-1">{item.learn_name || item.quiz_name}</h2>
+                  <div className="relative">
+                    <div className="text-gray-200 mask-image-fade">
+                      <MathJaxContext config={config}>
+                        <MathJax>
+                          <Markdown
+                            remarkPlugins={[remarkMath]}
+                            rehypePlugins={[rehypeKatex, rehypeRaw]}
+                          >
+                            {item.document?.document
+                              .split("\n")
+                              .slice(0, 3)
+                              .join("\n") ||
+                              item.questions
+                                ?.map((model) => model.question)
+                                .splice(0, 2)
+                                .join("\n\n")}
+                          </Markdown>
+                        </MathJax>
+                      </MathJaxContext>
+                    </div>
                   </div>
                 </div>
-                {resource.videos.length > 0 && (
-                  <div className="flex flex-row h-24">
-                    <iframe
-                      src={`https://www.youtube.com/embed/${resource.videos[0].video.replace(
-                        "https://www.youtube.com/watch?v=",
-                        ""
-                      )}`}
-                      className="rounded-md w-[32%] md:w-[16%] mt-2"
-                    ></iframe>
-                    <iframe
-                      src={`https://www.youtube.com/embed/${resource.videos[1].video.replace(
-                        "https://www.youtube.com/watch?v=",
-                        ""
-                      )}`}
-                      className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
-                    ></iframe>
-                    <iframe
-                      src={`https://www.youtube.com/embed/${resource.videos[2].video.replace(
-                        "https://www.youtube.com/watch?v=",
-                        ""
-                      )}`}
-                      className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
-                    ></iframe>
+
+                {item.videos[0] && item.websites[0] ? (
+                  <div className="flex flex-col md:flex-row justify-between h-24">
+                    <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
+                      {item.videos
+                        .slice(0, 3)
+                        .map((video: { video: string }, index: number) => (
+                          <iframe
+                            key={`video-${index}`}
+                            src={`https://www.youtube.com/embed/${video.video.slice(
+                              32
+                            )}`}
+                            className="rounded-md w-[32%] h-[94%] mt-2"
+                          ></iframe>
+                        ))}
+                    </div>
+
+                    <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
+                      {websites.slice(0, 3).map((website, index: number) => (
+                        <div
+                          key={`website-${index}`}
+                          className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            window.open(website.url, "_blank");
+                          }}
+                        >
+                          <div className="flex flex-col h-full justify-center items-center">
+                            <Globe className="w-6 h-6 text-purple-400" />
+                            <h3 className="font-medium text-gray-200">
+                              Website
+                            </h3>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                )}
+                ) : null}
+                {item.websites[0] && !item.videos[0] ? (
+                  <div className="flex flex-row justify-between h-24">
+                    {item.websites
+                      .slice(0, 3)
+                      .map((website: { website: string }, index: number) => (
+                        <div
+                          key={`website-${index}`}
+                          className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            window.open(website.website, "_blank");
+                          }}
+                        >
+                          <div className="flex flex-col h-full justify-center items-center">
+                            <Globe className="w-6 h-6 text-purple-400" />
+                            <h3 className="font-medium text-gray-200">
+                              Website
+                            </h3>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                ) : null}
               </div>
             </a>
           );
           if (resourceContainer) {
             const resourceDocumentString = window.document.createElement("div");
-            resourceDocumentString.innerHTML =
-              ReactDOMServer.renderToString(resourceDocument);
-            resourceDiv.append(resourceDocumentString);
-            resourceContainer.appendChild(resourceDiv);
+            resource.append(resourceDocumentString);
+            resourceContainer.appendChild(resource);
+            const root = createRoot(resourceDocumentString);
+            root.render(<ResourceDocument />);
           }
         }
       } else {
-        console.error("Failed to generate learns");
+        console.error("Failed to generate resources");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -187,28 +395,28 @@ export default function Dashboard() {
     setIsOpen2(!isOpen2);
   };
 
-  const convertStringToImage = (base64String: string): string => {
-    if (
-      base64String.startsWith("http://") ||
-      base64String.startsWith("https://")
-    ) {
-      return base64String;
-    }
+  // const convertStringToImage = (base64String: string): string => {
+  //   if (
+  //     base64String.startsWith("http://") ||
+  //     base64String.startsWith("https://")
+  //   ) {
+  //     return base64String;
+  //   }
 
-    try {
-      const byteCharacters = atob(base64String.split(",")[1]);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: "image/jpeg" });
-      return URL.createObjectURL(blob);
-    } catch (error) {
-      console.error("Error converting base64 to image URL:", error);
-      return "";
-    }
-  };
+  //   try {
+  //     const byteCharacters = atob(base64String.split(",")[1]);
+  //     const byteNumbers = new Array(byteCharacters.length);
+  //     for (let i = 0; i < byteCharacters.length; i++) {
+  //       byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //     }
+  //     const byteArray = new Uint8Array(byteNumbers);
+  //     const blob = new Blob([byteArray], { type: "image/jpeg" });
+  //     return URL.createObjectURL(blob);
+  //   } catch (error) {
+  //     console.error("Error converting base64 to image URL:", error);
+  //     return "";
+  //   }
+  // };
 
   const fetchCredentials = async () => {
     try {
@@ -223,7 +431,7 @@ export default function Dashboard() {
       const data = await response.json();
       // console.log(data);
       setUsername(data.username);
-      setProfile(convertStringToImage(data.profile));
+      // setProfile(convertStringToImage(data.profile));
     } catch (error) {
       console.error("Error:", error);
     }
@@ -240,7 +448,7 @@ export default function Dashboard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ topic: topic, space: "Coding" }),
+        body: JSON.stringify({ topic: topic, space: space }),
       });
 
       if (response.ok) {
@@ -250,22 +458,51 @@ export default function Dashboard() {
           window.document.getElementsByClassName("resource-container");
         const quizContainer = quizContainers[0];
         const quiz = window.document.createElement("div");
+        console.log(data);
         const quizQuestions = (
-          <a href={`/viewing?${encodeURIComponent(data.questions)}`}>
-            <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 r-8 ml-8 pr-8 pl-8 pt-4 pb-12 rounded-lg">
-              <h2 className="mt-1">Quiz {data.quizValue}</h2>
-              <div className="relative">
-                <div className="text-gray-700 mask-image-fade">
-                  <MathJaxContext config={config}>
-                    <MathJax>
-                      <Markdown
-                        remarkPlugins={[remarkMath]}
-                        rehypePlugins={[rehypeKatex, rehypeRaw]}
+          <a
+            href={`/testing?${`Quiz ${data.quizValue}`
+              .concat("||##||||##||||##||")
+              .concat(data.questions.join("||##||||##||||##||"))}`}
+          >
+            <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] r-8 ml-8 mr-8 pr-8 pl-8 pb-6 rounded-lg">
+              <div className="markdown-styling-2">
+                <h2 className="mt-1">Quiz {data.quizValue}</h2>
+                <div className="relative">
+                  <div className="text-gray-200 mask-image-fade">
+                    <MathJaxContext config={config}>
+                      <MathJax>
+                        <Markdown
+                          remarkPlugins={[remarkMath]}
+                          rehypePlugins={[rehypeKatex, rehypeRaw]}
+                        >
+                          {data.questions.splice(0, 2).join("\n\n")}
+                        </Markdown>
+                      </MathJax>
+                    </MathJaxContext>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flex flex-row justify-between h-24">
+                  {data.website
+                    .slice(0, 3)
+                    .map((website: { url: string }, index: number) => (
+                      <div
+                        key={`website-${index}`}
+                        className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          window.open(website.url, "_blank");
+                        }}
                       >
-                        {data.questions.splice(0, 2).join("\n\n")}
-                      </Markdown>
-                    </MathJax>
-                  </MathJaxContext>
+                        <div className="flex flex-col h-full justify-center items-center">
+                          <Globe className="w-6 h-6 text-purple-400" />
+                          <h3 className="font-medium text-gray-200">Website</h3>
+                        </div>
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>
@@ -400,7 +637,7 @@ export default function Dashboard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ topic: topic, space: "Coding" }),
+        body: JSON.stringify({ topic: topic, space: space }),
       });
 
       if (response.ok) {
@@ -408,41 +645,85 @@ export default function Dashboard() {
         console.log("Generated resources:", data);
         console.log(data.document);
         setDocument(data.document);
+        const websites = [
+          {
+            url: data.website[0],
+            title: "",
+            icon: "/placeholder.svg?height=80&width=80",
+          },
+          {
+            url: data.website[1],
+            title: "",
+            icon: "/placeholder.svg?height=80&width=80",
+          },
+          {
+            url: data.website[2],
+            title: "",
+            icon: "/placeholder.svg?height=80&width=80",
+          },
+        ];
         const learnContainers =
           window.document.getElementsByClassName("resource-container");
         const learnContainer = learnContainers[0];
         const learn = window.document.createElement("div");
         const learnDocument = (
-          <a href={`/viewing?${encodeURIComponent(data.document)}`}>
-            <div className="markdown-styling-2 bg-gray-200 text-gray-700 font-poppins mt-4 mr-8 ml-8 pr-8 pl-8 pt-4 pb-6 rounded-lg">
-              <h2 className="mt-1">Learn {data.learnValue}</h2>
-              <div className="relative">
-                <div className="text-gray-700 mask-image-fade">
-                  <MathJaxContext config={config}>
-                    <MathJax>
-                      <Markdown
-                        remarkPlugins={[remarkMath]}
-                        rehypePlugins={[rehypeKatex, rehypeRaw]}
-                      >
-                        {data.document.split("\n").slice(0, 3).join("\n")}
-                      </Markdown>
-                    </MathJax>
-                  </MathJaxContext>
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              showPopup(data.document);
+            }}
+          >
+            <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] mr-8 ml-8 pr-8 pl-8 pb-6 rounded-lg">
+              <div className="markdown-styling-2">
+                <h2 className="mt-1">Learn {data.learnValue}</h2>
+                <div className="relative">
+                  <div className="text-gray-200 mask-image-fade">
+                    <MathJaxContext config={config}>
+                      <MathJax>
+                        <Markdown
+                          remarkPlugins={[remarkMath]}
+                          rehypePlugins={[rehypeKatex, rehypeRaw]}
+                        >
+                          {data.document.split("\n").slice(0, 3).join("\n")}
+                        </Markdown>
+                      </MathJax>
+                    </MathJaxContext>
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-row h-24">
-                <iframe
-                  src={`https://www.youtube.com/embed/${data.videoIds[0]}`}
-                  className="rounded-md w-[32%] md:w-[16%] mt-2"
-                ></iframe>
-                <iframe
-                  src={`https://www.youtube.com/embed/${data.videoIds[1]}`}
-                  className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
-                ></iframe>
-                <iframe
-                  src={`https://www.youtube.com/embed/${data.videoIds[2]}`}
-                  className="rounded-md w-[32%] ml-[1%] md:w-[16%] mt-2 md:ml-[0.8%]"
-                ></iframe>
+              <div>
+                <div className="flex flex-col md:flex-row justify-between h-24 gap-4">
+                  <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
+                    {data.videoIds
+                      .slice(0, 3)
+                      .map((videoId: string, index: number) => (
+                        <iframe
+                          key={`video-${index}`}
+                          src={`https://www.youtube.com/embed/${videoId}`}
+                          className="rounded-md w-[32%] md:w-[16%] mt-2"
+                        ></iframe>
+                      ))}
+                  </div>
+
+                  <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
+                    {websites.slice(0, 3).map((website, index: number) => (
+                      <div
+                        key={`website-${index}`}
+                        className="bg-[#2a2638] shadow-lg rounded-md w-[32%] md:w-[16%] mt-2 md:ml-[0.8%] border border-[#63567d88]"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          window.open(website.url, "_blank");
+                        }}
+                      >
+                        <div className="flex flex-col h-full justify-center items-center">
+                          <Globe className="w-6 h-6 text-purple-400" />
+                          <h3 className="font-medium text-gray-200">Website</h3>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </a>
@@ -521,7 +802,6 @@ export default function Dashboard() {
   };
 
   const newSpace = async () => {
-    console.log(session?.user?.email);
     try {
       const response = await fetch("/api/space", {
         method: "POST",
@@ -536,28 +816,89 @@ export default function Dashboard() {
         const spaceContainers =
           window.document.getElementsByClassName("space-container");
         const spaceContainer = spaceContainers[0];
-        const space = window.document.createElement("div");
-        const spaceDocument = (
-          <div className="p-2">
-            <Image
-              src="/space.png"
-              alt="Space"
-              className="block h-6 w-6 mr-2"
-              width={24}
-              height={24}
-              style={{
-                imageRendering: "auto",
-              }}
-            />
-            <p className="mr-2">Space {data.spaceValue}</p>
-          </div>
+        const resourceContainers =
+          window.document.getElementsByClassName("resource-container");
+        const resourceContainer = resourceContainers[0];
+        resourceContainer.firstElementChild?.classList.add("hidden");
+        resourceContainer.classList.add("pt-1");
+        setSpaceClicked(true);
+        const spaceDiv = window.document.createElement("div");
+        while (
+          resourceContainer.childElementCount > 1 &&
+          resourceContainer.lastElementChild
+        ) {
+          resourceContainer.removeChild(resourceContainer.lastElementChild);
+        }
+        const SpaceDocument = () => (
+          <button
+            className="w-full"
+            onClick={() => {
+              const spaceName = `Space ${data.spaceValue}`;
+              console.log(spaceName, space);
+              // if (spaceName !== space) {
+              loadResources(spaceName);
+              // }
+            }}
+          >
+            <div className="flex p-2 px-3 mb-3 justify-end bg-[#2a2638] hover:bg-[#302c41] transition-colors duration-200 rounded-lg hover:cursor-pointer items-center group">
+              <div className="flex w-full justify-start">
+                <p className="mr-2 text-gray-200">Space {data.spaceValue}</p>
+              </div>
+              <Image
+                src="/menu.png"
+                alt="Menu"
+                className="hidden invert-hover group-hover:block h-4 w-4"
+                width={24}
+                height={24}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMenuVisibility(
+                    (prev_menuVisibility) => !prev_menuVisibility
+                  );
+                  console.log(menuVisibility);
+                }}
+                style={{
+                  imageRendering: "auto",
+                  filter: "invert(80%)",
+                }}
+              />
+            </div>
+            <div
+              className={`z-10 ${
+                menuVisibility ? "block" : "hidden"
+              } bg-[#221e2cf6] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-40 ${
+                menuVisibility
+                  ? "w-[12%] ml-[-12%] sm:w-[11%] sm:ml-[-11%]"
+                  : "w-[12%] ml-[-12%] sm:w-[9%] sm:ml-[-9%]"
+              } mt-[-10rem] mb-[3rem]`}
+            >
+              <div className="py-2">
+                <a
+                  href="#"
+                  className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
+                  onClick={() => renameSpace()}
+                >
+                  Rename
+                </a>
+              </div>
+              <div className="py-2">
+                <a
+                  href="#"
+                  className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
+                  onClick={() => deleteSpace()}
+                >
+                  Delete
+                </a>
+              </div>
+            </div>
+          </button>
         );
         if (spaceContainer) {
           const spaceDocumentString = window.document.createElement("div");
-          spaceDocumentString.innerHTML =
-            ReactDOMServer.renderToString(spaceDocument);
-          space.append(spaceDocumentString);
-          spaceContainer.appendChild(space);
+          spaceDiv.append(spaceDocumentString);
+          spaceContainer.prepend(spaceDiv);
+          const root = createRoot(spaceDocumentString);
+          root.render(<SpaceDocument />);
         }
       } else {
         console.error("Failed to generate resources");
@@ -574,7 +915,7 @@ export default function Dashboard() {
   return (
     <main className="font-poppins">
       <div
-        className={`absolute top-0 ${
+        className={`absolute inset-0 pointer-events-none top-0 ${
           open ? "left-[25svw]" : "left-0"
         } right-0 h-[80svh] bg-[radial-gradient(ellipse_at_top,rgba(123,97,255,0.1)_0%,rgba(123,97,255,0.05)_25%,rgba(123,97,255,0)_70%)]`}
       />
@@ -697,8 +1038,8 @@ export default function Dashboard() {
                       New Space
                     </h1>
                   </div> */}
-                  <div className="space-container relative flex flex-col flex-grow mt-12 overflow-y-auto max-h-[75svh] mb-6"></div>
-                  <button className="flex items-center justify-center px-2 py-[1rem] rounded-xl text-gray-200 hover:text-gray-300 border-[1px] border-gray-200 hover:border-gray-300 font-semibold lg:text-base sm:text-base w-full h-11 mb-3">
+                  <div className="space-container relative flex flex-col flex-grow mt-14 overflow-y-auto max-h-[77svh] mb-6 w-full mx-20 hide-scrollbar"></div>
+                  <button className="flex items-center justify-center px-2 py-[1rem] rounded-[0.6rem] text-gray-200 bg-indigo-700 hover:bg-indigo-800 transition-colors duration-200 font-semibold lg:text-base sm:text-base w-full h-11 mb-3">
                     <span className="items-center">
                       <div className="flex h-full justify-center align-middle"></div>
                       Upgrade Plan
@@ -793,151 +1134,174 @@ export default function Dashboard() {
                     open ? "" : "w-[95%] ml-[5%]"
                   }`}
                 >
-                  <div
-                    className={`flex mt-4 ${
-                      open
-                        ? "ml-[calc(75svw-40%-1rem)]"
-                        : "ml-[calc(100svw-45.3%-1rem)]"
-                    } bg-[#221e2cf6] border-[1px] border-[#63567d88] rounded-lg w-[40%] h-[3.25rem] pt-1 justify-center hover:cursor-pointer`}
-                  >
-                    <div className="ml-2 flex flex-row w-[45%] mr-2 h-full justify-center">
-                      <Image
-                        src="/settings.png"
-                        alt="Settings"
-                        className="block h-5 w-5 mt-[0.125rem] mr-3"
-                        width={24}
-                        height={24}
-                        style={{
-                          imageRendering: "auto",
-                        }}
-                      />
-                      <p className="text-gray-200 mr-2">Settings</p>
+                  <div className="block overflow-y-hidden h-full">
+                    <div
+                      className={`flex mt-[0.74rem] ${
+                        open
+                          ? "ml-[calc(75svw-40%-1rem)]"
+                          : "ml-[calc(100svw-45.3%-1rem)]"
+                      } bg-[#221e2cf6] border-[1px] border-[#63567d88] rounded-lg w-[40%] h-8 items-center justify-center hover:cursor-pointer`}
+                    >
+                      <div className="flex flex-row w-[45%] mr-2 h-full justify-center items-center">
+                        <Image
+                          src="/settings.png"
+                          alt="Settings"
+                          className="block h-5 w-5 mr-[10%]"
+                          width={24}
+                          height={24}
+                          style={{
+                            imageRendering: "auto",
+                          }}
+                        />
+                        <p className="text-gray-200 mr-2">Settings</p>
+                      </div>
+                      <div className="ml-[-0.25rem] border-r-[1px] border-r-[#63567d88] h-full"></div>
+                      <div className="flex flex-row w-[45%] h-full items-center justify-center">
+                        <Image
+                          src="/logout.png"
+                          alt="Logout"
+                          className="block h-5 w-5 mr-[10%]"
+                          width={24}
+                          height={24}
+                          style={{
+                            imageRendering: "auto",
+                          }}
+                        />
+                        <p className="text-gray-200">Logout</p>
+                      </div>
                     </div>
-                    <div className="ml-[-0.25rem] mt-[-0.25rem] border-r-[1px] border-r-[#63567d88]"></div>
-                    <div className="flex flex-row w-[45%] justify-center">
-                      <Image
-                        src="/logout.png"
-                        alt="Logout"
-                        className="block h-5 w-5 mt-[0.125rem] ml-2 mr-3"
-                        width={24}
-                        height={24}
-                        style={{
-                          imageRendering: "auto",
-                        }}
-                      />
-                      <p className="text-gray-200">Logout</p>
-                    </div>
-                  </div>
-                  <h1
-                    className={`text-5xl font-bold text-center justify-center mt-[8%]`}
-                  >
-                    <div>
-                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-300 to-gray-500">
-                        Hi,
-                      </span>
-                      <span className="mx-2"></span>
-                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-300 to-gray-500">
-                        {firstName}
-                      </span>
-                    </div>
-                    {lastName && (
-                      <div className="mt-2">
+                    <h1 className="text-5xl font-semibold text-center justify-center mt-[6%]">
+                      <div>
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-300 to-gray-500">
-                          {lastName}
+                          Hi,
+                        </span>
+                        <span className="mx-2"></span>
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-300 to-gray-500">
+                          {firstName}
                         </span>
                       </div>
-                    )}
-                  </h1>
-                  <div
-                    className={`flex flex-row mt-14 w-full h-full ${
-                      open ? "" : "ml-[-2.5%]"
-                    }`}
-                  >
-                    <div className="ml-[2.5%] mr-[2.5%] border-[1px] border-[#63567d88] rounded-lg h-[85%] w-[30%]">
-                      <div className="bg-indigo-800 rounded-lg w-[92%] h-[24%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <Image
-                          src="/examples.png"
-                          alt="Examples"
-                          className="block h-6 w-6 mr-2"
-                          width={24}
-                          height={24}
-                          style={{
-                            imageRendering: "auto",
-                          }}
-                        />
-                        <p className="text-gray-200">Examples</p>
+                      {lastName && (
+                        <div className="mt-2">
+                          <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-300 to-gray-500">
+                            {lastName}
+                          </span>
+                        </div>
+                      )}
+                    </h1>
+                    <div
+                      className={`flex flex-row mt-10 w-full h-full ${
+                        open ? "" : "ml-[-2.5%]"
+                      }`}
+                    >
+                      <div className="ml-[2.5%] mr-[2.5%] border-[1px] border-[#63567d88] rounded-lg h-[23rem] w-[30%]">
+                        <div className="bg-indigo-800 rounded-lg w-[92%] h-[24%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <Image
+                            src="/examples.png"
+                            alt="Examples"
+                            className="block h-6 w-6 mr-2"
+                            width={24}
+                            height={24}
+                            style={{
+                              imageRendering: "auto",
+                            }}
+                          />
+                          <p className="text-gray-200">Examples</p>
+                        </div>
+                        <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <p className="text-gray-200 text-[0.5rem] sm:text-[0.7rem] px-2">
+                            Explain the water cycle to a five year old using a
+                            bathtub as an analogy.
+                          </p>
+                        </div>
+                        <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <p className="text-gray-200 text-[0.5rem] sm:text-[0.7rem] px-2">
+                            Teach the basics of economics through a lemonade
+                            stand business simulation.
+                          </p>
+                        </div>
+                        <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <p className="text-gray-200 text-[0.5rem] sm:text-[0.7rem] px-2">
+                            Explain Shakespeare&apos;s iambic pentameter as a
+                            poetic heartbeat.
+                          </p>
+                        </div>
                       </div>
-                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <p className="text-gray-200 text-[0.7rem] px-2">
-                          Explain the water cycle to a five year old using a
-                          bathtub as an analogy.
-                        </p>
+                      <div className="border-[1px] border-[#63567d88] rounded-lg h-[23rem] w-[30%]">
+                        <div className="bg-indigo-800 rounded-lg w-[92%] h-[24%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <Image
+                            src="/capabilities.png"
+                            alt="Capabilities"
+                            className="block h-6 w-6 mr-2"
+                            width={24}
+                            height={24}
+                            style={{
+                              imageRendering: "auto",
+                            }}
+                          />
+                          <p className="text-gray-200">Capabilities</p>
+                        </div>
+                        <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <p className="text-gray-200 text-[0.5rem] sm:text-[0.7rem] px-2">
+                            Quix has access to the internet, generating relevant
+                            videos and websites
+                          </p>
+                        </div>
+                        <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <p className="text-gray-200 text-[0.5rem] sm:text-[0.7rem] px-2">
+                            Quix is interactive and can overcome challenges
+                            inspecific or overly specific prompt
+                          </p>
+                        </div>
+                        <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <p className="text-gray-200 text-[0.5rem] sm:text-[0.7rem] px-2">
+                            Quix is extremely personalized and can adapt to the
+                            age of the user and their pace of learning
+                          </p>
+                        </div>
                       </div>
-                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <p className="text-gray-200">Examples</p>
-                      </div>
-                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <p className="text-gray-200">Examples</p>
-                      </div>
-                    </div>
-                    <div className="border-[1px] border-[#63567d88] rounded-lg h-[85%] w-[30%]">
-                      <div className="bg-indigo-800 rounded-lg w-[92%] h-[24%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <Image
-                          src="/capabilities.png"
-                          alt="Capabilities"
-                          className="block h-6 w-6 mr-2"
-                          width={24}
-                          height={24}
-                          style={{
-                            imageRendering: "auto",
-                          }}
-                        />
-                        <p className="text-gray-200">Capabilities</p>
-                      </div>
-                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <p className="text-gray-200">Examples</p>
-                      </div>
-                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <p className="text-gray-200">Examples</p>
-                      </div>
-                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <p className="text-gray-200">Examples</p>
-                      </div>
-                    </div>
-                    <div className="ml-[2.5%] mr-[2.5%] border-[1px] border-[#63567d88] rounded-lg h-[85%] w-[30%]">
-                      <div className="bg-indigo-800 rounded-lg w-[92%] h-[24%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <Image
-                          src="/limitations.png"
-                          alt="Limitations"
-                          className="block h-6 w-6 mr-2"
-                          width={24}
-                          height={24}
-                          style={{
-                            imageRendering: "auto",
-                          }}
-                        />
-                        <p className="text-gray-200">Limitations</p>
-                      </div>
-                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <p className="text-gray-200 text-[0.7rem] px-2">
-                          Knowledge of current events is limited, and Quix may
-                          not recognize events within the past few years.
-                        </p>
-                      </div>
-                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <p className="text-gray-200">Examples</p>
-                      </div>
-                      <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[4%] flex items-center justify-center text-center">
-                        <p className="text-gray-200">Examples</p>
+                      <div className="ml-[2.5%] mr-[2.5%] border-[1px] border-[#63567d88] rounded-lg h-[23rem] w-[30%]">
+                        <div className="bg-indigo-800 rounded-lg w-[92%] h-[24%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <Image
+                            src="/limitations.png"
+                            alt="Limitations"
+                            className="block h-6 w-6 mr-2"
+                            width={24}
+                            height={24}
+                            style={{
+                              imageRendering: "auto",
+                            }}
+                          />
+                          <p className="text-gray-200">Limitations</p>
+                        </div>
+                        <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <p className="text-gray-200 text-[0.5rem] sm:text-[0.7rem] px-2">
+                            Knowledge of current events is limited, and Quix may
+                            not recognize events within the past year.
+                          </p>
+                        </div>
+                        <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <p className="text-gray-200 text-[0.5rem] sm:text-[0.7rem] px-2">
+                            Examples
+                          </p>
+                        </div>
+                        <div className="bg-[#221e2cf6] rounded-lg w-[92%] h-[20%] ml-[4%] mr-[4%] mt-[0.74rem] flex items-center justify-center text-center">
+                          <p className="text-gray-200 text-[0.5rem] sm:text-[0.7rem] px-2">
+                            Examples
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col right-0 relative bottom-0 mt-auto pb-4">
+                <div
+                  className={`message-bar ${
+                    spaceClicked ? "flex" : "hidden"
+                  } flex-col right-0 relative bottom-0 mt-auto pb-4`}
+                >
                   <div className="flex justify-start items-end">
                     <button
                       data-dropdown-toggle="dropdownDivider"
-                      className={`text-gray-200 bg-indigo-700 hover:bg-indigo-800 lg:text-base font-semibold rounded-lg px-5 py-2.5 text-center inline-flex items-center justify-center z-40 ml-[17%] lg:ml-[15.45%] w-[12%] ${
+                      className={`text-gray-200 bg-indigo-700 hover:bg-indigo-800 transition-colors duration-200 lg:text-base font-semibold rounded-lg px-5 py-2.5 text-center inline-flex items-center justify-center z-40 ml-[17%] lg:ml-[15.45%] w-[12%] ${
                         open ? "sm:w-[11%]" : "sm:w-[9%]"
                       } h-9 mb-[0.125rem] sm:text-base xs:text-sm text-xs`}
                       type="button"
@@ -966,16 +1330,16 @@ export default function Dashboard() {
                     <div
                       className={`z-10 ${
                         isOpen ? "block" : "hidden"
-                      } bg-[#221e2cf6] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow ${
+                      } bg-[#221e2cf6] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-40 ${
                         open
                           ? "w-[12%] ml-[-12%] sm:w-[11%] sm:ml-[-11%]"
                           : "w-[12%] ml-[-12%] sm:w-[9%] sm:ml-[-9%]"
-                      } mt-[-4.9rem] sm:mt-[-5.4rem] lg:mt-[-5.4rem] mb-[3rem]`}
+                      } mt-[-10rem] mb-[3rem]`}
                     >
                       <div className="py-2">
                         <a
                           href="#"
-                          className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
+                          className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#2a2638] transition-colors duration-200"
                           onClick={() => toggleDropdown("Learn")}
                         >
                           Learn
@@ -984,7 +1348,7 @@ export default function Dashboard() {
                       <div className="py-2">
                         <a
                           href="#"
-                          className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
+                          className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#2a2638] transition-colors duration-200"
                           onClick={() => toggleDropdown("Quiz")}
                         >
                           Quiz
@@ -1009,7 +1373,7 @@ export default function Dashboard() {
                     <input
                       type="text"
                       id="first_name"
-                      className={`bg-[#221e2cf6] border-[1px] border-[#63567d88] text-gray-200 text-xs sm:text-sm rounded-lg block w-[67%] lg:w-[70%] p-2.5 mt-[-2.6rem] h-[2.75rem]`}
+                      className={`bg-[#221e2cf6] border-[1px] border-[#63567d88] text-gray-200 text-xs sm:text-sm rounded-lg block w-[67%] lg:w-[70%] p-2.5 pl-[13%] pr-[13%] mt-[-2.6rem] h-[2.75rem]`}
                       placeholder="Topic"
                       value={topic}
                       onChange={(e) => setTopic(e.target.value)}
@@ -1018,7 +1382,7 @@ export default function Dashboard() {
                   {/* ml-[1.7svw] md:ml-[-0.25svw] lg:ml-[-0.25svw] */}
                   <div className="flex justify-end items-end">
                     <button
-                      className={`flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-lg bg-indigo-700 text-gray-200 hover:bg-indigo-800 duration-200 transition-colors font-semibold lg:text-[0.92rem] sm:text-sm text-xs w-[12%] ${
+                      className={`flex items-center justify-center px-5 md:px-3 py-[0.625rem] md:py-[0.47rem] rounded-lg text-gray-200 bg-indigo-700 hover:bg-indigo-800 transition-colors duration-200 font-semibold lg:text-[0.92rem] sm:text-sm text-xs w-[12%] ${
                         open ? "sm:w-[11%]" : "sm:w-[9%]"
                       } mt-[-2.7rem] mr-[17%] lg:mr-[15.45%] h-9 mb-1 cursor-pointer`}
                       onClick={
@@ -1045,6 +1409,36 @@ export default function Dashboard() {
                   </div>
                   {/* ml-[45svw] sm:ml-[47svw] md:ml-[50svw] lg:ml-[53svw] mr-[-7rem] h-[5.5svh] */}
                 </div>
+              </div>
+              <div
+                className={`${
+                  popupVisibility ? "block" : "hidden"
+                } markdown-styling relative z-50 ml-[calc(100svw-42%-1rem)] ${
+                  open
+                    ? "mt-[calc(-100svw+16.6rem)]"
+                    : "mt-[calc(-100svw+15.6rem)]"
+                } popup-container h-[32.2rem] w-[42%] bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins rounded-lg overflow-y-auto`}
+              >
+                <div className="absolute flex flex-col w-full h-[10%] bg-[#2a2638] rounded-t-lg justify-center text-center text-xl font-bold">
+                  <p>Document</p>
+                  <XMarkIcon
+                    className="absolute top-0 right-0 p-2 w-[2.375rem] h-[2.375rem] text-red-700 hover:cursor-pointer"
+                    onClick={() => {
+                      setPopupVisibility(!popupVisibility);
+                    }}
+                  ></XMarkIcon>
+                </div>
+                <MathJaxContext config={config}>
+                  <MathJax>
+                    <Markdown
+                      remarkPlugins={[remarkMath]}
+                      rehypePlugins={[rehypeKatex, rehypeRaw]}
+                      className="popup mt-[calc(15%-1rem)] px-5 py-2"
+                    >
+                      {popupContent}
+                    </Markdown>
+                  </MathJax>
+                </MathJaxContext>
               </div>
             </div>
           </main>

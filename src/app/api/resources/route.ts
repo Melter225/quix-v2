@@ -1,56 +1,74 @@
-import next, { NextApiRequest, NextApiResponse } from 'next';
+import next, { NextApiRequest, NextApiResponse } from "next";
 import OpenAI from "openai";
-import dotenv from 'dotenv';
-import { NextRequest, NextResponse } from 'next/server';
+import dotenv from "dotenv";
+import { PrismaClient } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
 dotenv.config();
 const openai = new OpenAI();
+const prisma = new PrismaClient();
 
-async function generateDocument(questions: string): Promise<string> {
+async function generateErrors(questions: string): Promise<string[][]> {
   const response = await openai.chat.completions.create({
-    model: 'gpt-4-turbo',
+    model: "gpt-4-turbo",
     messages: [
-      { role: 'system', 
-        content: 'You are a helpful assistant in helping users learn more about their provided topics. When selecting errors, do not be harsh and aim to chose as few errors as possible. If the user enters a prompt in a different language, ensure that you respond in that language. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, respond with just this message: No display and do not include additional text. Aim to not sound like an AI or human response but rather, a 3rd person document. To do this, do not address the reader directly, do not use the imperative mood, do not use second person or first person, and do not include additional introductory and conclusive messages such as "Sure! Here is a document for you:".' 
+      {
+        role: "system",
+        content:
+          'You are a helpful assistant in helping users learn more about their provided topics. When selecting errors, do not be harsh. If the user enters a prompt in a different language, ensure that you respond in that language. Aim to not sound like an AI or human response but rather, a 3rd person document. To do this, do not address the reader directly, do not use the imperative mood, do not use second person or first person, and do not include additional introductory and conclusive messages such as "Sure! Here are arrays for you:".',
       },
       {
-        role: 'user',
-        content: `Generate 1 relevant and helpful document to help me understand my errors in answering these questions ${questions} quickly. The user will likely know only some about the topic, so instead of aiming to quiz or criticize them, aim to teach them instead, and provide thorough explanations for why a different answer is correct. To maintain a structure, focus on the number of errors made by the user and ensure that the document contains around 400 words (this word requirement is very important if there are 1+ errors). It is important to NEVER include additional questions whose answers are correct and judge very carefully whether an answer is truly incorrect. Ensure that you carefully examine and list every question, so that you can identify every error and not identify extra questions. You should also provide an introduction, conclusion, and lengthy explanations for each error. Begin by identifying how many and which of the user's answers are wrong and which problems they are and list your findings in a small introduction in the document. The introduction should additionally include the incorrect problems, the user's answer, and the correct answer. If the user does not make any factual errors (mistakes in which the correct answer differs from the user's answer), you may ignore this message and return this response: No display. If the user makes one factual error (mistakes in which the correct answer differs from the user's answer), fully focus the document around this sole main error, going into further depth, and do not add additional questions whose answers are correct. If the user makes two or more factual errors (mistakes in which the correct answer differs from the user's answer), first ensure that you are only marking a problem as incorrect if the user's answer does not match the correct answer, ignoring factors such as the amount of work and explnaation shown. Once you are sure, structure the document around these main errors and do not include additional answers that provided correct answers. When beginning a new error, include a headline that says '### Error #num: question' where num is the corresponding number of the error and question is the question on which the user made an error (Ex: The first error would be ### Error #1: the error made by the user, the second would be ### Error #2: the error made by the user, and so on); however, only do this after identifying the correct errors and do not let this affect your judgment. If the user enters a prompt in a different language, translate "Error", but do not modify any other aspects of the headline format (Ex: In French, you would not make #1 n°1 and instead, would translate it as ### Erreur #num: topic). Do not provide additional messages such as 'Sure! Here's a document for you:'.`,
+        role: "user",
+        content: `Generate 3 relevant and helpful arrays to help me understand my errors in answering these questions: ${questions} quickly. The user will likely know only some about the topic, so instead of aiming to quiz or criticize them, aim to teach them instead, and provide concise explanations for why a different answer is correct. Be very careful and precise when selecting errors and be sure to not define the arrays, just follow a similar format. The format for the first array, which contains the errors, should be as follows ["", error, error, "", error, "", etc.]. When an answer is correct, write "" in the place where the question would be, and if the answer is incorrect, write the question. The format for the second array, which contains the concise correct answers, should be as follows ["", correct answer, correct answer, "", correct answer, "", etc.]. When an answer is correct, write "" in the place where the correct answer would be, and if the answer is incorrect, write the correct answer or a possible correct answer. The format for the third array, which contains very concise explanations, should be as follows ["", explanation, explanation, "", explanation, "", etc.]. When an answer is correct, write "" in the place where an explanation would be, and if the answer is incorrect, write a concise explanation, so the user can understand their error in answering the question. NEVER include the symbol ||##||||##||||##|| in your correct answers or explanations, but you must use it to seperate arrays as is shown in the following example. Do not include additional text other than the arrays, so an example response would look like this: ["", question, question, "", question, "", etc.] ||##||||##||||##|| ["", correct answer, correct answer, "", correct answer, "", etc.] ||##||||##||||##|| ["", explanation, explanation, "", explanation, "", etc.]`,
       },
     ],
   });
 
-  return response.choices[0].message?.content ?? '';
+  console.log("errors", response.choices[0].message?.content);
+
+  const arrays =
+    response.choices[0].message?.content?.split(" ||##||||##||||##|| ") ?? [];
+  const errors = JSON.parse(arrays[0]);
+  const answers = JSON.parse(arrays[1]);
+  const explanations = JSON.parse(arrays[2]);
+  return [errors, answers, explanations];
 }
 
-function extractErrors(document: string): string[] {
-  const errorPattern = /##{2,3}.*?#?\d*:\s(.+)/gu;
-  const matches: RegExpExecArray[] = [];
-  let match: RegExpExecArray | null;
+async function generateDocument(arrays: string[][]): Promise<string> {
+  const response = await openai.chat.completions.create({
+    model: "gpt-4o-2024-05-13",
+    messages: [
+      {
+        role: "system",
+        content:
+          'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in that language. For example, if the user enters "Espanol", then the entire query should be in Spanish. Aim to not sound like an AI or human response but rather, a 3rd person document. Do not include additional introductory and conclusive messages such as "Sure! Here is a document for you:".',
+      },
+      {
+        role: "user",
+        content: `Generate 1 relevant and helpful document to help me understand my errors in answering these questions: ${arrays[0]} quickly. These are my errors in answering the questions: ${arrays[1]}, these are the correct answers: ${arrays[2]}, and here the explanations: ${arrays[3]}. Even if you do not agree with the validity of an answer, the correct answer, or the explanation, do not change any field and still provide an explanation. While there are already errors, correct answers, and explanations provided, I would like you to expand in further detail to clarify any questions the user may have. The user will likely know only some about the topic, so instead of aiming to quiz or criticize them, aim to teach them instead, and provide thorough explanations for why a different answer is correct. To maintain a structure, focus on the number of errors made by the user and ensure that the document contains around 400 words (this word requirement is very important if there are 1+ errors). You should also provide an introduction, conclusion, and lengthy explanations for each error. If the user does not make any errors, you may ignore this message and return this response: No display.`,
+      },
+    ],
+  });
 
-  while ((match = errorPattern.exec(document)) !== null) {
-    matches.push(match);
-  }
-
-  console.log(matches)
-
-  const errors = matches.map(match => match[1]);
-  console.log(errors)
-
-  return errors;
+  console.log("document 1", response.choices[0].message?.content);
+  return response.choices[0].message?.content ?? "";
 }
 
 async function generateVideo(areas: string[]): Promise<string[]> {
   console.log("The videos will be generated for the following areas:", areas);
-  
-  const YOUTUBE_VIDEO_API = 'https://www.googleapis.com/youtube/v3/search';
+
+  const YOUTUBE_VIDEO_API = "https://www.googleapis.com/youtube/v3/search";
   const videoUrls = [];
 
-  for (let i = 0; i < areas.length; i++) {  // Loop through first 3 items in areas array
+  for (let i = 0; i < areas.length; i++) {
     if (i < 3) {
-      console.log(i)
-      const query = areas[i];  // Use the current area for the search query
-      const url = `${YOUTUBE_VIDEO_API}?type=video&part=snippet&key=${process.env.YOUTUBE_API_KEY}&maxResults=1&q=${encodeURIComponent(query)}&videoDuration=medium&videoEmbeddable=true&safeSearch=strict`;
+      console.log(i);
+      const query = areas[i];
+      const url = `${YOUTUBE_VIDEO_API}?type=video&part=snippet&key=${
+        process.env.YOUTUBE_API_KEY
+      }&maxResults=1&q=${encodeURIComponent(
+        query
+      )}&videoDuration=medium&videoEmbeddable=true&safeSearch=strict`;
 
       try {
         const res = await fetch(url);
@@ -59,70 +77,108 @@ async function generateVideo(areas: string[]): Promise<string[]> {
         if (data.items && data.items.length > 0) {
           const videoId = data.items[0].id.videoId;
           const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-          videoUrls.push(videoUrl);  // Add the video URL to the array
+          videoUrls.push(videoUrl);
         } else {
-          throw new Error('No videos found');
+          throw new Error("No videos found");
         }
       } catch (error) {
-        console.error('Error fetching YouTube video:', error);
-        throw new Error('Internal Server Error');
+        console.error("Error fetching YouTube video:", error);
+        throw new Error("Internal Server Error");
       }
     }
   }
 
-  return videoUrls;  // Return the array of video URLs
-}
-
-function generateScore(areas: string[]): string {
-  let score = ''
-  score = `${(10 - areas.length).toString()}/10`
-  return score
+  return videoUrls;
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  if (req.method == 'POST') {
+  if (req.method == "POST") {
     try {
-      const questions = `What is the speed of light in a vacuum? (150,000 meters per second) How many bones are there in the human body? (300) What is the chemical symbol for gold? (Au) How many planets are there in our solar system? (8) What is the boiling point of water at sea level? (100 degrees Celsius) How many continents are there on Earth? (7) What is the formula for the area of a circle? (πr²) What is the atomic number of carbon? (6) What is the largest ocean on Earth? (Pacific Ocean) How many sides does a hexagon have? (6)`;
-      const document = await generateDocument(questions);
-      let areas = [''] 
+      const { questions, quiz } = await req.json();
+      console.log("questions", questions);
+      const arrays = await generateErrors(questions);
+      const errors = arrays[0];
+      const correctAnswers = arrays[1];
+      const explanations = arrays[2];
+      const document = await generateDocument([
+        questions,
+        errors,
+        correctAnswers,
+        explanations,
+      ]);
+      console.log("document 2", document);
+      let areas = [""];
+      let allQuestions: { question: string; isCorrect: boolean }[] = [];
 
       if (document != "No display" && document != "No display.") {
-        areas = extractErrors(document);
-        console.log(areas)
-        
+        // areas = extractErrors(document);
+        areas = errors.filter((error) => error !== "");
+        console.log(areas);
+
+        const questionAnswerPairs = questions
+          .split("Question: ")
+          .filter((pair: string) => pair.trim() !== "")
+          .map((pair: string) => {
+            const [question, answer] = pair.split(" Answer: ");
+            return { question: question.trim(), answer: answer.trim() };
+          });
+
+        allQuestions = questionAnswerPairs.map(
+          (q: { question: string; answer: string }, i: number) => ({
+            question: q.question,
+            userAnswer: q.answer,
+            isCorrect: !errors.some((error: string) =>
+              error.includes(q.question)
+            ),
+            correctAnswer: correctAnswers[i],
+            explanation: explanations[i],
+          })
+        );
+
+        console.log(allQuestions);
+
         const video = await generateVideo(areas);
-        console.log(video)
+        console.log(video);
 
-        const score = generateScore(areas);
-        console.log(score)
+        const score = allQuestions.filter((result) => result.isCorrect).length;
+        console.log(score);
 
-        return NextResponse.json ({
+        await prisma.quiz.update({
+          where: {
+            quiz_name: quiz,
+          },
+          data: {
+            taken: true,
+          },
+        });
+
+        return NextResponse.json({
           document,
           video,
+          allQuestions,
           score,
-          status: 200
-        })
-      }
-
-      else {
-        console.log("Do not show document, video, or score")
+          status: 200,
+        });
+      } else {
+        console.log("Do not show document, video, or score");
         return NextResponse.json({
           message: "No content to display",
-          status: 204
+          status: 204,
         });
       }
     } catch (error) {
       console.error(error);
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      return NextResponse.json ({
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      return NextResponse.json({
         message: `Failed to generate document, video, or score: ${errorMessage}`,
-        status: 500
-      })
+        status: 500,
+      });
     }
   } else {
-      return NextResponse.json ({
-        message: `Method ${req.method} Not Allowed`,
-        status: 405
-      })
+    return NextResponse.json({
+      message: `Method ${req.method} Not Allowed`,
+      status: 405,
+    });
   }
 }

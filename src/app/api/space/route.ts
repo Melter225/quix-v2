@@ -14,15 +14,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
         orderBy: {
           space_number: "desc",
         },
-        where: {
-          space_number: {},
-        },
       });
 
       let spaceValue = 1;
       if (lastSpace) {
         console.log(lastSpace.space_number);
-        spaceValue = lastSpace.space_number + 1;
+        spaceValue = lastSpace.space_number + 2;
       }
 
       const spaceNumber = spaceValue - 1;

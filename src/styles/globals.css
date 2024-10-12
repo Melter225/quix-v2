@@ -14,20 +14,11 @@ body {
   .markdown-styling h5,
   .markdown-styling h6,
   .markdown-styling-2 h1,
+  .markdown-styling-2 h2,
+  .markdown-styling-2 h3,
   .markdown-styling-2 h4,
   .markdown-styling-2 h5,
   .markdown-styling-2 h6 {
-    margin-top: 1em;
-    margin-bottom: -0.2em;
-    font-weight: bold;
-  }
-
-  .markdown-styling-2 h2 {
-    margin-bottom: -0.2em;
-    font-weight: bold;
-  }
-
-  .markdown-styling-2 h3 {
     margin-top: 1em;
     margin-bottom: -0.2em;
     font-weight: bold;
@@ -107,4 +98,18 @@ body {
 .mask-image-fade {
   mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+}
+
+.invert-hover:hover {
+  filter: invert(100%) !important;
+  transition: filter 0.2s ease;
 }

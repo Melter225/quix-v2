@@ -39,12 +39,13 @@ model Quiz {
   quiz_id       String     @id @default(cuid()) @unique
   resource_id   String     @unique
   resource      Resource   @relation(fields: [resource_id], references: [resource_id], onDelete: Cascade)
-  quiz_name     String
+  quiz_name     String     @unique
   questions     Question[]
   answers       Answer[]
   document      Document?
   videos        Video[]
   websites      Website[]
+  taken         Boolean
 }
 
 model Learn {
