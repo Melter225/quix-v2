@@ -88,7 +88,50 @@ export default function Dashboard() {
     setPopupContent(document);
   };
 
-  window.onload = async function loadSpaces() {
+  function renameSpace(
+    spaceName: string,
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) {
+    e.stopPropagation();
+  }
+
+  async function deleteSpace(
+    spaceName: string,
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) {
+    e.stopPropagation();
+    try {
+      const response = await fetch("/api/deleteSpace", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ spaceName: spaceName }),
+      });
+      if (response.ok) {
+        const spaceContainers =
+          window.document.getElementsByClassName("space-container");
+        const spaceContainer = spaceContainers[0];
+        while (
+          spaceContainer.childElementCount > 1 &&
+          spaceContainer.lastElementChild
+        ) {
+          spaceContainer.removeChild(spaceContainer.lastElementChild);
+        }
+        loadSpaces();
+      } else {
+        console.error("Failed to delete space");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  window.onload = () => {
+    loadSpaces();
+  };
+
+  async function loadSpaces() {
     try {
       const response = await fetch("/api/loadSpaces", {
         method: "POST",
@@ -128,6 +171,14 @@ export default function Dashboard() {
                   height={24}
                   onClick={(e) => {
                     e.stopPropagation();
+                    const space =
+                      window.document.getElementsByClassName("space_menu")[0];
+                    if (space.classList.contains("hidden")) {
+                      space.classList.remove("hidden");
+                      // for ()
+                    } else {
+                      space.classList.add("hidden");
+                    }
                     setMenuVisibility(
                       (prev_menuVisibility) => !prev_menuVisibility
                     );
@@ -139,18 +190,12 @@ export default function Dashboard() {
                   }}
                 />
               </div>
-              <div
-                className={`z-10 ${
-                  menuVisibility ? "block" : "hidden"
-                } bg-[hsla(257,19%,15%,1)] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-40 ${
-                  menuVisibility ? "w-[12%] sm:w-[50%]" : "w-[12%] sm:w-[50%]"
-                } mt-[-10rem] mb-[3rem]`}
-              >
+              <div className="space_menu fixed hidden bg-[hsla(257,19%,15%,1)] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-50 w-[calc(25svw-3rem)]">
                 <div className="py-2">
                   <a
                     href="#"
                     className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
-                    onClick={() => renameSpace()}
+                    onClick={(e) => renameSpace(item, e)}
                   >
                     Rename
                   </a>
@@ -159,7 +204,7 @@ export default function Dashboard() {
                   <a
                     href="#"
                     className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
-                    onClick={() => deleteSpace()}
+                    onClick={(e) => deleteSpace(item, e)}
                   >
                     Delete
                   </a>
@@ -181,7 +226,7 @@ export default function Dashboard() {
     } catch (error) {
       console.error("Error:", error);
     }
-  };
+  }
 
   const loadResources = async (spaceName: string) => {
     console.log("Old space:", space);
@@ -253,6 +298,8 @@ export default function Dashboard() {
               href={
                 item.learn_name
                   ? ""
+                  : item.videos
+                  ? `/viewing`
                   : `/testing?${item.quiz_name
                       .concat("||##||||##||||##||")
                       .concat(
@@ -632,116 +679,139 @@ export default function Dashboard() {
 
   const learn = async () => {
     try {
-      const response = await fetch("/api/learn", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ topic: topic, space: space }),
-      });
+      // const response = await fetch("/api/learn", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ topic: topic, space: space }),
+      // });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Generated resources:", data);
-        console.log(data.document);
-        setDocument(data.document);
-        const websites = [
-          {
-            url: data.website[0],
-            title: "",
-            icon: "/placeholder.svg?height=80&width=80",
-          },
-          {
-            url: data.website[1],
-            title: "",
-            icon: "/placeholder.svg?height=80&width=80",
-          },
-          {
-            url: data.website[2],
-            title: "",
-            icon: "/placeholder.svg?height=80&width=80",
-          },
-        ];
-        const learnContainers =
-          window.document.getElementsByClassName("resource-container");
-        const learnContainer = learnContainers[0];
-        const learn = window.document.createElement("div");
-        const learnDocument = (
-          <a
-            onClick={(e) => {
-              e.preventDefault();
-              showPopup(data.document);
-            }}
-          >
-            <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] mr-8 ml-8 pr-8 pl-8 pb-6 rounded-lg">
-              <div className="markdown-styling-2">
-                <h2 className="mt-1">Learn {data.learnValue}</h2>
-                <div className="relative">
-                  <div className="text-gray-200 mask-image-fade">
-                    <MathJaxContext config={config}>
-                      <MathJax>
-                        <Markdown
-                          remarkPlugins={[remarkMath]}
-                          rehypePlugins={[rehypeKatex, rehypeRaw]}
-                        >
-                          {data.document.split("\n").slice(0, 3).join("\n")}
-                        </Markdown>
-                      </MathJax>
-                    </MathJaxContext>
-                  </div>
+      // if (response.ok) {
+      // const data = await response.json();
+      // console.log("Generated resources:", data);
+      // console.log(data.document);
+      // setDocument(data.document);
+      const websites = [
+        {
+          // url: data.website[0],
+          url: "youtube.com",
+          title: "",
+          icon: "/placeholder.svg?height=80&width=80",
+        },
+        {
+          // url: data.website[1],
+          url: "youtube.com",
+          title: "",
+          icon: "/placeholder.svg?height=80&width=80",
+        },
+        {
+          // url: data.website[2],
+          url: "youtube.com",
+          title: "",
+          icon: "/placeholder.svg?height=80&width=80",
+        },
+      ];
+      const learnContainers =
+        window.document.getElementsByClassName("resource-container");
+      const learnContainer = learnContainers[0];
+      const learn = window.document.createElement("div");
+      const learnDocument = (
+        <a
+          href="/youtube.com"
+          onClick={(e) => {
+            e.preventDefault();
+            // showPopup(data.document);
+          }}
+        >
+          <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] mr-8 ml-8 pr-8 pl-8 pb-6 rounded-lg">
+            <div className="markdown-styling-2">
+              {/* <h2 className="mt-1">Learn {data.learnValue}</h2> */}
+              <div className="relative">
+                <div className="text-gray-200 mask-image-fade">
+                  <MathJaxContext config={config}>
+                    <MathJax>
+                      <Markdown
+                        remarkPlugins={[remarkMath]}
+                        rehypePlugins={[rehypeKatex, rehypeRaw]}
+                      >
+                        {/* {data.document.split("\n").slice(0, 3).join("\n")} */}
+                      </Markdown>
+                    </MathJax>
+                  </MathJaxContext>
                 </div>
               </div>
-              <div>
-                <div className="flex flex-col md:flex-row justify-between h-24 gap-4">
-                  <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
-                    {data.videoIds
+            </div>
+            <div>
+              <div
+                className="flex flex-col md:flex-row justify-between h-24"
+                onClick={() => {
+                  console.log("test4");
+                }}
+              >
+                <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
+                  {/* {data.videoIds
                       .slice(0, 3)
                       .map((videoId: string, index: number) => (
                         <iframe
                           key={`video-${index}`}
                           src={`https://www.youtube.com/embed/${videoId}`}
-                          className="rounded-md w-[32%] md:w-[16%] mt-2"
+                          className="rounded-md w-[32%] h-[94%] mt-2"
                         ></iframe>
-                      ))}
-                  </div>
+                      ))} */}
+                </div>
 
-                  <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
-                    {websites.slice(0, 3).map((website, index: number) => (
+                <div
+                  className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    console.log("test3");
+                  }}
+                >
+                  {websites.slice(0, 3).map((website, index: number) => (
+                    <div
+                      key={`website-${index}`}
+                      className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
+                      onClick={(e) => {
+                        console.log("test1");
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.open(
+                          "https://www.youtube.com/watch?v=N7ZmPYaXoic"
+                        );
+                      }}
+                    >
                       <div
-                        key={`website-${index}`}
-                        className="bg-[#2a2638] shadow-lg rounded-md w-[32%] md:w-[16%] mt-2 md:ml-[0.8%] border border-[#63567d88]"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          window.open(website.url, "_blank");
+                        className="flex flex-col h-full justify-center items-center"
+                        onClick={() => {
+                          console.log("test2");
                         }}
                       >
-                        <div className="flex flex-col h-full justify-center items-center">
-                          <Globe className="w-6 h-6 text-purple-400" />
-                          <h3 className="font-medium text-gray-200">Website</h3>
-                        </div>
+                        <Globe className="w-6 h-6 text-purple-400" />
+                        <h3 className="font-medium text-gray-200">Website</h3>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          </a>
-        );
-        // const mathJaxContext = window.document.createElement(MathJaxContext);
-        if (learnContainer) {
-          // mathJax.append(markdown);
-          // mathJaxContext.append(mathJax);
-          // learnDocument.append(mathJaxContext);
-          const learnDocumentString = window.document.createElement("div");
-          learnDocumentString.innerHTML =
-            ReactDOMServer.renderToString(learnDocument);
-          learn.append(learnDocumentString);
-          learnContainer.appendChild(learn);
-        }
-      } else {
-        console.error("Failed to generate resources");
+          </div>
+        </a>
+      );
+      // const mathJaxContext = window.document.createElement(MathJaxContext);
+      if (learnContainer) {
+        // mathJax.append(markdown);
+        // mathJaxContext.append(mathJax);
+        // learnDocument.append(mathJaxContext);
+        const learnDocumentString = window.document.createElement("div");
+        learnDocumentString.innerHTML =
+          ReactDOMServer.renderToString(learnDocument);
+        learn.append(learnDocumentString);
+        learnContainer.appendChild(learn);
       }
+      // } else {
+      //   console.error("Failed to generate resources");
+      // }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -876,7 +946,7 @@ export default function Dashboard() {
                 <a
                   href="#"
                   className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
-                  onClick={() => renameSpace()}
+                  onClick={(e) => renameSpace(`Space ${data.spaceValue}`, e)}
                 >
                   Rename
                 </a>
@@ -885,7 +955,7 @@ export default function Dashboard() {
                 <a
                   href="#"
                   className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
-                  onClick={() => deleteSpace()}
+                  onClick={(e) => deleteSpace(`Space ${data.spaceValue}`, e)}
                 >
                   Delete
                 </a>
@@ -1415,8 +1485,8 @@ export default function Dashboard() {
                   popupVisibility ? "block" : "hidden"
                 } markdown-styling relative z-50 ml-[calc(100svw-42%-1rem)] ${
                   open
-                    ? "mt-[calc(-100svw+16.6rem)]"
-                    : "mt-[calc(-100svw+15.6rem)]"
+                    ? "mt-[calc(-100svh+16.6rem)]"
+                    : "mt-[calc(-100svh+15.6rem)]"
                 } popup-container h-[32.2rem] w-[42%] bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins rounded-lg overflow-y-auto`}
               >
                 <div className="absolute flex flex-col w-full h-[10%] bg-[#2a2638] rounded-t-lg justify-center text-center text-xl font-bold">

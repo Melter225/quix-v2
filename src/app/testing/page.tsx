@@ -54,12 +54,11 @@ export default function Testing() {
   const handleSubmit = useCallback(() => {
     setSubmitted(true);
     console.log("Submitted answers:", answers);
-    window.location.href = `/review?${questions
-      .join("||##||||##||||##||")
+    window.location.href = `/review?${title
       .concat("||##||||##||||##||")
-      .concat(answers.join("||##||||##||||##||"))
+      .concat(questions.join("||##||||##||||##||"))
       .concat("||##||||##||||##||")
-      .concat(title)}`;
+      .concat(answers.join("||##||||##||||##||"))}`;
   }, [questions, answers, title]);
 
   const formatTime = (seconds: number) => {

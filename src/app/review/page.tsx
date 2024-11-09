@@ -71,7 +71,7 @@ export default function Resources() {
                 `Question: ${q} Answer: ${quiz.answers[i]} `
             )
             .join(" "),
-          quiz: title,
+          quizName: title,
         }),
       });
 
@@ -144,8 +144,8 @@ export default function Resources() {
       .map(decodeURIComponent);
 
     const title = questions[0];
-    let answers = questions.slice(1).slice(10, 20);
-    questions = questions.slice(1).slice(0, 10);
+    let answers = questions.slice(11, 21);
+    questions = questions.slice(1, 11);
 
     let quiz = {
       questions: questions,

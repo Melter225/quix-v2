@@ -94,8 +94,8 @@ async function generateVideo(areas: string[]): Promise<string[]> {
 export async function POST(req: NextRequest, res: NextResponse) {
   if (req.method == "POST") {
     try {
-      const { questions, quiz } = await req.json();
-      console.log("questions", questions);
+      const { questions, quizName } = await req.json();
+      console.log("questions", questions, "quizName", quizName);
       const arrays = await generateErrors(questions);
       const errors = arrays[0];
       const correctAnswers = arrays[1];
@@ -143,12 +143,27 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const score = allQuestions.filter((result) => result.isCorrect).length;
         console.log(score);
 
+        const quiz = await prisma.quiz.findUnique({
+          where: {
+            quiz_name: quizName,
+          },
+        });
+
+        console.log(quizName, quiz);
+
         await prisma.quiz.update({
           where: {
-            quiz_name: quiz,
+            quiz_id: quiz?.quiz_id,
           },
           data: {
             taken: true,
+            videos: {
+              create: [
+                { video: video[0] },
+                { video: video[1] },
+                { video: video[2] },
+              ],
+            },
           },
         });
 

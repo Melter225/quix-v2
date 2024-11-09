@@ -53,7 +53,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown error";
       return NextResponse.json({
-        message: `Failed to generate document, video, or website: ${errorMessage}`,
+        message: `Failed to generate space: ${errorMessage}`,
         status: 500,
       });
     }
