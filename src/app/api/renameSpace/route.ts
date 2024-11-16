@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest, res: NextResponse) {
   if (req.method == "POST") {
-    const { spaceName, email } = await req.json();
+    const { newSpaceName, spaceName, email } = await req.json();
     console.log("spaceName", spaceName);
     let userId;
 
@@ -32,10 +32,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     try {
-      const spaceData = await prisma.space.delete({
+      const spaceData = await prisma.space.update({
         where: {
           space_name: spaceName,
           user_id: userId,
+        },
+        data: {
+          space_name: newSpaceName,
         },
       });
 
@@ -51,7 +54,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown error";
       return NextResponse.json({
-        message: `Failed to delete space: ${errorMessage}`,
+        message: `Failed to rename space: ${errorMessage}`,
         status: 500,
       });
     }

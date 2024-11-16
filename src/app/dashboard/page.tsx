@@ -88,11 +88,36 @@ export default function Dashboard() {
     setPopupContent(document);
   };
 
-  function renameSpace(
+  async function renameSpace(
     spaceName: string,
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) {
     e.stopPropagation();
+    try {
+      const response = await fetch("/api/renameSpace", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ spaceName, email: session?.user?.email }),
+      });
+      if (response.ok) {
+        const spaceContainers =
+          window.document.getElementsByClassName("space-container");
+        const spaceContainer = spaceContainers[0];
+        while (
+          spaceContainer.childElementCount >= 1 &&
+          spaceContainer.lastElementChild
+        ) {
+          spaceContainer.removeChild(spaceContainer.lastElementChild);
+        }
+        loadSpaces();
+      } else {
+        console.error("Failed to delete space");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
   async function deleteSpace(
@@ -106,14 +131,14 @@ export default function Dashboard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ spaceName: spaceName }),
+        body: JSON.stringify({ spaceName, email: session?.user?.email }),
       });
       if (response.ok) {
         const spaceContainers =
           window.document.getElementsByClassName("space-container");
         const spaceContainer = spaceContainers[0];
         while (
-          spaceContainer.childElementCount > 1 &&
+          spaceContainer.childElementCount >= 1 &&
           spaceContainer.lastElementChild
         ) {
           spaceContainer.removeChild(spaceContainer.lastElementChild);
@@ -130,6 +155,21 @@ export default function Dashboard() {
   window.onload = () => {
     loadSpaces();
   };
+
+  function handleClick(e: React.MouseEvent<HTMLImageElement, MouseEvent>) {
+    e.stopPropagation();
+    const space = e.currentTarget.parentElement?.nextSibling;
+    console.log(space);
+    if (space && space instanceof HTMLElement) {
+      if (space.classList.contains("hidden")) {
+        space.classList.remove("hidden");
+      } else {
+        space.classList.add("hidden");
+      }
+    }
+    setMenuVisibility((prev_menuVisibility) => !prev_menuVisibility);
+    console.log(menuVisibility);
+  }
 
   async function loadSpaces() {
     try {
@@ -169,21 +209,7 @@ export default function Dashboard() {
                   className="hidden invert-hover group-hover:block h-4 w-4"
                   width={24}
                   height={24}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const space =
-                      window.document.getElementsByClassName("space_menu")[0];
-                    if (space.classList.contains("hidden")) {
-                      space.classList.remove("hidden");
-                      // for ()
-                    } else {
-                      space.classList.add("hidden");
-                    }
-                    setMenuVisibility(
-                      (prev_menuVisibility) => !prev_menuVisibility
-                    );
-                    console.log(menuVisibility);
-                  }}
+                  onClick={handleClick}
                   style={{
                     imageRendering: "auto",
                     filter: "invert(80%)",
@@ -920,28 +946,14 @@ export default function Dashboard() {
                 className="hidden invert-hover group-hover:block h-4 w-4"
                 width={24}
                 height={24}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setMenuVisibility(
-                    (prev_menuVisibility) => !prev_menuVisibility
-                  );
-                  console.log(menuVisibility);
-                }}
+                onClick={handleClick}
                 style={{
                   imageRendering: "auto",
                   filter: "invert(80%)",
                 }}
               />
             </div>
-            <div
-              className={`z-10 ${
-                menuVisibility ? "block" : "hidden"
-              } bg-[#221e2cf6] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-40 ${
-                menuVisibility
-                  ? "w-[12%] ml-[-12%] sm:w-[11%] sm:ml-[-11%]"
-                  : "w-[12%] ml-[-12%] sm:w-[9%] sm:ml-[-9%]"
-              } mt-[-10rem] mb-[3rem]`}
-            >
+            <div className="space_menu fixed hidden bg-[hsla(257,19%,15%,1)] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-50 w-[calc(25svw-3rem)]">
               <div className="py-2">
                 <a
                   href="#"
