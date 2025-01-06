@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { NextRequest, NextResponse } from "next/server";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { signOut, useSession } from "next-auth/react";
@@ -35,7 +36,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Dashboard() {
+export default function Dashboard(req: NextRequest) {
   const { data: session, status } = useSession();
   // const userImage: any = session?.user?.image;
   // const email_signin: string | undefined =
@@ -55,6 +56,9 @@ export default function Dashboard() {
   const [menuVisibility, setMenuVisibility] = useState(false);
   const [popupContent, setPopupContent] = useState("");
   const [popupVisibility, setPopupVisibility] = useState(false);
+  const [renamingSpace, setRenamingSpace] = useState(false);
+  const [spaceName, setSpaceName] = useState("");
+  const [deletedSpace, setDeletedSpace] = useState<string | null>(null);
 
   // const document = `The lift coefficient ($C_L$) is a dimensionless coefficient.`
   const database = [
@@ -72,7 +76,7 @@ export default function Dashboard() {
     "Answer: x = 4 Explanation: To solve for x, I take the square root of both sides: sqrt(x^2) = sqrt(16) This simplifies to: x = 4",
   ];
   const note = `The Pythagorean theorem is a fundamental principle in geometry. It states that in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. This relationship can be expressed as a^2 + b^2 = c^2, where c is the hypotenuse. The theorem is named after the ancient Greek mathematician Pythagoras. It is widely used in various fields such as architecture, engineering, and physics. A common example of its application is determining the distance between two points on a plane. The theorem only applies to right-angled triangles. It has been proven through various methods, including algebraic and geometric proofs. Understanding the Pythagorean theorem is essential for studying more advanced mathematical concepts.`;
-  const order = "comprehensive";
+  // const order = "comprehensive";
   const errors = ["Square root of 81", "Boiling point of water"];
   const points = ["Pythagorean Theorem", "Derivatives", "Prime Numbers"];
 
@@ -82,24 +86,38 @@ export default function Dashboard() {
     loader: { load: ["input/asciimath"] },
   };
 
-  const showPopup = (document: string) => {
-    console.log(document);
+  const showPopup = (
+    e:
+      | React.MouseEvent<HTMLDivElement, MouseEvent>
+      | React.MouseEvent<HTMLAnchorElement, MouseEvent>
+      | MouseEvent,
+    document: string
+  ) => {
+    e.preventDefault();
     setPopupVisibility(!popupVisibility);
     setPopupContent(document);
   };
 
-  async function renameSpace(
+  async function RenameSpace(
     spaceName: string,
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) {
     e.stopPropagation();
+
+    setRenamingSpace(true);
+    console.log(renamingSpace);
+
     try {
       const response = await fetch("/api/renameSpace", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ spaceName, email: session?.user?.email }),
+        body: JSON.stringify({
+          newSpaceName: spaceName,
+          spaceName,
+          email: session?.user?.email,
+        }),
       });
       if (response.ok) {
         const spaceContainers =
@@ -113,12 +131,29 @@ export default function Dashboard() {
         }
         loadSpaces();
       } else {
-        console.error("Failed to delete space");
+        console.error("Failed to rename space");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   }
+
+  useEffect(() => {
+    if (deletedSpace) {
+      console.log(deletedSpace, space);
+      if (deletedSpace === space) {
+        console.log("testing", space, spaceClicked);
+        setSpace("");
+        setSpaceClicked(false);
+        setDeletedSpace(null);
+
+        const resourceContainers =
+          window.document.getElementsByClassName("resource-container");
+        const resourceContainer = resourceContainers[0];
+        resourceContainer.firstElementChild?.classList.remove("hidden");
+      }
+    }
+  }, [deletedSpace, space, spaceClicked]);
 
   async function deleteSpace(
     spaceName: string,
@@ -134,6 +169,15 @@ export default function Dashboard() {
         body: JSON.stringify({ spaceName, email: session?.user?.email }),
       });
       if (response.ok) {
+        // console.log(spaceName, space);
+        // if (space == spaceName) {
+        //   console.log("testing", space, spaceClicked);
+        //   setSpace("");
+        //   setSpaceClicked(false);
+        // }
+
+        setDeletedSpace(spaceName);
+
         const spaceContainers =
           window.document.getElementsByClassName("space-container");
         const spaceContainer = spaceContainers[0];
@@ -161,14 +205,28 @@ export default function Dashboard() {
     const space = e.currentTarget.parentElement?.nextSibling;
     console.log(space);
     if (space && space instanceof HTMLElement) {
-      if (space.classList.contains("hidden")) {
-        space.classList.remove("hidden");
-      } else {
-        space.classList.add("hidden");
-      }
+      setMenuVisibility((prevMenuVisibility) => {
+        if (
+          space.classList.contains("hidden") &&
+          prevMenuVisibility === false
+        ) {
+          space.classList.remove("hidden");
+          console.log("making menu visible", prevMenuVisibility);
+          console.log("about to return");
+          return true;
+        } else if (
+          !space.classList.contains("hidden") &&
+          prevMenuVisibility === true
+        ) {
+          console.log(space.classList.contains("hidden"));
+          space.classList.add("hidden");
+          console.log("hiding menu", prevMenuVisibility);
+          return false;
+        } else {
+          console.log(space.classList.contains("hidden"), prevMenuVisibility);
+        }
+      });
     }
-    setMenuVisibility((prev_menuVisibility) => !prev_menuVisibility);
-    console.log(menuVisibility);
   }
 
   async function loadSpaces() {
@@ -201,7 +259,21 @@ export default function Dashboard() {
             >
               <div className="flex p-2 px-3 mb-3 justify-end bg-[#2a2638] hover:bg-[#302c41] transition-colors duration-200 rounded-lg hover:cursor-pointer items-center group">
                 <div className="flex w-full justify-start">
-                  <p className="mr-2 text-gray-200">{item}</p>
+                  {renamingSpace ? (
+                    <input
+                      className="mr-2 text-gray-200"
+                      placeholder={"Enter new space name"}
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          setSpaceName((e.target as HTMLInputElement).value);
+                          console.log(spaceName);
+                          setRenamingSpace(false);
+                        }
+                      }}
+                    ></input>
+                  ) : (
+                    <p className="mr-2 text-gray-200">{item}</p>
+                  )}
                 </div>
                 <Image
                   src="/menu.png"
@@ -221,7 +293,7 @@ export default function Dashboard() {
                   <a
                     href="#"
                     className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
-                    onClick={(e) => renameSpace(item, e)}
+                    onClick={(e) => RenameSpace(item, e)}
                   >
                     Rename
                   </a>
@@ -259,6 +331,7 @@ export default function Dashboard() {
     console.log("New space name:", spaceName);
     // console.log(spaceName);
     setSpace(spaceName);
+
     try {
       const response = await fetch("/api/loadResources", {
         method: "POST",
@@ -298,7 +371,103 @@ export default function Dashboard() {
         }
         resourceContainer.firstElementChild?.classList.add("hidden");
         resourceContainer.classList.add("pt-1");
+
+        // const PriorityMenu = () => {
+        //   const [priorityVisibility, setPriorityVisibility] = useState(false);
+
+        //   return (
+        //     <div className="sticky top-0 right-0 w-[30.25%] h-[100%] mr-[1rem]">
+        //       <div
+        //         className="z-50 flex priority-menu bg-[#2a2638] border-[1px] border-[#63567d88] rounded-lg justify-center items-center w-full h-full mt-[0.5rem] hover:cursor-pointer"
+        //         onClick={() => {
+        //           setPriorityVisibility(!priorityVisibility);
+        //           console.log(priorityVisibility);
+        //         }}
+        //       >
+        //         <p className="font-poppins text-gray-200 font-semibold text-[1.025rem]">
+        //           Priority
+        //         </p>
+        //       </div>
+        //       <div
+        //         className={`${
+        //           priorityVisibility ? "flex flex-col" : "hidden"
+        //         } z-50 priority-menu text-gray-200 bg-[#2a2638] border-[1px] border-[#63567d88] rounded-lg justify-center items-center w-full h-[400%] mt-[0.5rem] divide-y divide-[#63567d88]`}
+        //       >
+        //         <div
+        //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
+        //           onClick={() => {
+        //             sortResources("score");
+        //           }}
+        //         >
+        //           <p>Score</p>
+        //         </div>
+        //         <div
+        //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
+        //           onClick={() => {
+        //             sortResources("complexity");
+        //           }}
+        //         >
+        //           <p>Complexity</p>
+        //         </div>
+        //         <div
+        //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
+        //           onClick={() => {
+        //             sortResources("understanding");
+        //           }}
+        //         >
+        //           <p>Understanding</p>
+        //         </div>
+        //         <div
+        //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
+        //           onClick={() => {
+        //             sortResources("comprehensive");
+        //           }}
+        //         >
+        //           <p>Comprehensive</p>
+        //         </div>
+        //       </div>
+        {
+          /* <div
+                className={`${
+                  priorityVisibility ? "flex" : "hidden"
+                } z-50 priority-menu text-gray-200 bg-[#2a2638] border-[1px] border-[#63567d88] rounded-lg justify-center items-center w-full h-full mt-[0.5rem]`}
+              >
+                <p>Complexity</p>
+              </div>
+              <div
+                className={`${
+                  priorityVisibility ? "flex" : "hidden"
+                } z-50 priority-menu text-gray-200 bg-[#2a2638] border-[1px] border-[#63567d88] rounded-lg justify-center items-center w-full h-full mt-[0.5rem]`}
+              >
+                <p>Understanding</p>
+              </div>
+              <div
+                className={`${
+                  priorityVisibility ? "flex" : "hidden"
+                } z-50 priority-menu text-gray-200 bg-[#2a2638] border-[1px] border-[#63567d88] rounded-lg justify-center items-center w-full h-full mt-[0.5rem]`}
+              >
+                <p>Comprehensive</p>
+              </div> */
+        }
+        //     </div>
+        //   );
+        // };
+
+        const priorityMenuDiv = window.document.createElement("div");
+        priorityMenuDiv.classList.add("z-50");
+        priorityMenuDiv.classList.add("flex");
+        priorityMenuDiv.classList.add("absolute");
+        priorityMenuDiv.classList.add("w-[100%]");
+        priorityMenuDiv.classList.add("h-[4.84%]");
+        priorityMenuDiv.classList.add("justify-end");
+
+        // resourceContainer.classList.add("relative");
+        // resourceContainer.append(priorityMenuDiv);
+        // const root = createRoot(priorityMenuDiv);
+        // root.render(<PriorityMenu />);
+
         setSpaceClicked(true);
+
         for (const item of data.resources) {
           console.log(item);
           websites = [
@@ -324,7 +493,7 @@ export default function Dashboard() {
               href={
                 item.learn_name
                   ? ""
-                  : item.videos
+                  : item.videos.length != 0
                   ? `/viewing`
                   : `/testing?${item.quiz_name
                       .concat("||##||||##||||##||")
@@ -337,7 +506,7 @@ export default function Dashboard() {
               onClick={(e) => {
                 if (item.learn_name) {
                   e.preventDefault();
-                  showPopup(item.document?.document);
+                  showPopup(e, item.document?.document);
                 }
               }}
             >
@@ -521,7 +690,11 @@ export default function Dashboard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ topic: topic, space: space }),
+        body: JSON.stringify({
+          topic: topic,
+          space: space,
+          email: session?.user?.email,
+        }),
       });
 
       if (response.ok) {
@@ -615,24 +788,7 @@ export default function Dashboard() {
     // } catch (error) {
     //   console.error("Error:", error);
     // }
-    // try {
-    //     const response = await fetch('/api/priority', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({ topics: database, order, answers }),
-    //     });
 
-    //     if (response.ok) {
-    //         const data = await response.json();
-    //         console.log('Generated priority:', data);
-    //     } else {
-    //         console.error('Failed to generate priority');
-    //     }
-    // } catch (error) {
-    //     console.error('Error:', error);
-    // }
     // try {
     //     const response = await fetch('/api/redo', {
     //         method: 'POST',
@@ -687,6 +843,28 @@ export default function Dashboard() {
     // }
   };
 
+  const sortResources = async (order: string) => {
+    console.log("Sorting resources by:", order);
+    try {
+      const response = await fetch("/api/priority", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ topics: database, order, answers }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Generated priority:", data);
+      } else {
+        console.error("Failed to generate priority");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const playAudio = () => {
     const audio = new Audio("/output.mp3");
     audio.play().catch((error) => {
@@ -703,80 +881,90 @@ export default function Dashboard() {
     // console.log(audio);
   }
 
-  const learn = async () => {
+  const learn = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    console.log(topic, space);
     try {
-      // const response = await fetch("/api/learn", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ topic: topic, space: space }),
-      // });
+      const response = await fetch("/api/learn", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          topic: topic,
+          space: space,
+          email: session?.user?.email,
+        }),
+      });
 
-      // if (response.ok) {
-      // const data = await response.json();
-      // console.log("Generated resources:", data);
-      // console.log(data.document);
-      // setDocument(data.document);
-      const websites = [
-        {
-          // url: data.website[0],
-          url: "youtube.com",
-          title: "",
-          icon: "/placeholder.svg?height=80&width=80",
-        },
-        {
-          // url: data.website[1],
-          url: "youtube.com",
-          title: "",
-          icon: "/placeholder.svg?height=80&width=80",
-        },
-        {
-          // url: data.website[2],
-          url: "youtube.com",
-          title: "",
-          icon: "/placeholder.svg?height=80&width=80",
-        },
-      ];
-      const learnContainers =
-        window.document.getElementsByClassName("resource-container");
-      const learnContainer = learnContainers[0];
-      const learn = window.document.createElement("div");
-      const learnDocument = (
-        <a
-          href="/youtube.com"
-          onClick={(e) => {
-            e.preventDefault();
-            // showPopup(data.document);
-          }}
-        >
-          <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] mr-8 ml-8 pr-8 pl-8 pb-6 rounded-lg">
-            <div className="markdown-styling-2">
-              {/* <h2 className="mt-1">Learn {data.learnValue}</h2> */}
-              <div className="relative">
-                <div className="text-gray-200 mask-image-fade">
-                  <MathJaxContext config={config}>
-                    <MathJax>
-                      <Markdown
-                        remarkPlugins={[remarkMath]}
-                        rehypePlugins={[rehypeKatex, rehypeRaw]}
-                      >
-                        {/* {data.document.split("\n").slice(0, 3).join("\n")} */}
-                      </Markdown>
-                    </MathJax>
-                  </MathJaxContext>
+      if (response.ok) {
+        e.preventDefault();
+        const data = await response.json();
+        console.log("Generated resources:", data);
+        console.log(data.document);
+        setDocument(data.document);
+        const websites = [
+          {
+            url: data.website[0],
+            title: "",
+            icon: "/placeholder.svg?height=80&width=80",
+          },
+          {
+            url: data.website[1],
+            title: "",
+            icon: "/placeholder.svg?height=80&width=80",
+          },
+          {
+            url: data.website[2],
+            title: "",
+            icon: "/placeholder.svg?height=80&width=80",
+          },
+        ];
+        const learnContainers =
+          window.document.getElementsByClassName("resource-container");
+        const learnContainer = learnContainers[0];
+        const learn = window.document.createElement("div");
+        learn.onclick = (e) => {
+          e.preventDefault();
+          showPopup(e, data.document);
+        };
+
+        learn.onmouseenter = () => {
+          learn.classList.remove("cursor-default");
+          learn.classList.add("cursor-pointer");
+        };
+        learn.onmouseleave = () => {
+          learn.classList.remove("cursor-pointer");
+          learn.classList.add("cursor-default");
+        };
+        const learnDocument = (
+          <a>
+            <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] mr-8 ml-8 pr-8 pl-8 pb-6 rounded-lg">
+              <div className="markdown-styling-2">
+                <h2 className="mt-1">Learn {data.learnValue}</h2>
+                <div className="relative">
+                  <div className="text-gray-200 mask-image-fade">
+                    <MathJaxContext config={config}>
+                      <MathJax>
+                        <Markdown
+                          remarkPlugins={[remarkMath]}
+                          rehypePlugins={[rehypeKatex, rehypeRaw]}
+                        >
+                          {data.document.split("\n").slice(0, 3).join("\n")}
+                        </Markdown>
+                      </MathJax>
+                    </MathJaxContext>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div>
-              <div
-                className="flex flex-col md:flex-row justify-between h-24"
-                onClick={() => {
-                  console.log("test4");
-                }}
-              >
-                <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
-                  {/* {data.videoIds
+              <div>
+                <div
+                  className="flex flex-col md:flex-row justify-between h-24"
+                  onClick={() => {
+                    console.log("test4");
+                  }}
+                >
+                  <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
+                    {data.videoIds
                       .slice(0, 3)
                       .map((videoId: string, index: number) => (
                         <iframe
@@ -784,60 +972,60 @@ export default function Dashboard() {
                           src={`https://www.youtube.com/embed/${videoId}`}
                           className="rounded-md w-[32%] h-[94%] mt-2"
                         ></iframe>
-                      ))} */}
-                </div>
+                      ))}
+                  </div>
 
-                <div
-                  className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("test3");
-                  }}
-                >
-                  {websites.slice(0, 3).map((website, index: number) => (
-                    <div
-                      key={`website-${index}`}
-                      className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
-                      onClick={(e) => {
-                        console.log("test1");
-                        e.preventDefault();
-                        e.stopPropagation();
-                        window.open(
-                          "https://www.youtube.com/watch?v=N7ZmPYaXoic"
-                        );
-                      }}
-                    >
+                  <div
+                    className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      console.log("test3");
+                    }}
+                  >
+                    {websites.slice(0, 3).map((website, index: number) => (
                       <div
-                        className="flex flex-col h-full justify-center items-center"
-                        onClick={() => {
-                          console.log("test2");
+                        key={`website-${index}`}
+                        className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
+                        onClick={(e) => {
+                          console.log("test1");
+                          e.preventDefault();
+                          e.stopPropagation();
+                          window.open(
+                            "https://www.youtube.com/watch?v=N7ZmPYaXoic"
+                          );
                         }}
                       >
-                        <Globe className="w-6 h-6 text-purple-400" />
-                        <h3 className="font-medium text-gray-200">Website</h3>
+                        <div
+                          className="flex flex-col h-full justify-center items-center"
+                          onClick={() => {
+                            console.log("test2");
+                          }}
+                        >
+                          <Globe className="w-6 h-6 text-purple-400" />
+                          <h3 className="font-medium text-gray-200">Website</h3>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </a>
-      );
-      // const mathJaxContext = window.document.createElement(MathJaxContext);
-      if (learnContainer) {
-        // mathJax.append(markdown);
-        // mathJaxContext.append(mathJax);
-        // learnDocument.append(mathJaxContext);
-        const learnDocumentString = window.document.createElement("div");
-        learnDocumentString.innerHTML =
-          ReactDOMServer.renderToString(learnDocument);
-        learn.append(learnDocumentString);
-        learnContainer.appendChild(learn);
+          </a>
+        );
+        // const mathJaxContext = window.document.createElement(MathJaxContext);
+        if (learnContainer) {
+          // mathJax.append(markdown);
+          // mathJaxContext.append(mathJax);
+          // learnDocument.append(mathJaxContext);
+          const learnDocumentString = window.document.createElement("div");
+          learnDocumentString.innerHTML =
+            ReactDOMServer.renderToString(learnDocument);
+          learn.append(learnDocumentString);
+          learnContainer.appendChild(learn);
+        }
+      } else {
+        console.error("Failed to generate resources");
       }
-      // } else {
-      //   console.error("Failed to generate resources");
-      // }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -909,6 +1097,9 @@ export default function Dashboard() {
 
       if (response.ok) {
         const data = await response.json();
+        setSpace(`Space ${data.spaceValue}`);
+        setSpaceClicked(true);
+        console.log(space);
         const spaceContainers =
           window.document.getElementsByClassName("space-container");
         const spaceContainer = spaceContainers[0];
@@ -917,7 +1108,6 @@ export default function Dashboard() {
         const resourceContainer = resourceContainers[0];
         resourceContainer.firstElementChild?.classList.add("hidden");
         resourceContainer.classList.add("pt-1");
-        setSpaceClicked(true);
         const spaceDiv = window.document.createElement("div");
         while (
           resourceContainer.childElementCount > 1 &&
@@ -938,7 +1128,21 @@ export default function Dashboard() {
           >
             <div className="flex p-2 px-3 mb-3 justify-end bg-[#2a2638] hover:bg-[#302c41] transition-colors duration-200 rounded-lg hover:cursor-pointer items-center group">
               <div className="flex w-full justify-start">
-                <p className="mr-2 text-gray-200">Space {data.spaceValue}</p>
+                {renamingSpace ? (
+                  <input
+                    className="mr-2 text-gray-200"
+                    placeholder={"Enter new space name"}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        setSpaceName((e.target as HTMLInputElement).value);
+                        console.log(spaceName);
+                        setRenamingSpace(false);
+                      }
+                    }}
+                  ></input>
+                ) : (
+                  <p className="mr-2 text-gray-200">Space {data.spaceValue}</p>
+                )}
               </div>
               <Image
                 src="/menu.png"
@@ -958,7 +1162,7 @@ export default function Dashboard() {
                 <a
                   href="#"
                   className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
-                  onClick={(e) => renameSpace(`Space ${data.spaceValue}`, e)}
+                  onClick={(e) => RenameSpace(`Space ${data.spaceValue}`, e)}
                 >
                   Rename
                 </a>
@@ -1215,6 +1419,10 @@ export default function Dashboard() {
                   className={`resource-container relative flex flex-col flex-grow top-0 overflow-y-auto max-h-[90svh] mb-6 z-40 ${
                     open ? "" : "w-[95%] ml-[5%]"
                   }`}
+                  // onClick={(e) => {
+                  //   console.log("test");
+                  //   showPopup(e, data.document);
+                  // }}
                 >
                   <div className="block overflow-y-hidden h-full">
                     <div

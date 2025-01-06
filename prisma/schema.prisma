@@ -40,6 +40,7 @@ model Quiz {
   resource_id   String     @unique
   resource      Resource   @relation(fields: [resource_id], references: [resource_id], onDelete: Cascade)
   quiz_name     String     @unique
+  quiz_number   Int        @unique
   questions     Question[]
   answers       Answer[]
   document      Document?
@@ -53,6 +54,7 @@ model Learn {
   resource_id   String     @unique
   resource      Resource   @relation(fields: [resource_id], references: [resource_id], onDelete: Cascade)
   learn_name    String
+  learn_number  Int        @unique
   document      Document?
   videos        Video[]
   websites      Website[]

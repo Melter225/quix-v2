@@ -14,7 +14,8 @@ interface videoGeneration {
 
 async function generateDocument(topic: string): Promise<string> {
   const response = await openai.chat.completions.create({
-    model: "gpt-4-turbo",
+    model: "gpt-4o-mini",
+    // model: "gpt-4-turbo",
     messages: [
       {
         role: "system",
@@ -124,120 +125,128 @@ async function generateWebsite(areas: string[]): Promise<string[]> {
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  if (req.method == "POST") {
-    try {
-      const { topic, space } = await req.json();
-      const document = await generateDocument(topic);
+  try {
+    const { topic, space, email } = await req.json();
+    const document = await generateDocument(topic);
 
-      let areas = [""];
+    let areas = [""];
 
-      if (document != "No display" && document != "No display.") {
-        areas = extractErrors(document);
-        console.log(areas);
+    if (document != "No display" && document != "No display.") {
+      areas = extractErrors(document);
+      console.log(areas);
 
-        const video = await generateVideo(areas);
-        console.log(video);
+      const video = await generateVideo(areas);
+      console.log(video);
 
-        const videoUrls = video.videoUrls;
-        const videoIds = video.videoIds;
+      const videoUrls = video.videoUrls;
+      const videoIds = video.videoIds;
 
-        const website = await generateWebsite(areas);
-        console.log(website);
+      const website = await generateWebsite(areas);
+      console.log(website);
 
-        const lastLearn = await prisma.learn.findFirst({
-          orderBy: {
-            learn_name: "desc",
-          },
-          where: {
-            learn_name: {
-              contains: "Learn ",
-            },
-          },
-        });
-
-        let learnValue = 1;
-        if (lastLearn) {
-          const value = lastLearn.learn_name.match(/Learn (\d+)/);
-          if (value) {
-            learnValue = parseInt(value[1]) + 1;
-          }
-        }
-
-        const resourceData = {
+      const lastResource = await prisma.resource.findFirst({
+        where: {
           space: {
-            connect: {
-              space_name: space,
+            space_name: space,
+            user: {
+              email: email,
             },
           },
+        },
+        orderBy: {
           learn: {
-            create: {
-              learn_name: `Learn ${learnValue}`,
-              document: {
-                create: {
-                  document: document,
-                },
+            learn_number: "desc",
+          },
+        },
+        include: {
+          learn: true,
+        },
+      });
+
+      let learnValue = 1;
+      if (lastResource?.learn) {
+        console.log(lastResource.learn);
+        const value = lastResource.learn.learn_number;
+        if (value != null && value != undefined) {
+          learnValue = value + 2;
+        }
+      }
+
+      const learnNumber = learnValue - 1;
+
+      const resourceData = {
+        space: {
+          connect: {
+            space_name: space,
+          },
+        },
+        learn: {
+          create: {
+            learn_name: `Learn ${learnValue}`,
+            learn_number: learnNumber,
+            document: {
+              create: {
+                document: document,
               },
-              videos: {
-                create: [
-                  { video: videoUrls[0] },
-                  { video: videoUrls[1] },
-                  { video: videoUrls[2] },
-                ],
-              },
-              websites: {
-                create: [
-                  { website: website[0] },
-                  { website: website[1] },
-                  { website: website[2] },
-                ],
-              },
+            },
+            videos: {
+              create: [
+                { video: videoUrls[0] },
+                { video: videoUrls[1] },
+                { video: videoUrls[2] },
+              ],
+            },
+            websites: {
+              create: [
+                { website: website[0] },
+                { website: website[1] },
+                { website: website[2] },
+              ],
             },
           },
-        };
+        },
+      };
 
-        console.log(
-          "resource_data",
-          await prisma.resource.create({
-            data: resourceData,
+      await prisma.resource.create({
+        data: resourceData,
+        include: {
+          space: {
             include: {
-              space: {
-                include: {
-                  user: true,
-                },
-              },
-              learn: true,
+              user: true,
             },
-          })
-        );
+          },
+          learn: true,
+        },
+      });
 
-        return NextResponse.json({
-          learnValue,
-          document,
-          videoUrls,
-          videoIds,
-          website,
-          status: 200,
-        });
-      } else {
-        console.log("Do not show document, video, or website");
-        return NextResponse.json({
-          message: "No content to display",
-          status: 204,
-        });
-      }
-    } catch (error) {
-      console.error(error);
-      const errorMessage =
-        error instanceof Error ? error.message : "Unknown error";
+      console.log(learnValue);
+      console.log(document);
+      console.log(videoUrls);
+      console.log(videoIds);
+      console.log(website);
+
       return NextResponse.json({
-        message: `Failed to generate document, video, or website: ${errorMessage}`,
-        status: 500,
+        learnValue,
+        document,
+        videoUrls,
+        videoIds,
+        website,
+        status: 200,
+      });
+    } else {
+      console.log("Do not show document, video, or website");
+      return NextResponse.json({
+        message: "No content to display",
+        status: 204,
       });
     }
-  } else {
+  } catch (error) {
+    console.error(error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json({
-      message: `Method ${req.method} Not Allowed`,
-      status: 405,
+      message: `Failed to generate document, video, or website: ${errorMessage}`,
+      status: 500,
     });
   }
 }

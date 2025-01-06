@@ -94,6 +94,9 @@ export default function Testing() {
             <Button
               className="p-2 text-gray-300 hover:text-gray-200 transition-colors duration-200"
               variant="link"
+              // onClick={() => {
+              // window.location.href = "/dashboard";
+              // }}
             ></Button>
             <div
               className={`flex items-center text-2xl font-medium ${getTimerColor()}`}

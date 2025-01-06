@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 
 async function generateErrors(questions: string): Promise<string[][]> {
   const response = await openai.chat.completions.create({
-    model: "gpt-4-turbo",
+    model: "gpt-4o-mini",
     messages: [
       {
         role: "system",
@@ -28,6 +28,9 @@ async function generateErrors(questions: string): Promise<string[][]> {
 
   const arrays =
     response.choices[0].message?.content?.split(" ||##||||##||||##|| ") ?? [];
+
+  console.log(arrays);
+
   const errors = JSON.parse(arrays[0]);
   const answers = JSON.parse(arrays[1]);
   const explanations = JSON.parse(arrays[2]);
@@ -36,7 +39,7 @@ async function generateErrors(questions: string): Promise<string[][]> {
 
 async function generateDocument(arrays: string[][]): Promise<string> {
   const response = await openai.chat.completions.create({
-    model: "gpt-4o-2024-05-13",
+    model: "gpt-4o-mini",
     messages: [
       {
         role: "system",

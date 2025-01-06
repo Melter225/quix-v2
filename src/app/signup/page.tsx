@@ -20,69 +20,6 @@ import {
 
 import { Input } from "@/components/ui/input";
 
-const PhoneFormat = (value: string) => {
-  const [pattern, setPattern] = useState(new RegExp(""));
-  if (pattern.test(value)) {
-    return true;
-  }
-  return false;
-};
-
-const signUpSchema = z
-  .object({
-    email: z.string().min(1, { message: "Please enter an email" }).max(50, {
-      message: "Please enter an email with less than fifty characters",
-    }),
-    username: z
-      .string()
-      .min(1, { message: "Please enter a username" })
-      .max(50, {
-        message: "Please enter a username with less than fifty characters",
-      }),
-    password: z
-      .string()
-      .min(8, {
-        message: "Please enter a password with at least eight characters",
-      })
-      .max(50, {
-        message: "Please enter a password with less than fifty characters",
-      })
-      .refine((value) => /[A-Z]/.test(value), {
-        message:
-          "Please enter a password with at least one uppercase character",
-      })
-      .refine((value) => /[^a-zA-Z0-9\s]/.test(value), {
-        message: "Please enter a password with at least one special character",
-      }),
-    retype_password: z.string(),
-    phone: z.string().refine(
-      (value) => {
-        PhoneFormat(value);
-      },
-      {
-        message: "Please enter a valid phone number",
-      }
-    ),
-    verify_phone: z
-      .string()
-      .min(6, { message: "Please enter a valid verification code" })
-      .max(6, { message: "Please enter a valid verification code" })
-      .refine((value) => /[0-9]/.test(value), {
-        message: "Please enter a valid verification code",
-      }),
-    verify_email: z
-      .string()
-      .min(6, { message: "Please enter a valid verification code" })
-      .max(6, { message: "Please enter a valid verification code" })
-      .refine((value) => /[0-9]/.test(value), {
-        message: "Please enter a valid verification code",
-      }),
-  })
-  .refine((value) => value.password === value.retype_password, {
-    message: "Please ensure that you retyped your password correctly",
-    path: ["retype_password"],
-  });
-
 const Signup = () => {
   // const GoogleOAuth = async () => {
   //   await signIn('google', {callbackUrl:"/dashboard"});
@@ -104,6 +41,70 @@ const Signup = () => {
   // let phoneCode: string | number = "";
   const [emailCode, setEmailCode] = useState<Number | String>("");
   const [phoneCode, setPhoneCode] = useState("");
+
+  const phoneFormat = (value: string) => {
+    const pattern = new RegExp("");
+    if (pattern.test(value)) {
+      return true;
+    }
+    return false;
+  };
+
+  const signUpSchema = z
+    .object({
+      email: z.string().min(1, { message: "Please enter an email" }).max(50, {
+        message: "Please enter an email with less than fifty characters",
+      }),
+      username: z
+        .string()
+        .min(1, { message: "Please enter a username" })
+        .max(50, {
+          message: "Please enter a username with less than fifty characters",
+        }),
+      password: z
+        .string()
+        .min(8, {
+          message: "Please enter a password with at least eight characters",
+        })
+        .max(50, {
+          message: "Please enter a password with less than fifty characters",
+        })
+        .refine((value) => /[A-Z]/.test(value), {
+          message:
+            "Please enter a password with at least one uppercase character",
+        })
+        .refine((value) => /[^a-zA-Z0-9\s]/.test(value), {
+          message:
+            "Please enter a password with at least one special character",
+        }),
+      retype_password: z.string(),
+      phone: z.string().refine(
+        (value) => {
+          phoneFormat(value);
+        },
+        {
+          message: "Please enter a valid phone number",
+        }
+      ),
+      verify_phone: z
+        .string()
+        .min(6, { message: "Please enter a valid verification code" })
+        .max(6, { message: "Please enter a valid verification code" })
+        .refine((value) => /[0-9]/.test(value), {
+          message: "Please enter a valid verification code",
+        }),
+      verify_email: z
+        .string()
+        .min(6, { message: "Please enter a valid verification code" })
+        .max(6, { message: "Please enter a valid verification code" })
+        .refine((value) => /[0-9]/.test(value), {
+          message: "Please enter a valid verification code",
+        }),
+    })
+    .refine((value) => value.password === value.retype_password, {
+      message: "Please ensure that you retyped your password correctly",
+      path: ["retype_password"],
+    });
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -154,7 +155,7 @@ const Signup = () => {
 
   const phase4 = () => {
     if (
-      PhoneFormat(form.getValues().phone) &&
+      phoneFormat(form.getValues().phone) &&
       form.getValues().verify_phone.length === 6 &&
       /[0-9]/.test(form.getValues().verify_phone)
     ) {
@@ -162,13 +163,13 @@ const Signup = () => {
     }
   };
 
-  const handlePhone = async (to: string, message: string) => {
+  const handlePhone = async (phoneNumber: string, verificationCode: string) => {
     await fetch("/api/phone", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ to, message }),
+      body: JSON.stringify({ phoneNumber, verificationCode }),
     });
   };
 

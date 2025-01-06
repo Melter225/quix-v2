@@ -1,19 +1,18 @@
-"use client"
+"use client";
 
 import Image from "next/image";
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: 'Features', href: '/features', image: '/features.png' },
-  { name: 'About', href: '/about', image: '/about.png' },
-  { name: 'Billing', href: '/billing', image: '/billing.png' },
-]
-
+  { name: "Features", href: "/features", image: "/features.png" },
+  { name: "About", href: "/about", image: "/about.png" },
+  { name: "Billing", href: "/billing", image: "/billing.png" },
+];
 
 export default function Payment() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <main className="font-poppins">
@@ -327,7 +326,7 @@ export default function Payment() {
           </div>
           <div className="mx-auto max-w-7xl px-6 pb-8 lg:px-8">
             <div className="border-t border-gray-400/100 pt-4">
-              <p className="text-sm leading-5 text-gray-300 mt-4">&copy; 2024 Quix, Inc. All rights reserved.</p>
+              <p className="text-sm leading-5 text-gray-300 mt-4">&copy; 2025 Quix, Inc. All rights reserved.</p>
             </div>
           </div>
         </footer> */}

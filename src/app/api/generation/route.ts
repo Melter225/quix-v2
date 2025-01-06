@@ -16,12 +16,12 @@ async function generateQuestion(
   previousQuestions: string[]
 ): Promise<string> {
   const response = await openai.chat.completions.create({
-    model: "gpt-4-turbo",
+    model: "gpt-4o-mini",
     messages: [
       {
         role: "system",
         content:
-          'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in that language. For example, if the user enters "Espanol", then the entire question should be in Spanish while also quizzing the user about Spanish. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, respond with just this message: No display. Never use ||##||||##||||##|| in your response. Aim to not sound like an AI or human response but rather, a 3rd person document. To do this, do not address the reader directly, do not use the imperative mood, do not use second person or first person, and do not include additional introductory and conclusive messages such as "Sure! Here is a practice question for you:".',
+          'You are a helpful assistant in helping users learn more about their provided topics. If the user enters a prompt in a different language, ensure that you respond in that language. For example, if the user enters "Espanol", then the entire question should be in Spanish while also quizzing the user about Spanish. The entire document should be in pure Markdown, meaning there should be no LaTeX or other similar parsing methods. If the user enters gibberish, a prompt that is incomprehensible, or a profane prompt, respond with just this message: No display. Never use ||##||||##||||##|| in your response. Aim to not sound like an AI or human response but rather, a 3rd person document. To do this, do not address the reader directly, do not use the imperative mood, do not use second person or first person, and do not include additional introductory and conclusive messages such as "Sure! Here is a practice question for you:".',
       },
       {
         role: "user",
@@ -43,7 +43,7 @@ async function generateQuery(
   questions: string[]
 ): Promise<string> {
   const response = await openai.chat.completions.create({
-    model: "gpt-4o-2024-05-13",
+    model: "gpt-4o-mini",
     messages: [
       {
         role: "system",
@@ -105,7 +105,7 @@ async function generateWebsite(areas: string[]): Promise<string[]> {
 
 export async function POST(req: NextRequest, res: NextResponse) {
   if (req.method == "POST") {
-    const { topic, space } = await req.json();
+    const { topic, space, email } = await req.json();
     console.log(topic);
     const practiceQuestions: string[] = [];
 
@@ -127,22 +127,30 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const website = await generateWebsite(queries);
         console.log(website);
 
-        const lastQuiz = await prisma.quiz.findFirst({
-          orderBy: {
-            quiz_name: "desc",
-          },
+        const lastResource = await prisma.resource.findFirst({
           where: {
-            quiz_name: {
-              contains: "Quiz ",
+            space: {
+              space_name: space,
+              user: {
+                email: email,
+              },
             },
+          },
+          orderBy: {
+            quiz: {
+              quiz_number: "desc",
+            },
+          },
+          include: {
+            quiz: true,
           },
         });
 
         let quizValue = 1;
-        if (lastQuiz) {
-          const value = lastQuiz.quiz_name.match(/Quiz (\d+)/);
-          if (value) {
-            quizValue = parseInt(value[1]) + 1;
+        if (lastResource?.quiz) {
+          const value = lastResource.quiz.quiz_number;
+          if (value != null && value != undefined) {
+            quizValue = value + 1;
           }
         }
 
@@ -155,6 +163,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           quiz: {
             create: {
               quiz_name: `Quiz ${quizValue}`,
+              quiz_number: quizValue,
               taken: false,
               questions: {
                 create: [

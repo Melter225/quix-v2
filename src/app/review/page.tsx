@@ -179,14 +179,14 @@ export default function Resources() {
       {!isLoading ? (
         <div className="max-w-4xl mx-auto relative z-10">
           <header className="text-center mb-12">
-            <div className="flex items-center justify-between mb-4">
+            {/* <div className="flex items-center justify-between mb-4">
               <Button
                 className="p-2 text-gray-300 hover:text-gray-200 transition-colors duration-200"
                 variant="link"
               >
                 <ChevronLeft className="h-6 w-6" />
               </Button>
-            </div>
+            </div> */}
             <h1 className="text-5xl font-medium mb-4 flex items-center justify-center">
               <RefreshCw className="mr-4 w-8 h-8 text-gray-300 hover:text-gray-200 transition-colors duration-200 cursor-pointer" />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-300 to-gray-500">
