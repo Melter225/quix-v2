@@ -19,6 +19,10 @@ import { createRoot } from "react-dom/client";
 import { Button } from "@/components/ui/button";
 import { Globe } from "lucide-react";
 
+interface model {
+  question: string;
+}
+
 const navigation = [
   { name: "Dashboard", href: "/dashboard", current: true },
   { name: "About", href: "/about", current: false },
@@ -36,7 +40,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Dashboard(req: NextRequest) {
+export default function Dashboard() {
   const { data: session, status } = useSession();
   // const userImage: any = session?.user?.image;
   // const email_signin: string | undefined =
@@ -204,6 +208,7 @@ export default function Dashboard(req: NextRequest) {
     e.stopPropagation();
     const space = e.currentTarget.parentElement?.nextSibling;
     console.log(space);
+
     if (space && space instanceof HTMLElement) {
       setMenuVisibility((prevMenuVisibility) => {
         if (
@@ -224,6 +229,7 @@ export default function Dashboard(req: NextRequest) {
           return false;
         } else {
           console.log(space.classList.contains("hidden"), prevMenuVisibility);
+          return prevMenuVisibility;
         }
       });
     }
@@ -499,7 +505,7 @@ export default function Dashboard(req: NextRequest) {
                       .concat("||##||||##||||##||")
                       .concat(
                         item.questions
-                          ?.map((model) => model.question)
+                          ?.map((model: model) => model.question)
                           .join("||##||||##||||##||")
                       )}`
               }
@@ -526,7 +532,7 @@ export default function Dashboard(req: NextRequest) {
                               .slice(0, 3)
                               .join("\n") ||
                               item.questions
-                                ?.map((model) => model.question)
+                                ?.map((model: model) => model.question)
                                 .splice(0, 2)
                                 .join("\n\n")}
                           </Markdown>
@@ -683,7 +689,7 @@ export default function Dashboard(req: NextRequest) {
   // console.log(username, profile);
   // console.log(JSON.stringify({ topic: topic }));
 
-  const generateQuestions = async () => {
+  const generateQuestions = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       const response = await fetch("/api/generation", {
         method: "POST",
@@ -881,7 +887,7 @@ export default function Dashboard(req: NextRequest) {
     // console.log(audio);
   }
 
-  const learn = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const learn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log(topic, space);
     try {
       const response = await fetch("/api/learn", {

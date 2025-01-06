@@ -45,7 +45,7 @@ async function loadResources(space: string) {
   return resources;
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   if (req.method == "POST") {
     try {
       const { space } = await req.json();

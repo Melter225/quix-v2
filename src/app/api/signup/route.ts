@@ -24,7 +24,7 @@ async function addUser(
   console.log(user);
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   if (req.method == "POST") {
     try {
       const { email, password, username, profile, status } = await req.json();

@@ -94,7 +94,7 @@ async function generateVideo(areas: string[]): Promise<string[]> {
   return videoUrls;
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   if (req.method == "POST") {
     try {
       const { questions, quizName } = await req.json();

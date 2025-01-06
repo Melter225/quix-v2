@@ -124,7 +124,7 @@ async function generateWebsite(areas: string[]): Promise<string[]> {
   return websiteUrls;
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     const { topic, space, email } = await req.json();
     const document = await generateDocument(topic);

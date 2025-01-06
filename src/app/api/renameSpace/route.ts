@@ -5,7 +5,7 @@ import { space } from "postcss/lib/list";
 
 const prisma = new PrismaClient();
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   if (req.method == "POST") {
     const { newSpaceName, spaceName, email } = await req.json();
     console.log("spaceName", spaceName);

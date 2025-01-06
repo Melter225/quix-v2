@@ -17,7 +17,7 @@ const checkEmail = async (email: string | undefined) => {
   }
 };
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   if (req.method == "POST") {
     try {
       const { email } = await req.json();

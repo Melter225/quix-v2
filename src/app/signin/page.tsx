@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getSession } from "next-auth/react";
 
 const Signin = () => {
@@ -54,13 +54,13 @@ const Signin = () => {
     }
   };
 
-  const OAuthCompletion = localStorage.getItem("OAuthCompletion");
-  console.log(OAuthCompletion);
-
-  if (status === "authenticated" && OAuthCompletion === "true") {
-    handleAuthCallback();
-    localStorage.setItem("OAuthCompletion", "false");
-  }
+  useEffect(() => {
+    const OAuthCompletion = localStorage.getItem("OAuthCompletion");
+    if (status === "authenticated" && OAuthCompletion === "true") {
+      handleAuthCallback();
+      localStorage.setItem("OAuthCompletion", "false");
+    }
+  }, [status]);
 
   const passwordEye = () => {
     setIsPasswordVisible((prev) => !prev);
