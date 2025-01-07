@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "build": {
-    "env": {
-      "NODE_VERSION": "18.x"
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next",
+      "config": {
+        "installCommand": "npm install --legacy-peer-deps --no-optional",
+        "nodeVersion": "18.x"
+      }
     }
-  }
+  ]
 }
