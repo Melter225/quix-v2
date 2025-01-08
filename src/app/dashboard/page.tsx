@@ -124,14 +124,16 @@ export default function Dashboard() {
         }),
       });
       if (response.ok) {
-        const spaceContainers =
-          window.document.getElementsByClassName("space-container");
-        const spaceContainer = spaceContainers[0];
-        while (
-          spaceContainer.childElementCount >= 1 &&
-          spaceContainer.lastElementChild
-        ) {
-          spaceContainer.removeChild(spaceContainer.lastElementChild);
+        if (typeof window !== "undefined") {
+          const spaceContainers =
+            window.document.getElementsByClassName("space-container");
+          const spaceContainer = spaceContainers[0];
+          while (
+            spaceContainer.childElementCount >= 1 &&
+            spaceContainer.lastElementChild
+          ) {
+            spaceContainer.removeChild(spaceContainer.lastElementChild);
+          }
         }
         loadSpaces();
       } else {
@@ -151,10 +153,12 @@ export default function Dashboard() {
         setSpaceClicked(false);
         setDeletedSpace(null);
 
-        const resourceContainers =
-          window.document.getElementsByClassName("resource-container");
-        const resourceContainer = resourceContainers[0];
-        resourceContainer.firstElementChild?.classList.remove("hidden");
+        if (typeof window !== "undefined") {
+          const resourceContainers =
+            window.document.getElementsByClassName("resource-container");
+          const resourceContainer = resourceContainers[0];
+          resourceContainer.firstElementChild?.classList.remove("hidden");
+        }
       }
     }
   }, [deletedSpace, space, spaceClicked]);
@@ -182,14 +186,16 @@ export default function Dashboard() {
 
         setDeletedSpace(spaceName);
 
-        const spaceContainers =
-          window.document.getElementsByClassName("space-container");
-        const spaceContainer = spaceContainers[0];
-        while (
-          spaceContainer.childElementCount >= 1 &&
-          spaceContainer.lastElementChild
-        ) {
-          spaceContainer.removeChild(spaceContainer.lastElementChild);
+        if (typeof window !== "undefined") {
+          const spaceContainers =
+            window.document.getElementsByClassName("space-container");
+          const spaceContainer = spaceContainers[0];
+          while (
+            spaceContainer.childElementCount >= 1 &&
+            spaceContainer.lastElementChild
+          ) {
+            spaceContainer.removeChild(spaceContainer.lastElementChild);
+          }
         }
         loadSpaces();
       } else {
@@ -200,9 +206,11 @@ export default function Dashboard() {
     }
   }
 
-  window.onload = () => {
-    loadSpaces();
-  };
+  if (typeof window !== "undefined") {
+    window.onload = () => {
+      loadSpaces();
+    };
+  }
 
   function handleClick(e: React.MouseEvent<HTMLImageElement, MouseEvent>) {
     e.stopPropagation();
@@ -248,80 +256,82 @@ export default function Dashboard() {
         const data = await response.json();
         console.log("Generated spaces:", data);
         for (const item of data.spaces) {
-          const spaceContainers =
-            window.document.getElementsByClassName("space-container");
-          const spaceContainer = spaceContainers[0];
-          const spaceDiv = window.document.createElement("div");
-          const SpaceDocument = () => (
-            <button
-              className="w-full"
-              onClick={() => {
-                const spaceName = item;
-                console.log(spaceName, space);
-                // if (spaceName !== space) {
-                loadResources(spaceName);
-                // }
-              }}
-            >
-              <div className="flex p-2 px-3 mb-3 justify-end bg-[#2a2638] hover:bg-[#302c41] transition-colors duration-200 rounded-lg hover:cursor-pointer items-center group">
-                <div className="flex w-full justify-start">
-                  {renamingSpace ? (
-                    <input
-                      className="mr-2 text-gray-200"
-                      placeholder={"Enter new space name"}
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter") {
-                          setSpaceName((e.target as HTMLInputElement).value);
-                          console.log(spaceName);
-                          setRenamingSpace(false);
-                        }
-                      }}
-                    ></input>
-                  ) : (
-                    <p className="mr-2 text-gray-200">{item}</p>
-                  )}
+          if (typeof window !== "undefined") {
+            const spaceContainers =
+              window.document.getElementsByClassName("space-container");
+            const spaceContainer = spaceContainers[0];
+            const spaceDiv = window.document.createElement("div");
+            const SpaceDocument = () => (
+              <button
+                className="w-full"
+                onClick={() => {
+                  const spaceName = item;
+                  console.log(spaceName, space);
+                  // if (spaceName !== space) {
+                  loadResources(spaceName);
+                  // }
+                }}
+              >
+                <div className="flex p-2 px-3 mb-3 justify-end bg-[#2a2638] hover:bg-[#302c41] transition-colors duration-200 rounded-lg hover:cursor-pointer items-center group">
+                  <div className="flex w-full justify-start">
+                    {renamingSpace ? (
+                      <input
+                        className="mr-2 text-gray-200"
+                        placeholder={"Enter new space name"}
+                        onKeyPress={(e) => {
+                          if (e.key === "Enter") {
+                            setSpaceName((e.target as HTMLInputElement).value);
+                            console.log(spaceName);
+                            setRenamingSpace(false);
+                          }
+                        }}
+                      ></input>
+                    ) : (
+                      <p className="mr-2 text-gray-200">{item}</p>
+                    )}
+                  </div>
+                  <Image
+                    src="/menu.png"
+                    alt="Menu"
+                    className="hidden invert-hover group-hover:block h-4 w-4"
+                    width={24}
+                    height={24}
+                    onClick={handleClick}
+                    style={{
+                      imageRendering: "auto",
+                      filter: "invert(80%)",
+                    }}
+                  />
                 </div>
-                <Image
-                  src="/menu.png"
-                  alt="Menu"
-                  className="hidden invert-hover group-hover:block h-4 w-4"
-                  width={24}
-                  height={24}
-                  onClick={handleClick}
-                  style={{
-                    imageRendering: "auto",
-                    filter: "invert(80%)",
-                  }}
-                />
-              </div>
-              <div className="space_menu fixed hidden bg-[hsla(257,19%,15%,1)] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-50 w-[calc(25svw-3rem)]">
-                <div className="py-2">
-                  <a
-                    href="#"
-                    className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
-                    onClick={(e) => RenameSpace(item, e)}
-                  >
-                    Rename
-                  </a>
+                <div className="space_menu fixed hidden bg-[hsla(257,19%,15%,1)] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-50 w-[calc(25svw-3rem)]">
+                  <div className="py-2">
+                    <a
+                      href="#"
+                      className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
+                      onClick={(e) => RenameSpace(item, e)}
+                    >
+                      Rename
+                    </a>
+                  </div>
+                  <div className="py-2">
+                    <a
+                      href="#"
+                      className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
+                      onClick={(e) => deleteSpace(item, e)}
+                    >
+                      Delete
+                    </a>
+                  </div>
                 </div>
-                <div className="py-2">
-                  <a
-                    href="#"
-                    className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
-                    onClick={(e) => deleteSpace(item, e)}
-                  >
-                    Delete
-                  </a>
-                </div>
-              </div>
-            </button>
-          );
-          if (spaceContainer) {
-            const spaceDocumentString = window.document.createElement("div");
-            spaceDiv.append(spaceDocumentString);
-            spaceContainer.appendChild(spaceDiv);
-            const root = createRoot(spaceDocumentString);
-            root.render(<SpaceDocument />);
+              </button>
+            );
+            if (spaceContainer) {
+              const spaceDocumentString = window.document.createElement("div");
+              spaceDiv.append(spaceDocumentString);
+              spaceContainer.appendChild(spaceDiv);
+              const root = createRoot(spaceDocumentString);
+              root.render(<SpaceDocument />);
+            }
           }
         }
       } else {
@@ -366,74 +376,75 @@ export default function Dashboard() {
             icon: "",
           },
         ];
-        const resourceContainers =
-          window.document.getElementsByClassName("resource-container");
-        const resourceContainer = resourceContainers[0];
-        while (
-          resourceContainer.childElementCount > 1 &&
-          resourceContainer.lastElementChild
-        ) {
-          resourceContainer.removeChild(resourceContainer.lastElementChild);
-        }
-        resourceContainer.firstElementChild?.classList.add("hidden");
-        resourceContainer.classList.add("pt-1");
+        if (typeof window !== "undefined") {
+          const resourceContainers =
+            window.document.getElementsByClassName("resource-container");
+          const resourceContainer = resourceContainers[0];
+          while (
+            resourceContainer.childElementCount > 1 &&
+            resourceContainer.lastElementChild
+          ) {
+            resourceContainer.removeChild(resourceContainer.lastElementChild);
+          }
+          resourceContainer.firstElementChild?.classList.add("hidden");
+          resourceContainer.classList.add("pt-1");
 
-        // const PriorityMenu = () => {
-        //   const [priorityVisibility, setPriorityVisibility] = useState(false);
+          // const PriorityMenu = () => {
+          //   const [priorityVisibility, setPriorityVisibility] = useState(false);
 
-        //   return (
-        //     <div className="sticky top-0 right-0 w-[30.25%] h-[100%] mr-[1rem]">
-        //       <div
-        //         className="z-50 flex priority-menu bg-[#2a2638] border-[1px] border-[#63567d88] rounded-lg justify-center items-center w-full h-full mt-[0.5rem] hover:cursor-pointer"
-        //         onClick={() => {
-        //           setPriorityVisibility(!priorityVisibility);
-        //           console.log(priorityVisibility);
-        //         }}
-        //       >
-        //         <p className="font-poppins text-gray-200 font-semibold text-[1.025rem]">
-        //           Priority
-        //         </p>
-        //       </div>
-        //       <div
-        //         className={`${
-        //           priorityVisibility ? "flex flex-col" : "hidden"
-        //         } z-50 priority-menu text-gray-200 bg-[#2a2638] border-[1px] border-[#63567d88] rounded-lg justify-center items-center w-full h-[400%] mt-[0.5rem] divide-y divide-[#63567d88]`}
-        //       >
-        //         <div
-        //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
-        //           onClick={() => {
-        //             sortResources("score");
-        //           }}
-        //         >
-        //           <p>Score</p>
-        //         </div>
-        //         <div
-        //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
-        //           onClick={() => {
-        //             sortResources("complexity");
-        //           }}
-        //         >
-        //           <p>Complexity</p>
-        //         </div>
-        //         <div
-        //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
-        //           onClick={() => {
-        //             sortResources("understanding");
-        //           }}
-        //         >
-        //           <p>Understanding</p>
-        //         </div>
-        //         <div
-        //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
-        //           onClick={() => {
-        //             sortResources("comprehensive");
-        //           }}
-        //         >
-        //           <p>Comprehensive</p>
-        //         </div>
-        //       </div>
-        {
-          /* <div
+          //   return (
+          //     <div className="sticky top-0 right-0 w-[30.25%] h-[100%] mr-[1rem]">
+          //       <div
+          //         className="z-50 flex priority-menu bg-[#2a2638] border-[1px] border-[#63567d88] rounded-lg justify-center items-center w-full h-full mt-[0.5rem] hover:cursor-pointer"
+          //         onClick={() => {
+          //           setPriorityVisibility(!priorityVisibility);
+          //           console.log(priorityVisibility);
+          //         }}
+          //       >
+          //         <p className="font-poppins text-gray-200 font-semibold text-[1.025rem]">
+          //           Priority
+          //         </p>
+          //       </div>
+          //       <div
+          //         className={`${
+          //           priorityVisibility ? "flex flex-col" : "hidden"
+          //         } z-50 priority-menu text-gray-200 bg-[#2a2638] border-[1px] border-[#63567d88] rounded-lg justify-center items-center w-full h-[400%] mt-[0.5rem] divide-y divide-[#63567d88]`}
+          //       >
+          //         <div
+          //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
+          //           onClick={() => {
+          //             sortResources("score");
+          //           }}
+          //         >
+          //           <p>Score</p>
+          //         </div>
+          //         <div
+          //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
+          //           onClick={() => {
+          //             sortResources("complexity");
+          //           }}
+          //         >
+          //           <p>Complexity</p>
+          //         </div>
+          //         <div
+          //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
+          //           onClick={() => {
+          //             sortResources("understanding");
+          //           }}
+          //         >
+          //           <p>Understanding</p>
+          //         </div>
+          //         <div
+          //           className="flex w-full flex-grow items-center justify-center hover:cursor-pointer"
+          //           onClick={() => {
+          //             sortResources("comprehensive");
+          //           }}
+          //         >
+          //           <p>Comprehensive</p>
+          //         </div>
+          //       </div>
+          {
+            /* <div
                 className={`${
                   priorityVisibility ? "flex" : "hidden"
                 } z-50 priority-menu text-gray-200 bg-[#2a2638] border-[1px] border-[#63567d88] rounded-lg justify-center items-center w-full h-full mt-[0.5rem]`}
@@ -454,165 +465,169 @@ export default function Dashboard() {
               >
                 <p>Comprehensive</p>
               </div> */
-        }
-        //     </div>
-        //   );
-        // };
+          }
+          //     </div>
+          //   );
+          // };
 
-        const priorityMenuDiv = window.document.createElement("div");
-        priorityMenuDiv.classList.add("z-50");
-        priorityMenuDiv.classList.add("flex");
-        priorityMenuDiv.classList.add("absolute");
-        priorityMenuDiv.classList.add("w-[100%]");
-        priorityMenuDiv.classList.add("h-[4.84%]");
-        priorityMenuDiv.classList.add("justify-end");
+          const priorityMenuDiv = window.document.createElement("div");
+          priorityMenuDiv.classList.add("z-50");
+          priorityMenuDiv.classList.add("flex");
+          priorityMenuDiv.classList.add("absolute");
+          priorityMenuDiv.classList.add("w-[100%]");
+          priorityMenuDiv.classList.add("h-[4.84%]");
+          priorityMenuDiv.classList.add("justify-end");
 
-        // resourceContainer.classList.add("relative");
-        // resourceContainer.append(priorityMenuDiv);
-        // const root = createRoot(priorityMenuDiv);
-        // root.render(<PriorityMenu />);
+          // resourceContainer.classList.add("relative");
+          // resourceContainer.append(priorityMenuDiv);
+          // const root = createRoot(priorityMenuDiv);
+          // root.render(<PriorityMenu />);
 
-        setSpaceClicked(true);
+          setSpaceClicked(true);
 
-        for (const item of data.resources) {
-          console.log(item);
-          websites = [
-            {
-              url: item.websites[0].website,
-              title: "",
-              icon: "/placeholder.svg?height=80&width=80",
-            },
-            {
-              url: item.websites[1].website,
-              title: "",
-              icon: "/placeholder.svg?height=80&width=80",
-            },
-            {
-              url: item.websites[2].website,
-              title: "",
-              icon: "/placeholder.svg?height=80&width=80",
-            },
-          ];
-          const resource = window.document.createElement("div");
-          const ResourceDocument = () => (
-            <a
-              href={
-                item.learn_name
-                  ? ""
-                  : item.videos.length != 0
-                  ? `/viewing`
-                  : `/testing?${item.quiz_name
-                      .concat("||##||||##||||##||")
-                      .concat(
-                        item.questions
-                          ?.map((model: model) => model.question)
-                          .join("||##||||##||||##||")
-                      )}`
-              }
-              onClick={(e) => {
-                if (item.learn_name) {
-                  e.preventDefault();
-                  showPopup(e, item.document?.document);
+          for (const item of data.resources) {
+            console.log(item);
+            websites = [
+              {
+                url: item.websites[0].website,
+                title: "",
+                icon: "/placeholder.svg?height=80&width=80",
+              },
+              {
+                url: item.websites[1].website,
+                title: "",
+                icon: "/placeholder.svg?height=80&width=80",
+              },
+              {
+                url: item.websites[2].website,
+                title: "",
+                icon: "/placeholder.svg?height=80&width=80",
+              },
+            ];
+            const resource = window.document.createElement("div");
+            const ResourceDocument = () => (
+              <a
+                href={
+                  item.learn_name
+                    ? ""
+                    : item.videos.length != 0
+                    ? `/viewing`
+                    : `/testing?${item.quiz_name
+                        .concat("||##||||##||||##||")
+                        .concat(
+                          item.questions
+                            ?.map((model: model) => model.question)
+                            .join("||##||||##||||##||")
+                        )}`
                 }
-              }}
-            >
-              <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] mr-8 ml-8 pr-8 pl-8 pb-6 rounded-lg">
-                <div className="markdown-styling-2">
-                  <h2 className="mt-1">{item.learn_name || item.quiz_name}</h2>
-                  <div className="relative">
-                    <div className="text-gray-200 mask-image-fade">
-                      <MathJaxContext config={config}>
-                        <MathJax>
-                          <Markdown
-                            remarkPlugins={[remarkMath]}
-                            rehypePlugins={[rehypeKatex, rehypeRaw]}
-                          >
-                            {item.document?.document
-                              .split("\n")
-                              .slice(0, 3)
-                              .join("\n") ||
-                              item.questions
-                                ?.map((model: model) => model.question)
-                                .splice(0, 2)
-                                .join("\n\n")}
-                          </Markdown>
-                        </MathJax>
-                      </MathJaxContext>
+                onClick={(e) => {
+                  if (item.learn_name) {
+                    e.preventDefault();
+                    showPopup(e, item.document?.document);
+                  }
+                }}
+              >
+                <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] mr-8 ml-8 pr-8 pl-8 pb-6 rounded-lg">
+                  <div className="markdown-styling-2">
+                    <h2 className="mt-1">
+                      {item.learn_name || item.quiz_name}
+                    </h2>
+                    <div className="relative">
+                      <div className="text-gray-200 mask-image-fade">
+                        <MathJaxContext config={config}>
+                          <MathJax>
+                            <Markdown
+                              remarkPlugins={[remarkMath]}
+                              rehypePlugins={[rehypeKatex, rehypeRaw]}
+                            >
+                              {item.document?.document
+                                .split("\n")
+                                .slice(0, 3)
+                                .join("\n") ||
+                                item.questions
+                                  ?.map((model: model) => model.question)
+                                  .splice(0, 2)
+                                  .join("\n\n")}
+                            </Markdown>
+                          </MathJax>
+                        </MathJaxContext>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {item.videos[0] && item.websites[0] ? (
-                  <div className="flex flex-col md:flex-row justify-between h-24">
-                    <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
-                      {item.videos
+                  {item.videos[0] && item.websites[0] ? (
+                    <div className="flex flex-col md:flex-row justify-between h-24">
+                      <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
+                        {item.videos
+                          .slice(0, 3)
+                          .map((video: { video: string }, index: number) => (
+                            <iframe
+                              key={`video-${index}`}
+                              src={`https://www.youtube.com/embed/${video.video.slice(
+                                32
+                              )}`}
+                              className="rounded-md w-[32%] h-[94%] mt-2"
+                            ></iframe>
+                          ))}
+                      </div>
+
+                      <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
+                        {websites.slice(0, 3).map((website, index: number) => (
+                          <div
+                            key={`website-${index}`}
+                            className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              window.open(website.url, "_blank");
+                            }}
+                          >
+                            <div className="flex flex-col h-full justify-center items-center">
+                              <Globe className="w-6 h-6 text-purple-400" />
+                              <h3 className="font-medium text-gray-200">
+                                Website
+                              </h3>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                  {item.websites[0] && !item.videos[0] ? (
+                    <div className="flex flex-row justify-between h-24">
+                      {item.websites
                         .slice(0, 3)
-                        .map((video: { video: string }, index: number) => (
-                          <iframe
-                            key={`video-${index}`}
-                            src={`https://www.youtube.com/embed/${video.video.slice(
-                              32
-                            )}`}
-                            className="rounded-md w-[32%] h-[94%] mt-2"
-                          ></iframe>
+                        .map((website: { website: string }, index: number) => (
+                          <div
+                            key={`website-${index}`}
+                            className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              window.open(website.website, "_blank");
+                            }}
+                          >
+                            <div className="flex flex-col h-full justify-center items-center">
+                              <Globe className="w-6 h-6 text-purple-400" />
+                              <h3 className="font-medium text-gray-200">
+                                Website
+                              </h3>
+                            </div>
+                          </div>
                         ))}
                     </div>
-
-                    <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
-                      {websites.slice(0, 3).map((website, index: number) => (
-                        <div
-                          key={`website-${index}`}
-                          className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            window.open(website.url, "_blank");
-                          }}
-                        >
-                          <div className="flex flex-col h-full justify-center items-center">
-                            <Globe className="w-6 h-6 text-purple-400" />
-                            <h3 className="font-medium text-gray-200">
-                              Website
-                            </h3>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-                {item.websites[0] && !item.videos[0] ? (
-                  <div className="flex flex-row justify-between h-24">
-                    {item.websites
-                      .slice(0, 3)
-                      .map((website: { website: string }, index: number) => (
-                        <div
-                          key={`website-${index}`}
-                          className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            window.open(website.website, "_blank");
-                          }}
-                        >
-                          <div className="flex flex-col h-full justify-center items-center">
-                            <Globe className="w-6 h-6 text-purple-400" />
-                            <h3 className="font-medium text-gray-200">
-                              Website
-                            </h3>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                ) : null}
-              </div>
-            </a>
-          );
-          if (resourceContainer) {
-            const resourceDocumentString = window.document.createElement("div");
-            resource.append(resourceDocumentString);
-            resourceContainer.appendChild(resource);
-            const root = createRoot(resourceDocumentString);
-            root.render(<ResourceDocument />);
+                  ) : null}
+                </div>
+              </a>
+            );
+            if (resourceContainer) {
+              const resourceDocumentString =
+                window.document.createElement("div");
+              resource.append(resourceDocumentString);
+              resourceContainer.appendChild(resource);
+              const root = createRoot(resourceDocumentString);
+              root.render(<ResourceDocument />);
+            }
           }
         }
       } else {
@@ -706,70 +721,74 @@ export default function Dashboard() {
       if (response.ok) {
         const data = await response.json();
         console.log("Generated questions:", data);
-        const quizContainers =
-          window.document.getElementsByClassName("resource-container");
-        const quizContainer = quizContainers[0];
-        const quiz = window.document.createElement("div");
-        console.log(data);
-        const quizQuestions = (
-          <a
-            href={`/testing?${`Quiz ${data.quizValue}`
-              .concat("||##||||##||||##||")
-              .concat(data.questions.join("||##||||##||||##||"))}`}
-          >
-            <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] r-8 ml-8 mr-8 pr-8 pl-8 pb-6 rounded-lg">
-              <div className="markdown-styling-2">
-                <h2 className="mt-1">Quiz {data.quizValue}</h2>
-                <div className="relative">
-                  <div className="text-gray-200 mask-image-fade">
-                    <MathJaxContext config={config}>
-                      <MathJax>
-                        <Markdown
-                          remarkPlugins={[remarkMath]}
-                          rehypePlugins={[rehypeKatex, rehypeRaw]}
+        if (typeof window !== "undefined") {
+          const quizContainers =
+            window.document.getElementsByClassName("resource-container");
+          const quizContainer = quizContainers[0];
+          const quiz = window.document.createElement("div");
+          console.log(data);
+          const quizQuestions = (
+            <a
+              href={`/testing?${`Quiz ${data.quizValue}`
+                .concat("||##||||##||||##||")
+                .concat(data.questions.join("||##||||##||||##||"))}`}
+            >
+              <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] r-8 ml-8 mr-8 pr-8 pl-8 pb-6 rounded-lg">
+                <div className="markdown-styling-2">
+                  <h2 className="mt-1">Quiz {data.quizValue}</h2>
+                  <div className="relative">
+                    <div className="text-gray-200 mask-image-fade">
+                      <MathJaxContext config={config}>
+                        <MathJax>
+                          <Markdown
+                            remarkPlugins={[remarkMath]}
+                            rehypePlugins={[rehypeKatex, rehypeRaw]}
+                          >
+                            {data.questions.splice(0, 2).join("\n\n")}
+                          </Markdown>
+                        </MathJax>
+                      </MathJaxContext>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex flex-row justify-between h-24">
+                    {data.website
+                      .slice(0, 3)
+                      .map((website: { url: string }, index: number) => (
+                        <div
+                          key={`website-${index}`}
+                          className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            window.open(website.url, "_blank");
+                          }}
                         >
-                          {data.questions.splice(0, 2).join("\n\n")}
-                        </Markdown>
-                      </MathJax>
-                    </MathJaxContext>
+                          <div className="flex flex-col h-full justify-center items-center">
+                            <Globe className="w-6 h-6 text-purple-400" />
+                            <h3 className="font-medium text-gray-200">
+                              Website
+                            </h3>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>
-              <div>
-                <div className="flex flex-row justify-between h-24">
-                  {data.website
-                    .slice(0, 3)
-                    .map((website: { url: string }, index: number) => (
-                      <div
-                        key={`website-${index}`}
-                        className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          window.open(website.url, "_blank");
-                        }}
-                      >
-                        <div className="flex flex-col h-full justify-center items-center">
-                          <Globe className="w-6 h-6 text-purple-400" />
-                          <h3 className="font-medium text-gray-200">Website</h3>
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            </div>
-          </a>
-        );
-        // const mathJaxContext = window.document.createElement(MathJaxContext);
-        if (quizContainer) {
-          // mathJax.append(markdown);
-          // mathJaxContext.append(mathJax);
-          // learnDocument.append(mathJaxContext);
-          const learnDocumentString = window.document.createElement("div");
-          learnDocumentString.innerHTML =
-            ReactDOMServer.renderToString(quizQuestions);
-          quiz.append(learnDocumentString);
-          quizContainer.appendChild(quiz);
+            </a>
+          );
+          // const mathJaxContext = window.document.createElement(MathJaxContext);
+          if (quizContainer) {
+            // mathJax.append(markdown);
+            // mathJaxContext.append(mathJax);
+            // learnDocument.append(mathJaxContext);
+            const learnDocumentString = window.document.createElement("div");
+            learnDocumentString.innerHTML =
+              ReactDOMServer.renderToString(quizQuestions);
+            quiz.append(learnDocumentString);
+            quizContainer.appendChild(quiz);
+          }
         }
       } else {
         console.error("Failed to generate questions");
@@ -925,109 +944,114 @@ export default function Dashboard() {
             icon: "/placeholder.svg?height=80&width=80",
           },
         ];
-        const learnContainers =
-          window.document.getElementsByClassName("resource-container");
-        const learnContainer = learnContainers[0];
-        const learn = window.document.createElement("div");
-        learn.onclick = (e) => {
-          e.preventDefault();
-          showPopup(e, data.document);
-        };
+        if (typeof window !== "undefined") {
+          const learnContainers =
+            window.document.getElementsByClassName("resource-container");
+          const learnContainer = learnContainers[0];
+          const learn = window.document.createElement("div");
+          learn.onclick = (e) => {
+            e.preventDefault();
+            showPopup(e, data.document);
+          };
 
-        learn.onmouseenter = () => {
-          learn.classList.remove("cursor-default");
-          learn.classList.add("cursor-pointer");
-        };
-        learn.onmouseleave = () => {
-          learn.classList.remove("cursor-pointer");
-          learn.classList.add("cursor-default");
-        };
-        const learnDocument = (
-          <a>
-            <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] mr-8 ml-8 pr-8 pl-8 pb-6 rounded-lg">
-              <div className="markdown-styling-2">
-                <h2 className="mt-1">Learn {data.learnValue}</h2>
-                <div className="relative">
-                  <div className="text-gray-200 mask-image-fade">
-                    <MathJaxContext config={config}>
-                      <MathJax>
-                        <Markdown
-                          remarkPlugins={[remarkMath]}
-                          rehypePlugins={[rehypeKatex, rehypeRaw]}
-                        >
-                          {data.document.split("\n").slice(0, 3).join("\n")}
-                        </Markdown>
-                      </MathJax>
-                    </MathJaxContext>
+          learn.onmouseenter = () => {
+            learn.classList.remove("cursor-default");
+            learn.classList.add("cursor-pointer");
+          };
+          learn.onmouseleave = () => {
+            learn.classList.remove("cursor-pointer");
+            learn.classList.add("cursor-default");
+          };
+
+          const learnDocument = (
+            <a>
+              <div className="bg-[#221e2cf6] border-[#63567d88] border-[1px] text-gray-200 font-poppins mt-[0.74rem] mr-8 ml-8 pr-8 pl-8 pb-6 rounded-lg">
+                <div className="markdown-styling-2">
+                  <h2 className="mt-1">Learn {data.learnValue}</h2>
+                  <div className="relative">
+                    <div className="text-gray-200 mask-image-fade">
+                      <MathJaxContext config={config}>
+                        <MathJax>
+                          <Markdown
+                            remarkPlugins={[remarkMath]}
+                            rehypePlugins={[rehypeKatex, rehypeRaw]}
+                          >
+                            {data.document.split("\n").slice(0, 3).join("\n")}
+                          </Markdown>
+                        </MathJax>
+                      </MathJaxContext>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                <div
-                  className="flex flex-col md:flex-row justify-between h-24"
-                  onClick={() => {
-                    console.log("test4");
-                  }}
-                >
-                  <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
-                    {data.videoIds
-                      .slice(0, 3)
-                      .map((videoId: string, index: number) => (
-                        <iframe
-                          key={`video-${index}`}
-                          src={`https://www.youtube.com/embed/${videoId}`}
-                          className="rounded-md w-[32%] h-[94%] mt-2"
-                        ></iframe>
-                      ))}
-                  </div>
-
+                <div>
                   <div
-                    className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      console.log("test3");
+                    className="flex flex-col md:flex-row justify-between h-24"
+                    onClick={() => {
+                      console.log("test4");
                     }}
                   >
-                    {websites.slice(0, 3).map((website, index: number) => (
-                      <div
-                        key={`website-${index}`}
-                        className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
-                        onClick={(e) => {
-                          console.log("test1");
-                          e.preventDefault();
-                          e.stopPropagation();
-                          window.open(
-                            "https://www.youtube.com/watch?v=N7ZmPYaXoic"
-                          );
-                        }}
-                      >
+                    <div className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2">
+                      {data.videoIds
+                        .slice(0, 3)
+                        .map((videoId: string, index: number) => (
+                          <iframe
+                            key={`video-${index}`}
+                            src={`https://www.youtube.com/embed/${videoId}`}
+                            className="rounded-md w-[32%] h-[94%] mt-2"
+                          ></iframe>
+                        ))}
+                    </div>
+
+                    <div
+                      className="flex flex-row flex-wrap justify-between h-1/2 md:h-full md:w-1/2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log("test3");
+                      }}
+                    >
+                      {websites.slice(0, 3).map((website, index: number) => (
                         <div
-                          className="flex flex-col h-full justify-center items-center"
-                          onClick={() => {
-                            console.log("test2");
+                          key={`website-${index}`}
+                          className="bg-[#2a2638] shadow-lg rounded-md w-[32%] mt-2 border border-[#63567d88]"
+                          onClick={(e) => {
+                            console.log("test1");
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.open(
+                              "https://www.youtube.com/watch?v=N7ZmPYaXoic"
+                            );
                           }}
                         >
-                          <Globe className="w-6 h-6 text-purple-400" />
-                          <h3 className="font-medium text-gray-200">Website</h3>
+                          <div
+                            className="flex flex-col h-full justify-center items-center"
+                            onClick={() => {
+                              console.log("test2");
+                            }}
+                          >
+                            <Globe className="w-6 h-6 text-purple-400" />
+                            <h3 className="font-medium text-gray-200">
+                              Website
+                            </h3>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </a>
-        );
-        // const mathJaxContext = window.document.createElement(MathJaxContext);
-        if (learnContainer) {
-          // mathJax.append(markdown);
-          // mathJaxContext.append(mathJax);
-          // learnDocument.append(mathJaxContext);
-          const learnDocumentString = window.document.createElement("div");
-          learnDocumentString.innerHTML =
-            ReactDOMServer.renderToString(learnDocument);
-          learn.append(learnDocumentString);
-          learnContainer.appendChild(learn);
+            </a>
+          );
+          // const mathJaxContext = window.document.createElement(MathJaxContext);
+          if (learnContainer) {
+            // mathJax.append(markdown);
+            // mathJaxContext.append(mathJax);
+            // learnDocument.append(mathJaxContext);
+            const learnDocumentString = window.document.createElement("div");
+            learnDocumentString.innerHTML =
+              ReactDOMServer.renderToString(learnDocument);
+            learn.append(learnDocumentString);
+            learnContainer.appendChild(learn);
+          }
         }
       } else {
         console.error("Failed to generate resources");
@@ -1106,91 +1130,95 @@ export default function Dashboard() {
         setSpace(`Space ${data.spaceValue}`);
         setSpaceClicked(true);
         console.log(space);
-        const spaceContainers =
-          window.document.getElementsByClassName("space-container");
-        const spaceContainer = spaceContainers[0];
-        const resourceContainers =
-          window.document.getElementsByClassName("resource-container");
-        const resourceContainer = resourceContainers[0];
-        resourceContainer.firstElementChild?.classList.add("hidden");
-        resourceContainer.classList.add("pt-1");
-        const spaceDiv = window.document.createElement("div");
-        while (
-          resourceContainer.childElementCount > 1 &&
-          resourceContainer.lastElementChild
-        ) {
-          resourceContainer.removeChild(resourceContainer.lastElementChild);
-        }
-        const SpaceDocument = () => (
-          <button
-            className="w-full"
-            onClick={() => {
-              const spaceName = `Space ${data.spaceValue}`;
-              console.log(spaceName, space);
-              // if (spaceName !== space) {
-              loadResources(spaceName);
-              // }
-            }}
-          >
-            <div className="flex p-2 px-3 mb-3 justify-end bg-[#2a2638] hover:bg-[#302c41] transition-colors duration-200 rounded-lg hover:cursor-pointer items-center group">
-              <div className="flex w-full justify-start">
-                {renamingSpace ? (
-                  <input
-                    className="mr-2 text-gray-200"
-                    placeholder={"Enter new space name"}
-                    onKeyPress={(e) => {
-                      if (e.key === "Enter") {
-                        setSpaceName((e.target as HTMLInputElement).value);
-                        console.log(spaceName);
-                        setRenamingSpace(false);
-                      }
-                    }}
-                  ></input>
-                ) : (
-                  <p className="mr-2 text-gray-200">Space {data.spaceValue}</p>
-                )}
+        if (typeof window !== "undefined") {
+          const spaceContainers =
+            window.document.getElementsByClassName("space-container");
+          const spaceContainer = spaceContainers[0];
+          const resourceContainers =
+            window.document.getElementsByClassName("resource-container");
+          const resourceContainer = resourceContainers[0];
+          resourceContainer.firstElementChild?.classList.add("hidden");
+          resourceContainer.classList.add("pt-1");
+          const spaceDiv = window.document.createElement("div");
+          while (
+            resourceContainer.childElementCount > 1 &&
+            resourceContainer.lastElementChild
+          ) {
+            resourceContainer.removeChild(resourceContainer.lastElementChild);
+          }
+          const SpaceDocument = () => (
+            <button
+              className="w-full"
+              onClick={() => {
+                const spaceName = `Space ${data.spaceValue}`;
+                console.log(spaceName, space);
+                // if (spaceName !== space) {
+                loadResources(spaceName);
+                // }
+              }}
+            >
+              <div className="flex p-2 px-3 mb-3 justify-end bg-[#2a2638] hover:bg-[#302c41] transition-colors duration-200 rounded-lg hover:cursor-pointer items-center group">
+                <div className="flex w-full justify-start">
+                  {renamingSpace ? (
+                    <input
+                      className="mr-2 text-gray-200"
+                      placeholder={"Enter new space name"}
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          setSpaceName((e.target as HTMLInputElement).value);
+                          console.log(spaceName);
+                          setRenamingSpace(false);
+                        }
+                      }}
+                    ></input>
+                  ) : (
+                    <p className="mr-2 text-gray-200">
+                      Space {data.spaceValue}
+                    </p>
+                  )}
+                </div>
+                <Image
+                  src="/menu.png"
+                  alt="Menu"
+                  className="hidden invert-hover group-hover:block h-4 w-4"
+                  width={24}
+                  height={24}
+                  onClick={handleClick}
+                  style={{
+                    imageRendering: "auto",
+                    filter: "invert(80%)",
+                  }}
+                />
               </div>
-              <Image
-                src="/menu.png"
-                alt="Menu"
-                className="hidden invert-hover group-hover:block h-4 w-4"
-                width={24}
-                height={24}
-                onClick={handleClick}
-                style={{
-                  imageRendering: "auto",
-                  filter: "invert(80%)",
-                }}
-              />
-            </div>
-            <div className="space_menu fixed hidden bg-[hsla(257,19%,15%,1)] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-50 w-[calc(25svw-3rem)]">
-              <div className="py-2">
-                <a
-                  href="#"
-                  className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
-                  onClick={(e) => RenameSpace(`Space ${data.spaceValue}`, e)}
-                >
-                  Rename
-                </a>
+              <div className="space_menu fixed hidden bg-[hsla(257,19%,15%,1)] divide-y divide-[#63567d88] border-[1px] border-[#63567d88] rounded-lg shadow z-50 w-[calc(25svw-3rem)]">
+                <div className="py-2">
+                  <a
+                    href="#"
+                    className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
+                    onClick={(e) => RenameSpace(`Space ${data.spaceValue}`, e)}
+                  >
+                    Rename
+                  </a>
+                </div>
+                <div className="py-2">
+                  <a
+                    href="#"
+                    className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
+                    onClick={(e) => deleteSpace(`Space ${data.spaceValue}`, e)}
+                  >
+                    Delete
+                  </a>
+                </div>
               </div>
-              <div className="py-2">
-                <a
-                  href="#"
-                  className="block py-[0.2rem] text-xs sm:text-sm lg:text-md text-center text-gray-200 hover:bg-[#1a1722f6]"
-                  onClick={(e) => deleteSpace(`Space ${data.spaceValue}`, e)}
-                >
-                  Delete
-                </a>
-              </div>
-            </div>
-          </button>
-        );
-        if (spaceContainer) {
-          const spaceDocumentString = window.document.createElement("div");
-          spaceDiv.append(spaceDocumentString);
-          spaceContainer.prepend(spaceDiv);
-          const root = createRoot(spaceDocumentString);
-          root.render(<SpaceDocument />);
+            </button>
+          );
+          if (spaceContainer) {
+            const spaceDocumentString = window.document.createElement("div");
+            spaceDiv.append(spaceDocumentString);
+            spaceContainer.prepend(spaceDiv);
+            const root = createRoot(spaceDocumentString);
+            root.render(<SpaceDocument />);
+          }
         }
       } else {
         console.error("Failed to generate resources");
