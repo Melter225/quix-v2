@@ -481,7 +481,8 @@ export default function Features() {
           <div className="mx-auto max-w-7xl px-6 pb-8 lg:px-8">
             <div className="border-t border-gray-400/100 pt-4">
               <p className="text-sm leading-5 text-gray-300 mt-4">
-                &copy; 2025 Quix, Inc. All rights reserved.
+                &copy; {new Date().getFullYear()} Quix, Inc. All rights
+                reserved.
               </p>
             </div>
           </div>

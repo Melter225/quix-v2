@@ -6,8 +6,15 @@
       "use": "@vercel/next",
       "config": {
         "installCommand": "npm install --legacy-peer-deps --no-optional",
-        "nodeVersion": "18.x"
+        "buildCommand": "prisma generate && next build",
+        "nodeVersion": ">=18.x"
       }
     }
-  ]
+  ],
+  "build": {
+    "env": {
+      "NODE_VERSION": "18",
+      "VERCEL_RUNTIME": "18.x"
+    }
+  }
 }
