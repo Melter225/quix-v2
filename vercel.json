@@ -3,17 +3,16 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/next",
+      "use": "@vercel/next@latest",
       "config": {
         "installCommand": "npm install --legacy-peer-deps --no-optional",
         "buildCommand": "prisma generate && next build",
-        "nodeVersion": ">=18.x"
+        "nodeVersion": "18.x"
       }
     }
   ],
   "build": {
     "env": {
-      "PRISMA_GENERATE_DATAPROXY": "true",
       "NODE_VERSION": "18",
       "VERCEL_RUNTIME": "18.x"
     }
