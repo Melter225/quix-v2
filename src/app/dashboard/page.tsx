@@ -683,13 +683,16 @@ export default function Dashboard() {
 
   const fetchCredentials = async () => {
     try {
-      const response = await fetch("/api/dashboardCredentials", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: session?.user?.email }),
-      });
+      const response = await fetch(
+        "https://www.rohanmahapatra.com/api/dashboardCredentials",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: session?.user?.email }),
+        }
+      );
 
       const data = await response.json();
       // console.log(data);
